@@ -116,7 +116,8 @@ CREATE TABLE card
 (
   id          INT AUTO_INCREMENT PRIMARY KEY,
   menu_id     INTEGER,
-  city_id                integer,
+  created_id  INTEGER,
+  city_id     INTEGER,
   order_no    SMALLINT DEFAULT 0,
   title       VARCHAR(70),
   image_url   VARCHAR(170),
@@ -130,6 +131,7 @@ CREATE TABLE card
   updated_by  INT,
   FOREIGN KEY (menu_id) REFERENCES menu(id),
   FOREIGN KEY (city_id) REFERENCES city(id),
+  FOREIGN KEY (created_id) REFERENCES usuario(id),
   FOREIGN KEY (card_group_id) REFERENCES card_group(id),
   FOREIGN KEY (updated_by) REFERENCES usuario(id)
 )
@@ -192,6 +194,7 @@ ENGINE=InnoDB;
 CREATE TABLE route
 (
   id              INT AUTO_INCREMENT PRIMARY KEY,
+  created_id      INTEGER,
   title           VARCHAR(170) NOT NULL,
   image_url       VARCHAR(170),
   person_type_id  INTEGER,
@@ -202,6 +205,7 @@ CREATE TABLE route
   created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_by      INT,
+  FOREIGN KEY (created_id) REFERENCES usuario(id),
   FOREIGN KEY (person_type_id) REFERENCES person_type(id),
   FOREIGN KEY (updated_by) REFERENCES usuario(id)
 )
@@ -233,6 +237,7 @@ ENGINE=InnoDB;
 CREATE TABLE publicidad
 (
   id INT AUTO_INCREMENT PRIMARY KEY,
+  created_id      INTEGER,
   orden smallint DEFAULT 0,
   title VARCHAR(40),
   urlimagen VARCHAR(170),
@@ -240,6 +245,7 @@ CREATE TABLE publicidad
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_by INT,
+  FOREIGN KEY (created_id) REFERENCES usuario(id),
   FOREIGN KEY (updated_by) REFERENCES usuario(id)
 )
 ENGINE=InnoDB;
