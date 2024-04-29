@@ -1,43 +1,41 @@
-
 CREATE TABLE identification_type
 (
   id          INT AUTO_INCREMENT PRIMARY KEY,
   name        VARCHAR(30) NOT NULL,
-  created_at  DATE DEFAULT CURRENT_TIMESTAMP,
-  updated_at  DATE DEFAULT CURRENT_TIMESTAMP,
+  created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   updated_by  INT
 )
 ENGINE=InnoDB;
-
 
 CREATE TABLE role
 (
   id          INT AUTO_INCREMENT PRIMARY KEY,
   name        VARCHAR(30) NOT NULL,
-  created_at  DATE DEFAULT CURRENT_TIMESTAMP,
-  updated_at  DATE DEFAULT CURRENT_TIMESTAMP,
+  created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_by  INT
 )
 ENGINE=InnoDB;
 
 
-CREATE TABLE user
+CREATE TABLE usuario
 (
   id          INT AUTO_INCREMENT PRIMARY KEY,
   name        VARCHAR(70) NOT NULL,
   last_name   VARCHAR(70),
-  identification_type_id  INTEGER DEFAULT 1,
+  identification_type_id  INT DEFAULT 1,
   identification          VARCHAR(30),
   username    VARCHAR(250) NOT NULL UNIQUE,
   email       VARCHAR(90) NOT NULL UNIQUE,
   password    VARCHAR(40),
   auth_key    VARCHAR(40),
   access_token VARCHAR(40),
-  role_id     SMALLINT DEFAULT 0,
+  role_id     INT,
   activate    SMALLINT DEFAULT 0,
   state       BOOLEAN,
-  created_at  DATE DEFAULT CURRENT_TIMESTAMP,
-  updated_at  DATE DEFAULT CURRENT_TIMESTAMP,
+  created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_by  INT,
   FOREIGN KEY (identification_type_id) REFERENCES identification_type(id),
   FOREIGN KEY (role_id) REFERENCES role(id)
@@ -50,8 +48,8 @@ CREATE TABLE menu_type
   id          INT AUTO_INCREMENT PRIMARY KEY,
   name        VARCHAR(20) NOT NULL,
   active      BOOLEAN DEFAULT TRUE,
-  created_at  DATE DEFAULT CURRENT_TIMESTAMP,
-  updated_at  DATE DEFAULT CURRENT_TIMESTAMP,
+  created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_by  INT
 )
 ENGINE=InnoDB;
@@ -61,38 +59,64 @@ CREATE TABLE menu
 (
   id          INT AUTO_INCREMENT PRIMARY KEY,
   name        VARCHAR(33) NOT NULL,
-  menu_type_id SMALLINT DEFAULT 0,
-  parent_id   SMALLINT DEFAULT 0,
+  menu_type_id INT DEFAULT 0,
+  parent_id   INT DEFAULT 0,
   link        TEXT,
   color_primary   VARCHAR(9),
   color_secondary VARCHAR(9),
   color_accent    VARCHAR(9),
   icon        TEXT,
   active      BOOLEAN DEFAULT TRUE,
-  created_at  DATE DEFAULT CURRENT_TIMESTAMP,
-  updated_at  DATE DEFAULT CURRENT_TIMESTAMP,
+  created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_by  INT,
   FOREIGN KEY (menu_type_id) REFERENCES menu_type(id),
-  FOREIGN KEY (updated_by) REFERENCES user(id)
+  FOREIGN KEY (updated_by) REFERENCES usuario(id)
 )
 ENGINE=InnoDB;
 
+CREATE TABLE country(
+  cod_country    char(3) NOT NULL,
+  nombre         varchar(50),
+  active         boolean DEFAULT FALSE
+)
+ENGINE=InnoDB;
+
+CREATE TABLE departamento(
+  cod_dep       char(3),
+  cod_country    char(3),
+  nombre        varchar(50)
+) 
+ENGINE=InnoDB;
+
+
+CREATE TABLE city(
+  id            int(11) NOT NULL auto_increment PRIMARY KEY,
+  cod_country   char(3),
+  cod_dep       char(3),
+  cod_city      char(3),
+  nombre        varchar(50),
+  INDEX city (cod_country, cod_dep, cod_city)
+)
+ENGINE=InnoDB;
 
 CREATE TABLE card_group
 (
   id          INT AUTO_INCREMENT PRIMARY KEY,
   name        VARCHAR(30) NOT NULL,
-  created_at  DATE DEFAULT CURRENT_TIMESTAMP,
-  updated_at  DATE DEFAULT CURRENT_TIMESTAMP,
+  created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_by  INT,
-  FOREIGN KEY (updated_by) REFERENCES user(id)
+  FOREIGN KEY (updated_by) REFERENCES usuario(id)
 )
 ENGINE=InnoDB;
+
 
 CREATE TABLE card
 (
   id          INT AUTO_INCREMENT PRIMARY KEY,
   menu_id     INTEGER,
+  city_id                integer,
   order_no    SMALLINT DEFAULT 0,
   title       VARCHAR(70),
   image_url   VARCHAR(170),
@@ -101,12 +125,13 @@ CREATE TABLE card
   type        VARCHAR(10) DEFAULT 'Vertical', -- si se muestra en el home es horizontal o vertical
   card_group_id INTEGER,
   active      BOOLEAN DEFAULT TRUE,
-  created_at  DATE DEFAULT CURRENT_TIMESTAMP,
-  updated_at  DATE DEFAULT CURRENT_TIMESTAMP,
+  created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_by  INT,
   FOREIGN KEY (menu_id) REFERENCES menu(id),
+  FOREIGN KEY (city_id) REFERENCES city(id),
   FOREIGN KEY (card_group_id) REFERENCES card_group(id),
-  FOREIGN KEY (updated_by) REFERENCES user(id)
+  FOREIGN KEY (updated_by) REFERENCES usuario(id)
 )
 ENGINE=InnoDB;
 
@@ -125,11 +150,11 @@ CREATE TABLE card_detail
   prices    TEXT,
   description TEXT,
   active      BOOLEAN DEFAULT TRUE,
-  created_at  DATE DEFAULT CURRENT_TIMESTAMP,
-  updated_at  DATE DEFAULT CURRENT_TIMESTAMP,
+  created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_by  INT,
   FOREIGN KEY (card_id) REFERENCES card(id),
-  FOREIGN KEY (updated_by) REFERENCES user(id)
+  FOREIGN KEY (updated_by) REFERENCES usuario(id)
 )
 ENGINE=InnoDB;
 
@@ -141,11 +166,11 @@ CREATE TABLE card_detail_image
   order_no    INTEGER,
   image_url   VARCHAR(170),
   active      BOOLEAN DEFAULT TRUE,
-  created_at  DATE DEFAULT CURRENT_TIMESTAMP,
-  updated_at  DATE DEFAULT CURRENT_TIMESTAMP,
+  created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_by  INT,
   FOREIGN KEY (card_detail_id) REFERENCES card_detail(id),
-  FOREIGN KEY (updated_by) REFERENCES user(id)
+  FOREIGN KEY (updated_by) REFERENCES usuario(id)
 )
 ENGINE=InnoDB;
 
@@ -155,10 +180,10 @@ CREATE TABLE person_type
   id          INT AUTO_INCREMENT PRIMARY KEY,
   name        VARCHAR(20) NOT NULL,
   active      BOOLEAN DEFAULT TRUE,
-  created_at  DATE DEFAULT CURRENT_TIMESTAMP,
-  updated_at  DATE DEFAULT CURRENT_TIMESTAMP,
+  created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_by  INT,
-  FOREIGN KEY (updated_by) REFERENCES user(id)
+  FOREIGN KEY (updated_by) REFERENCES usuario(id)
 
 )
 ENGINE=InnoDB;
@@ -174,11 +199,11 @@ CREATE TABLE route
   number_days     INTEGER,
   recommendations TEXT,
   active          BOOLEAN DEFAULT TRUE,
-  created_at      DATE DEFAULT CURRENT_TIMESTAMP,
-  updated_at      DATE DEFAULT CURRENT_TIMESTAMP,
+  created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_by      INT,
   FOREIGN KEY (person_type_id) REFERENCES person_type(id),
-  FOREIGN KEY (updated_by) REFERENCES user(id)
+  FOREIGN KEY (updated_by) REFERENCES usuario(id)
 )
 ENGINE=InnoDB;
 
@@ -192,14 +217,14 @@ CREATE TABLE route_card
   orden INTEGER,
   recommendations TEXT,
   start_time TIME,
-  end_time TIME
+  end_time TIME,
   active BOOLEAN DEFAULT TRUE,
-  created_at DATE DEFAULT CURRENT_TIMESTAMP,
-  updated_at DATE DEFAULT CURRENT_TIMESTAMP,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_by INT,
   FOREIGN KEY (route_id) REFERENCES route(id),
   FOREIGN KEY (card_id) REFERENCES card(id),
-  FOREIGN KEY (updated_by) REFERENCES user(id)
+  FOREIGN KEY (updated_by) REFERENCES usuario(id)
 )
 ENGINE=InnoDB;
 
@@ -211,11 +236,11 @@ CREATE TABLE publicidad
   orden smallint DEFAULT 0,
   title VARCHAR(40),
   urlimagen VARCHAR(170),
-  active boolean DEFAULT 'true',
-  created_at DATE DEFAULT CURRENT_TIMESTAMP,
-  updated_at DATE DEFAULT CURRENT_TIMESTAMP,
+  active boolean DEFAULT TRUE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_by INT,
-  FOREIGN KEY (updated_by) REFERENCES user(id)
+  FOREIGN KEY (updated_by) REFERENCES usuario(id)
 )
 ENGINE=InnoDB;
 
