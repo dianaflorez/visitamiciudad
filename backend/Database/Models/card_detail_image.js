@@ -2,10 +2,6 @@
 module.exports = {
     name: 'Card_detail_image',
     attributes: {
-        (: {
-            type: 'undefined',
-            allowNull: true,
-        },
         id: {
             type: 'INT',
             allowNull: true,
@@ -44,10 +40,6 @@ module.exports = {
         },
         FOREIGN: {
             type: 'KEY',
-            allowNull: true,
-        },
-        ): {
-            type: 'undefined',
             allowNull: true,
         },
     },
