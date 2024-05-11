@@ -18,7 +18,7 @@ CREATE TABLE role
 )
 ENGINE=InnoDB;
 
-
+// 
 CREATE TABLE usuario
 (
   id          INT AUTO_INCREMENT PRIMARY KEY,
