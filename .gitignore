@@ -1,0 +1,28 @@
+# Directorios
+node_modules/
+dist/
+
+# Archivos de registro y errores
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.log
+*.log.*
+*.pid
+*.seed
+*.pid.lock
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+
+# Dependencias y módulos de desarrollo
+package-lock.json
+yarn.lock
+
+# Configuración local
+.env
+
+# Otros archivos generados automáticamente
+.DS_Store
+Thumbs.db
