@@ -1,3 +1,7 @@
+const fs = require('fs');
+
+// Archivo SQL con la definición de las tablas
+const sqlFileContent = `
 CREATE TABLE identification_type
 (
   id          INT AUTO_INCREMENT PRIMARY KEY,
@@ -304,3 +308,74 @@ INSERT INTO person_type(id, name) VALUES
 (2, 'Pareja'),
 (3, 'Individual'),
 (4, 'Institucional');
+
+`;
+
+// Función para generar el contenido del modelo
+const generateModelContent = (tableName, columns) => {
+    const modelName = tableName.charAt(0).toUpperCase() + tableName.slice(1);
+    let modelContent = `// Definición del modelo ${modelName}\n`;
+    modelContent += `module.exports = {\n`;
+    modelContent += `    name: '${modelName}',\n`;
+    modelContent += `    attributes: {\n`;
+
+    for (const column of columns) {
+        modelContent += `        ${column.name}: {\n`;
+        modelContent += `            type: '${column.type}',\n`;
+        if (column.primaryKey) {
+            modelContent += `            primaryKey: true,\n`;
+        }
+        if (!column.notNull) {
+            modelContent += `            allowNull: true,\n`;
+        }
+        if (column.unique) {
+            modelContent += `            unique: true,\n`;
+        }
+        if (column.defaultValue !== undefined) {
+            modelContent += `            defaultValue: ${column.defaultValue},\n`;
+        }
+        modelContent += `        },\n`;
+    }
+
+    modelContent += `    },\n`;
+    modelContent += `    options: {\n`;
+    modelContent += `        timestamps: true,\n`;
+    modelContent += `    },\n`;
+    modelContent += `};\n`;
+
+    return modelContent;
+};
+
+// Función para obtener el tipo de dato correspondiente en JavaScript
+const getColumnDataType = (sqlType) => {
+  switch (sqlType) {
+    case 'INT':
+      return 'Number';
+    case 'VARCHAR':
+      return 'String';
+    case 'TIMESTAMP':
+      return 'Date';
+    default:
+      return 'String';
+  }
+};
+
+// Parsear el contenido del archivo SQL
+const tables = sqlFileContent.split('CREATE TABLE').slice(1);
+
+// Generar modelos para cada tabla
+tables.forEach(table => {
+  const lines = table.trim().split('\n');
+  const tableName = lines[0].trim().split(' ')[0];
+  const columns = lines.slice(1, -1).map(line => {
+    const [name, type] = line.trim().split(/\s+/).filter(Boolean);
+    return { name, type };
+  });
+
+  const modelContent = generateModelContent(tableName, columns);
+  const modelFileName = `./Database/Models/${tableName}.js`;
+
+  fs.writeFileSync(modelFileName, modelContent);
+
+  console.log(`Modelo generado para la tabla ${tableName} en ${modelFileName}`);
+});
