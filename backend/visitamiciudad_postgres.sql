@@ -89,6 +89,7 @@ CREATE TABLE city (
 CREATE TABLE card_group (
     id SERIAL PRIMARY KEY,
     name VARCHAR(30) NOT NULL,
+    image_url VARCHAR(170),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_by INT,
