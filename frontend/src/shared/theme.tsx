@@ -24,9 +24,11 @@ const sm = 600;
 const xs = 0;
 
 export const theme = createTheme({
+  typography: {
+    fontFamily: '"Poppins", "Roboto", "Arial", sans-serif',
+  },
   palette: {
     primary,
-    secondary: purple,
   },
   breakpoints: {
     values: {
