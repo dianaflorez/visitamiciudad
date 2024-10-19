@@ -17,13 +17,12 @@ import {
   Box,
   Card,
   CardMedia,
-  CardContent,
   Container,
 } from "@mui/material";
 import ContactForm from "./components/ContactForm";
 import Footer from "./components/Footer";
 
-//import { Card } from "./components";
+import { CardRuta } from "./components";
 
 function App() {
   const slides = [
@@ -267,6 +266,17 @@ function App() {
               </Grid>
             ))}
           </Grid>
+
+          <Typography
+            variant="h3"
+            align="center"
+            gutterBottom
+            sx={{ marginTop: "20px" }}
+          >
+            Rutas <span style={{ color: "purple" }}>•</span>
+          </Typography>
+
+          <CardRuta />
         </Container>
         {/*</Container>*/}
 
