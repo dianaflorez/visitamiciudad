@@ -54,6 +54,7 @@ CREATE TABLE menu (
     color_secondary VARCHAR(9),
     color_accent VARCHAR(9),
     icon TEXT,
+    image_url VARCHAR(250),
     active BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -102,7 +103,7 @@ CREATE TABLE card (
     created_id INTEGER,
     city_id INTEGER,
     order_no SMALLINT DEFAULT 0,
-    title VARCHAR(70),
+    title VARCHAR(170),
     image_url VARCHAR(170),
     description TEXT,
     home BOOLEAN DEFAULT FALSE,
@@ -213,3 +214,107 @@ CREATE TABLE publicidad (
     FOREIGN KEY (updated_by) REFERENCES usuario(id)
 );
 
+
+
+
+INSERT INTO identification_type(id, name) VALUES
+(1, 'Cedula Ciudadanía'),
+(2, 'Cedula Extranjería'),
+(3, 'Tarjeta Identidad'),
+(4, 'Pasaporte');
+
+INSERT INTO role(id, name) VALUES
+(1, 'SuperAdmin'),
+(2, 'Admin'),
+(3, 'Editor');
+
+
+INSERT INTO menu_type(id, name) VALUES
+(1, 'Home'),
+(2, 'Submenu'),
+(3, 'Estatico'),
+(4, 'Rutas'),
+(5, 'Card');
+
+INSERT INTO menu(id, name, menu_type_id, parent_id) VALUES
+(1, 'Inicio', 1, 0),
+(2, 'Sitios Turístico', 2, 0),
+(3, 'Sitios Historicos', 5, 2),
+(4, 'Sitios Geográficos', 5, 2),
+(5, 'Sitios de Valor Espiritual', 5, 2),
+(6, 'Sitios de Impacto Economico', 5, 2),
+(7, 'Sitios Culturales', 2, 0),
+(8, 'Artesanias', 5, 7),
+(9, 'Musica', 5, 7),
+(10, 'Carnaval', 5, 7),
+(11, 'Gastronomía', 2, 0),
+(12, 'Comida Tipica', 5, 11),
+(13, 'Restaurantes', 5, 11),
+(14, 'Comida Rapida', 5, 11),
+(15, 'Heladería', 5, 11),
+(16, 'Entretenimiento', 2, 0),
+(17, 'Bares', 5, 16),
+(18, 'Cines', 5, 16),
+(19, 'Discotekas', 5, 16),
+(20, 'Juegos Grupales', 5, 16),
+(21, 'Cafes', 5, 16),
+(22, 'Que Compro?', 5, 0),
+(23, 'Hoteles y Transporte', 5, 0),
+(24, 'Quienes Somos', 3, 0);
+
+
+INSERT INTO person_type(id, name) VALUES
+(1, 'Familia'),
+(2, 'Pareja'),
+(3, 'Individual'),
+(4, 'Institucional');
+
+
+-- USUARIOS
+
+INSERT INTO usuario( id, name, last_name, identification_type_id, identification,
+  username, email, password,
+  auth_key, access_token, role_id, activate, state, 
+  created_at, updated_at, updated_by
+)
+VALUES (1, 'Diana', 'Florez', 1, '00000007',
+  'DianaFlorez','dianaflorezbravo@gmail.com','diwVJvPs7M..6', 
+  '0', '0', 1, 1, true,
+  current_date, current_date, 1);
+
+
+INSERT INTO usuario( id, name, last_name, identification_type_id, identification,
+  username, email, password,
+  auth_key, access_token, role_id, activate, state, 
+  created_at, updated_at, updated_by
+)
+VALUES (2, 'Daniel', 'Burgues', 1, '00000008',
+  'DianaBurgues','dianaBurgues@gmail.com','diwVJvPs7M..6', 
+  '0', '0', 1, 1, true,
+  current_date, current_date, 1);
+
+
+INSERT INTO usuario( id, name, last_name, identification_type_id, identification,
+  username, email, password,
+  auth_key, access_token, role_id, activate, state, 
+  created_at, updated_at, updated_by
+)
+VALUES (3, 'Esteban', 'Ramires', 1, '00000009',
+  'EstebanRamires','EstebanRamires@gmail.com','diwVJvPs7M..6', 
+  '0', '0', 1, 1, true,
+  current_date, current_date, 1);
+
+
+
+
+INSERT INTO country
+(cod_country, nombre) VALUES
+('170','Colombia');
+
+INSERT INTO departamento
+(cod_dep, cod_country, nombre) VALUES
+('52','170','NARIÑO');
+
+INSERT INTO city
+(id, cod_dep, cod_country, cod_city, nombre) VALUES
+(1, '52','170','001','PASTO');
