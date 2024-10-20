@@ -266,17 +266,6 @@ function App() {
               </Grid>
             ))}
           </Grid>
-
-          <Typography
-            variant="h3"
-            align="center"
-            gutterBottom
-            sx={{ marginTop: "20px" }}
-          >
-            Rutas <span style={{ color: "purple" }}>•</span>
-          </Typography>
-
-          <CardRuta />
         </Container>
         {/*</Container>*/}
 
@@ -292,7 +281,11 @@ function App() {
           </Typography>
 
           {/* Grid for site cards */}
-          <Grid container spacing={3}></Grid>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={12} padding={2}>
+              <CardRuta />
+            </Grid>
+          </Grid>
         </Container>
 
         <Container>
