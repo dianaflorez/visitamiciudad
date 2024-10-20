@@ -1,5 +1,4 @@
 import { createTheme } from "@mui/material/styles";
-import { purple } from "@mui/material/colors";
 
 // modules
 declare module "@mui/material/Button" {
