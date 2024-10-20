@@ -1,10 +1,5 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./shared/theme";
-import Sitios from './Sitios'; // Página de sitios externos
-import Login from './Login'; // Página de login
-
 // import { Button, Typography, Chip } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
@@ -29,67 +24,7 @@ import Footer from "./components/Footer";
 
 import { CardRuta } from "./components";
 
-
-function App() {
-  
-
-  return (
-    <ThemeProvider theme={theme}>
-      <Router>
-        {/* Navbar */}
-        <AppBar position="static" color="transparent" elevation={0}>
-          <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Box
-              component="img"
-              sx={{ height: 100, mr: 2 }}
-              alt="Logo de la empresa"
-              src="./images/logo-new.png" // Reemplaza con tu logo
-            />
-            <div>
-              <Button color="primary" href="" style={{ marginTop: 12 }}>
-                Inicio
-              </Button>
-              <Button color="inherit" href="#sitios" style={{ marginTop: 12 }}>
-                Sitios de Interés
-              </Button>
-              <Button color="inherit" href="#rutas" style={{ marginTop: 12 }}>
-                Rutas
-              </Button>
-              <Button color="inherit" href="#nosotros" style={{ marginTop: 12 }}>
-                Nosotros
-              </Button>
-              <Button color="inherit" href="#contactenos" style={{ marginTop: 12 }}>
-                contáctenos
-              </Button>
-              <Button color="inherit" component={Link} to="/login" style={{ marginTop: 12 }}>
-                Login
-              </Button>
-            </div>
-          </Toolbar>
-        </AppBar>
-
-        {/* Rutas para Login y Sitios */}
-        <Routes>
-          <Route path="/sitios" element={<Sitios />} />
-          <Route path="/login" element={<Login />} />
-        </Routes>
-
-        {/* Contenido de la página Home */}
-        <Home />
-      </Router>
-    </ThemeProvider>
-  );
-}
-
-// Página principal Home
 function Home() {
-
-  const navigate = useNavigate(); 
-
-  const handleSitioClick = () => {
-    navigate('/sitios');
-  };
-
   const slides = [
     {
       img: "./images/new-hero-3.png",
@@ -145,7 +80,39 @@ function Home() {
       <>
         <Container>
           {/* Header */}
-          
+          <AppBar position="static" color="transparent" elevation={0}>
+            <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+              <Box
+                component="img"
+                sx={{
+                  height: 100, // Altura del logo
+                  mr: 2, // Espacio a la derecha
+                }}
+                alt="Logo de la empresa"
+                src="./images/logo-new.png" // Reemplaza con la URL de tu logo
+              />
+              <div>
+                <Button color="primary" style={{ marginTop: 12 }}>
+                  Inicio
+                </Button>
+                <Button color="inherit" style={{ marginTop: 12 }}>
+                  Sitios de Interés
+                </Button>
+                <Button color="inherit" style={{ marginTop: 12 }}>
+                  Rutas
+                </Button>
+                <Button color="inherit" style={{ marginTop: 12 }}>
+                  Nosotros
+                </Button>
+                <Button color="inherit" style={{ marginTop: 12 }}>
+                  Contáctenos
+                </Button>
+                <Button color="inherit" style={{ marginTop: 12 }}>
+                  Login
+                </Button>
+              </div>
+            </Toolbar>
+          </AppBar>
 
           {/* Main content */}
           {/*<Container>*/}
@@ -241,7 +208,6 @@ function Home() {
         {/* Main content */}
         <Container>
           <Typography
-            id="sitios"
             variant="h4"
             align="left"
             gutterBottom
@@ -253,18 +219,24 @@ function Home() {
 
           {/* Grid for site cards */}
           <Grid container spacing={3}>
-              {sitiosInteres.map((sitio) => (
-              <Grid item xs={12} sm={6} md={4} key={sitio.id}>
-                <Card 
-                  sx={{ position: "relative", overflow: "hidden", borderRadius: "15px" }} 
-                  onClick={handleSitioClick} 
+            {sitiosInteres.map((sitio, index) => (
+              <Grid item xs={12} sm={6} md={4} key={index}>
+                <Card
+                  sx={{
+                    position: "relative",
+                    overflow: "hidden",
+                    borderRadius: "15px",
+                  }}
                 >
                   <CardMedia
                     component="img"
                     height="250"
                     image={sitio.image}
                     alt={sitio.title}
-                    sx={{ transition: "transform 0.3s ease-in-out", "&:hover": { transform: "scale(1.1)" } }}
+                    sx={{
+                      transition: "transform 0.3s ease-in-out",
+                      "&:hover": { transform: "scale(1.1)" },
+                    }}
                   />
                   {/* Text overlay */}
                   <Box
@@ -281,7 +253,9 @@ function Home() {
                       justifyContent: "center",
                       opacity: 0,
                       transition: "opacity 0.3s ease-in-out",
-                      "&:hover": { opacity: 1 },
+                      "&:hover": {
+                        opacity: 1,
+                      },
                     }}
                   >
                     <Typography variant="h5" sx={{ fontWeight: "bold" }}>
@@ -297,7 +271,6 @@ function Home() {
 
         <Container>
           <Typography
-            id="rutas"
             variant="h4"
             align="left"
             gutterBottom
@@ -336,7 +309,6 @@ function Home() {
               }}
             >
               <Typography
-                id="nosotros"
                 variant="h4"
                 component="h1"
                 gutterBottom
@@ -369,7 +341,7 @@ function Home() {
           justifyContent="left"
         >
           <Container>
-            <Grid id="contactenos" item xs={12} md={6} padding={2}>
+            <Grid item xs={12} md={6} padding={2}>
               <ContactForm />
             </Grid>
           </Container>
@@ -399,4 +371,4 @@ function Home() {
   );
 }
 
-export default App;
+export default Home;
