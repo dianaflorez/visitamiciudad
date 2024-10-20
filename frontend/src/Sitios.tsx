@@ -1,11 +1,16 @@
-import React from 'react';
+import { Container } from "@mui/material";
+import { ContactForm, Footer } from "./components";
 
 const Sitios = () => {
   return (
-    <div>
-      <h1>Página de Sitios</h1>
-      <p>Aquí estarán listados los sitios turísticos.</p>
-    </div>
+    <>
+      <Container>
+        <h1>Página de Sitios</h1>
+        <p>Aquí estarán listados los sitios turísticos.</p>
+      </Container>
+      <ContactForm />
+      <Footer />
+    </>
   );
 };
 

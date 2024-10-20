@@ -2,8 +2,14 @@ import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./shared/theme";
 import { Container } from "@mui/material";
 
-import { SliderPage, ContactForm, Footer, Sitios, Rutas } from "./components";
-import AboutUs from "./components/AboutUs";
+import {
+  SliderPage,
+  ContactForm,
+  Footer,
+  Sitios,
+  Rutas,
+  AboutUs,
+} from "./components";
 
 function Home() {
   return (
