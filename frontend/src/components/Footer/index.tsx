@@ -9,10 +9,6 @@ import {
 } from "@mui/material";
 import { Facebook, Twitter, Instagram, LinkedIn } from "@mui/icons-material";
 
-// import locationImg from './images/location.png'; // Asegúrate de que la ruta sea correcta
-// import telephoneImg from './images/telephone.png'; // Asegúrate de que la ruta sea correcta
-// import envelopeImg from './images/envelope.png'; // Asegúrate de que la ruta sea correcta
-
 import { styled } from "@mui/system";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -70,12 +66,24 @@ export default function Footer() {
 
           {/* Localización */}
           <Grid item xs={12} sm={3}>
+          
             <Typography variant="h6" gutterBottom>
               Localización
             </Typography>
-            <Typography>520001</Typography>
-            <Typography>(+57 300777000)</Typography>
-            <Typography>infovisitamiciudad@gmail.com</Typography>
+            <Box display="flex" alignItems="center" mb={1}>
+              <img src="./images/location.png" alt="Localización" style={{ width: '20px', marginRight: '8px' }} />
+              <Typography>520001</Typography>
+            </Box>
+            
+            <Box display="flex" alignItems="center" mb={1}>
+              <img src="./images/telephone.png" alt="Teléfono" style={{ width: '24px', marginRight: '8px' }} />
+              <Typography>(+57 300777000)</Typography>
+            </Box>
+
+            <Box display="flex" alignItems="center" mb={1}>
+              <img src="./images/envelope.png" alt="Correo electrónico" style={{ width: '24px', marginRight: '8px' }} />
+              <Typography>infovisitamiciudad@gmail.com</Typography>
+            </Box>
           </Grid>
 
           {/* Social Link */}
