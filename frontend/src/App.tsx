@@ -20,6 +20,8 @@ import {
   CardContent,
   Container,
 } from "@mui/material";
+import ContactForm from "./components/ContactForm";
+import Footer from "./components/Footer";
 
 //import { Card } from "./components";
 
@@ -285,7 +287,13 @@ function App() {
 
         <Container>
           <Grid container>
-            <Grid item xs={12} md={8} padding={2}></Grid>
+            <Grid item xs={12} md={8} padding={2}>
+              <img
+                src="./images/about-img.png"
+                alt="Example"
+                style={{ height: "auto", width: "85%", objectFit: "cover" }} // Ajustar la imagen al contenedor
+              />
+            </Grid>
             <Grid
               item
               padding={2}
@@ -307,9 +315,11 @@ function App() {
               </Typography>
 
               <Typography variant="body1" gutterBottom>
-                Ciudad Sorpresa. Su riqueza histórica, cultural y colonial se
-                puede observar en cada calle, porque se ha guardado su historia
-                a través del tiempo.
+                It is a long established fact that a reader will be distracted
+                by the readable content of a page when looking at its layout.
+                The point of using Lorem Ipsum is that it has a more-or-less
+                normal distribution of letters, as opposed to using 'Content
+                here , content here', making it
               </Typography>
               <Button
                 variant="contained"
@@ -321,6 +331,20 @@ function App() {
             </Grid>
           </Grid>
         </Container>
+
+        <Grid
+          container
+          sx={{ backgroundColor: "#27afdd" }}
+          justifyContent="left"
+        >
+          <Container>
+            <Grid item xs={12} md={6} padding={2}>
+              <ContactForm />
+            </Grid>
+          </Container>
+        </Grid>
+
+        <Footer />
       </>
 
       {/*
