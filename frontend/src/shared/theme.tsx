@@ -5,6 +5,7 @@ import { purple } from "@mui/material/colors";
 declare module "@mui/material/Button" {
   interface ButtonPropsVariantOverrides {
     variant1: true;
+    variant2: true;
   }
 }
 
@@ -48,6 +49,18 @@ export const theme = createTheme({
             textTransform: "none",
             border: `2px dashed ${primary.main}`,
             color: primary.main,
+          },
+        },
+        {
+          props: { variant: "variant2" }, // Nueva variante
+          style: {
+            textTransform: "none",
+            backgroundColor: `${primary.main}`, // Color de fondo típico de "contained"
+            color: "#fff", // Color del texto típico de "contained"
+            padding: "6px 16px", // Mantener el padding estándar de "contained"
+            boxShadow: "none", // Evitar sombras
+            width: "auto", // Hacer que el ancho sea automático (no abarque todo el contenedor)
+            display: "inline-block", // Permitir que el botón se ajuste al contenido
           },
         },
       ],

@@ -282,6 +282,45 @@ function App() {
           {/* Grid for site cards */}
           <Grid container spacing={3}></Grid>
         </Container>
+
+        <Container>
+          <Grid container>
+            <Grid item xs={12} md={8} padding={2}></Grid>
+            <Grid
+              item
+              padding={2}
+              xs={12}
+              md={4}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+              }}
+            >
+              <Typography
+                variant="h4"
+                component="h1"
+                gutterBottom
+                sx={{ fontWeight: "bold" }}
+              >
+                Nosotros <span style={{ color: "purple" }}>•</span>
+              </Typography>
+
+              <Typography variant="body1" gutterBottom>
+                Ciudad Sorpresa. Su riqueza histórica, cultural y colonial se
+                puede observar en cada calle, porque se ha guardado su historia
+                a través del tiempo.
+              </Typography>
+              <Button
+                variant="contained"
+                color="secondary"
+                sx={{ marginTop: 3 }}
+              >
+                Leer Más...
+              </Button>
+            </Grid>
+          </Grid>
+        </Container>
       </>
 
       {/*
