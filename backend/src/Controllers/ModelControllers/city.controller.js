@@ -9,7 +9,7 @@
 //========================================
 const { Sequelize, Op } = require('sequelize');
 const { db } = require('../../db/db.config');                       //Importa la instancia de db
-const { City } = require('../../db/db.config');  //Importa el modelo City
+const { city } = require('../../db/db.config');  //Importa el modelo City
 const { responseF } = require('../../Helpers/responseF'); // Importa el creador de respuesta formato
 
 const validateForeignKeys = async (foreignKeys) => {
@@ -43,7 +43,7 @@ const CityController = {
     // Obtener los títulos de las columnas de City
     get: async () => {
         try {
-            const attributes = Object.keys(City.getAttributes());
+            const attributes = Object.keys(city.getAttributes());
             return responseF({ status: 200, success: true, data: attributes });
         } catch (error) {
             console.error('Error en get en el CityController: ', error);

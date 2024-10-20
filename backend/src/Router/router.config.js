@@ -13,11 +13,10 @@ const responseLogger = require('../Middlewares/responseLogger');
 const requestLogger = require('../Middlewares/request.middleware')
 
 //Importación rutas específicas no de modelos
-const testRouter = require('./test.router');
 const loginRouter = require('./login.router');
 const authRouter = require('./auth.router')
-const passwordResetRouter = require('./passwordReset.router')
-const changePasswordRouter = require('./changePassword.router')
+// const passwordResetRouter = require('./passwordReset.router')
+// const changePasswordRouter = require('./changePassword.router')
 
 //Importación rutas específicas de modelos
 const cardRouter = require('./ModelRoutes/card.router');
@@ -55,13 +54,13 @@ const resetPasswordLimiter = rateLimit({
 
 //Definir rutas de no modelos
 router.use('/login', loginLimiter, loginRouter)
-router.use('/reset-password', passwordResetRouter)
+// router.use('/reset-password', passwordResetRouter)
 router.use('/auth', authRouter)
 
 // Aplicar middleware de autenticación a todas las rutas siguientes
-router.use( authenticateToken );
+// router.use( authenticateToken );
 
-router.use('/change-password', resetPasswordLimiter, changePasswordRouter)
+// router.use('/change-password', resetPasswordLimiter, changePasswordRouter)
 
 //Definir rutas de modelos
 router.use('/card', cardRouter);

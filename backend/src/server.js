@@ -11,7 +11,7 @@
 const express = require("express");
 const cors = require('cors');
 const helmet = require('helmet');
-// const router = require('./Router/router.config.js');
+const router = require('./Router/router.config.js');
 require('dotenv').config();  // Cargar variables de entorno
 
 const server = express();
@@ -56,7 +56,7 @@ server.get('/', (req, res) => {
 });
 
 // Usar el enrutador principal
-// server.use(router);
+server.use(router);
 
 // Exportar el servidor
 module.exports = server;

@@ -9,14 +9,14 @@
 
 const { verifyPassword } = require('../Helpers/hashHelper');
 const { generateToken, generateRefreshToken } = require('../Helpers/jwtHelper');
-const { Users, UserRoles, Becario } = require('../db/db.config');
+const { usuario } = require('../db/db.config');
 
 // Controlador para el inicio de sesión
 const loginController = {
     // Iniciar sesión
     login: async (username, password) => {
         try {
-            const user = await Users.findOne({ where: { username } });
+            const user = await usuario.findOne({ where: { username } });
 
             if (!user) {
                 return { status: 404, response: { success: false, message: 'Usuario o contraseña invalidos' } };
