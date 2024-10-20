@@ -4,6 +4,9 @@ import { theme } from "./shared/theme";
 import Sitios from "./Sitios"; // Página de sitios externos
 import Login from "./Login"; // Página de login
 import Home from "./Home"; // Página de login
+/* slick-carousel CSS */
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 import { MenuApp } from "./components";
 

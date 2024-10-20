@@ -4,3 +4,19 @@ body, html {
     width: 100%;
     height: 100%;
 }
+
+.sitios-banner {
+    width: 100%;
+    margin: auto;
+  }
+  
+.sitios-banner img {
+width: calc(50% - 10px); /* Ajusta el ancho para considerar el margen */
+height: auto; /* Mantiene la proporción */
+margin-right: 10px; /* Espacio a la derecha */
+}
+
+.sitios-banner img:last-child {
+margin-right: 0; /* Sin margen en el último elemento */
+}
+  
