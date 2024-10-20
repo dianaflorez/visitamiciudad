@@ -13,19 +13,19 @@ import { Facebook, Twitter, Instagram, LinkedIn } from "@mui/icons-material";
 // import telephoneImg from './images/telephone.png'; // Asegúrate de que la ruta sea correcta
 // import envelopeImg from './images/envelope.png'; // Asegúrate de que la ruta sea correcta
 
-import { styled } from '@mui/system';
+import { styled } from "@mui/system";
 
-
-const CustomLink = styled(Link)(({ theme }) => ({
-  textDecoration: 'none', // Eliminar subrayado
-  display: 'flex', // Usar flexbox para alinear el cuadrado y el texto
-  alignItems: 'center', // Centrar verticalmente
-  '&:before': {
-    content: '""', // Crear el pseudo-elemento
-    width: '7px', // Ancho del cuadrado
-    height: '7px', // Alto del cuadrado
-    backgroundColor: '#d3d3d3', // Color del cuadrado (puedes personalizarlo)
-    marginRight: '7px', // Espacio entre el cuadrado y el texto
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const CustomLink = styled(Link)(() => ({
+  textDecoration: "none",
+  display: "flex",
+  alignItems: "center",
+  "&:before": {
+    content: '""',
+    width: "7px",
+    height: "7px",
+    backgroundColor: "#d3d3d3",
+    marginRight: "7px",
   },
 }));
 
@@ -39,7 +39,7 @@ export default function Footer() {
             <Typography variant="h6" gutterBottom>
               Menú
             </Typography>
-            <ul style={{ listStyleType: 'none', padding: 0 }}>
+            <ul style={{ listStyleType: "none", padding: 0 }}>
               <li>
                 <CustomLink href="./" color="inherit">
                   Inicio
@@ -70,21 +70,6 @@ export default function Footer() {
 
           {/* Localización */}
           <Grid item xs={12} sm={3}>
-            {/* <div className="info_contact">
-              <h4>Localización</h4>
-              <div>
-                <img src={locationImg} alt="Localización" />
-                <p>520001</p>
-              </div>
-              <div>
-                <img src={telephoneImg} alt="Teléfono" />
-                <p>( +57 300777000 )</p>
-              </div>
-              <div>
-                <img src={envelopeImg} alt="Correo electrónico" />
-                <p>infovisitamiciudad@gmail.com</p>
-              </div>
-            </div> */}
             <Typography variant="h6" gutterBottom>
               Localización
             </Typography>
