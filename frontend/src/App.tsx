@@ -31,12 +31,12 @@ function App() {
       description: "Descripción de la imagen 1",
     },
     {
-      img: "./images/new-hero-2.png",
+      img: "./images/new-hero-3.png",
       title: "Imagen 1",
       description: "Descripción de la imagen 1",
     },
     {
-      img: "./images/new-hero.png",
+      img: "./images/new-hero-3.png",
       title: "Imagen 1",
       description: "Descripción de la imagen 1",
     },
@@ -77,114 +77,115 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <>
-        {/* Header */}
-        <AppBar position="static" color="transparent" elevation={0}>
-          <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Box
-              component="img"
-              sx={{
-                height: 100, // Altura del logo
-                mr: 2, // Espacio a la derecha
-              }}
-              alt="Logo de la empresa"
-              src="./images/logo-new.png" // Reemplaza con la URL de tu logo
-            />
-            <div>
-              <Button color="primary" style={{ marginTop: 12 }}>
-                Inicio
-              </Button>
-              <Button color="inherit" style={{ marginTop: 12 }}>
-                Sitios de Interés
-              </Button>
-              <Button color="inherit" style={{ marginTop: 12 }}>
-                Rutas
-              </Button>
-              <Button color="inherit" style={{ marginTop: 12 }}>
-                Nosotros
-              </Button>
-              <Button color="inherit" style={{ marginTop: 12 }}>
-                Contáctenos
-              </Button>
-              <Button color="inherit" style={{ marginTop: 12 }}>
-                Login
-              </Button>
-            </div>
-          </Toolbar>
-        </AppBar>
+        <Container>
+          {/* Header */}
+          <AppBar position="static" color="transparent" elevation={0}>
+            <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+              <Box
+                component="img"
+                sx={{
+                  height: 100, // Altura del logo
+                  mr: 2, // Espacio a la derecha
+                }}
+                alt="Logo de la empresa"
+                src="./images/logo-new.png" // Reemplaza con la URL de tu logo
+              />
+              <div>
+                <Button color="primary" style={{ marginTop: 12 }}>
+                  Inicio
+                </Button>
+                <Button color="inherit" style={{ marginTop: 12 }}>
+                  Sitios de Interés
+                </Button>
+                <Button color="inherit" style={{ marginTop: 12 }}>
+                  Rutas
+                </Button>
+                <Button color="inherit" style={{ marginTop: 12 }}>
+                  Nosotros
+                </Button>
+                <Button color="inherit" style={{ marginTop: 12 }}>
+                  Contáctenos
+                </Button>
+                <Button color="inherit" style={{ marginTop: 12 }}>
+                  Login
+                </Button>
+              </div>
+            </Toolbar>
+          </AppBar>
 
-        {/* Main content */}
-        {/*<Container>*/}
-        <Grid
-          container
-          spacing={2}
-          alignItems="center"
-          style={{ marginTop: "50px" }}
-        >
-          <Grid item xs={12} md={12}>
-            <Swiper
-              spaceBetween={50}
-              autoplay={{
-                delay: 2500,
-                disableOnInteraction: false,
-              }}
-              slidesPerView={1}
-              loop={true} // Activar loop para repetir el carrusel
-              pagination={{ clickable: true }}
-              navigation={true} // Añadir navegación
-              modules={[Navigation, Autoplay]} // Importar los módulos de Swiper
-            >
-              {slides.map((slide, index) => (
-                <SwiperSlide key={index}>
-                  <Grid container>
-                    <Grid
-                      item
-                      padding={20}
-                      xs={12}
-                      md={5}
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <Typography
-                        variant="h3"
-                        component="h1"
-                        gutterBottom
-                        sx={{ fontWeight: "bold" }}
+          {/* Main content */}
+          {/*<Container>*/}
+          <Grid
+            container
+            spacing={2}
+            alignItems="center"
+            style={{ marginTop: "50px" }}
+          >
+            <Grid item xs={12} md={12}>
+              <Swiper
+                spaceBetween={50}
+                autoplay={{
+                  delay: 2500,
+                  disableOnInteraction: false,
+                }}
+                slidesPerView={1}
+                loop={true} // Activar loop para repetir el carrusel
+                pagination={{ clickable: true }}
+                navigation={true} // Añadir navegación
+                modules={[Navigation, Autoplay]} // Importar los módulos de Swiper
+              >
+                {slides.map((slide, index) => (
+                  <SwiperSlide key={index}>
+                    <Grid container>
+                      <Grid
+                        item
+                        padding={10}
+                        xs={12}
+                        md={5}
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "center",
+                        }}
                       >
-                        San Juan de Pasto
-                      </Typography>
-                      <Typography variant="body1" gutterBottom>
-                        Ciudad Sorpresa. Su riqueza histórica, cultural y
-                        colonial se puede observar en cada calle, porque se ha
-                        guardado su historia a través del tiempo.
-                      </Typography>
-                      <Button variant="contained" color="secondary">
-                        Leer Más...
-                      </Button>
+                        <Typography
+                          variant="h3"
+                          component="h1"
+                          gutterBottom
+                          sx={{ fontWeight: "bold" }}
+                        >
+                          San Juan de Pasto
+                        </Typography>
+                        <Typography variant="body1" gutterBottom>
+                          Ciudad Sorpresa. Su riqueza histórica, cultural y
+                          colonial se puede observar en cada calle, porque se ha
+                          guardado su historia a través del tiempo.
+                        </Typography>
+                        <Button variant="contained" color="secondary">
+                          Leer Más...
+                        </Button>
+                      </Grid>
+                      <Grid item xs={12} md={7} padding={2}>
+                        <Card sx={{ boxShadow: "none", border: "none" }}>
+                          <CardMedia
+                            component="img"
+                            image={slide.img}
+                            alt={slide.title}
+                            sx={{
+                              height: "auto", // Mantiene la proporción de la imagen
+                              width: "100%", // Se ajusta al ancho del contenedor
+                              objectFit: "cover", // Asegura que la imagen cubra el área sin deformarse
+                            }}
+                          />
+                        </Card>
+                      </Grid>
                     </Grid>
-                    <Grid item xs={12} md={7} padding={2}>
-                      <Card sx={{ boxShadow: "none", border: "none" }}>
-                        <CardMedia
-                          component="img"
-                          image={slide.img}
-                          alt={slide.title}
-                          sx={{
-                            height: "auto", // Mantiene la proporción de la imagen
-                            width: "100%", // Se ajusta al ancho del contenedor
-                            objectFit: "cover", // Asegura que la imagen cubra el área sin deformarse
-                          }}
-                        />
-                      </Card>
-                    </Grid>
-                  </Grid>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </Grid>
-          {/* Left side - Text */}
-          {/*
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </Grid>
+            {/* Left side - Text */}
+            {/*
             <Grid item xs={12} md={6}>
               <Typography variant="h3" component="h1" gutterBottom>
                 San Juan de Pasto
@@ -200,18 +201,19 @@ function App() {
             </Grid>
             */}
 
-          {/* Right side - Carousel of images */}
-        </Grid>
-
+            {/* Right side - Carousel of images */}
+          </Grid>
+        </Container>
         {/* Main content */}
         <Container>
           <Typography
-            variant="h3"
-            align="center"
+            variant="h4"
+            align="left"
             gutterBottom
             sx={{ marginTop: "20px" }}
           >
-            Sitios de Interés <span style={{ color: "purple" }}>•</span>
+            <span style={{ color: "purple" }}>•</span> Sitios de Interés{" "}
+            <span style={{ color: "purple" }}>•</span>
           </Typography>
 
           {/* Grid for site cards */}
@@ -265,6 +267,21 @@ function App() {
           </Grid>
         </Container>
         {/*</Container>*/}
+
+        <Container>
+          <Typography
+            variant="h4"
+            align="left"
+            gutterBottom
+            sx={{ marginTop: "20px" }}
+          >
+            <span style={{ color: "purple" }}>•</span> Rutas{" "}
+            <span style={{ color: "purple" }}>•</span>
+          </Typography>
+
+          {/* Grid for site cards */}
+          <Grid container spacing={3}></Grid>
+        </Container>
       </>
 
       {/*
