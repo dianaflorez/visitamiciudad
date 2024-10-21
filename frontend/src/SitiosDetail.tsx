@@ -98,7 +98,7 @@ const QuoteCard = () => {
 };
 
 // Componente principal que muestra ambas tarjetas
-const MainPage = () => {
+const SitiosDetail = () => {
   return (
     <Box sx={{ flexGrow: 1, padding: 3 }}>
 
@@ -130,4 +130,4 @@ const MainPage = () => {
   );
 };
 
-export default MainPage;
+export default SitiosDetail;
