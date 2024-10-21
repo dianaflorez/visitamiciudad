@@ -30,7 +30,6 @@ CREATE TABLE usuario
   email       VARCHAR(90) NOT NULL UNIQUE,
   password    VARCHAR(40),
   auth_key    VARCHAR(40),
-  access_token VARCHAR(40),
   role_id     INT,
   activate    SMALLINT DEFAULT 0,
   state       BOOLEAN,
@@ -305,8 +304,3 @@ INSERT INTO person_type(id, name) VALUES
 (2, 'Pareja'),
 (3, 'Individual'),
 (4, 'Institucional');
-
-
-
-
-
