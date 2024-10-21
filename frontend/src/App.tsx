@@ -8,6 +8,8 @@ import SitiosDetail from "./SitiosDetail";
 import SitioNew from "./SitioNew";
 import SitioEdit from "./SitioEdit";
 import SitioIndex from "./SitioIndex";
+import SitioDetailEdit from "./SitioDetailEdit";
+import SitioGalleryAdd from "./SitioGalleryAddImage";
 
 /* slick-carousel CSS */
 import "slick-carousel/slick/slick.css";
@@ -29,7 +31,8 @@ function App() {
           <Route path="/sitio-index" element={<SitioIndex />} />
           <Route path="/sitio-new" element={<SitioNew />} />
           <Route path="/sitio-edit/:id" element={<SitioEdit />} />
-
+          <Route path="/sitio-detail-edit/:id" element={<SitioDetailEdit />} />
+          <Route path="/sitio-galery-add/:id" element={<SitioGalleryAdd />} />
 
         </Routes>
       </Router>
