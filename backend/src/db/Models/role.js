@@ -11,6 +11,16 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(30),
       allowNull: false
     },
+    created_at: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
+    },
+    updated_at: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
+    },
     updated_by: {
       type: DataTypes.INTEGER,
       allowNull: true
@@ -19,7 +29,8 @@ module.exports = function(sequelize, DataTypes) {
     sequelize,
     tableName: 'role',
     schema: 'public',
-    timestamps: true,
+    timestamps: false,
+    underscored: true,
     indexes: [
       {
         name: "role_pkey",

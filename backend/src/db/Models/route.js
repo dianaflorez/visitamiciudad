@@ -48,6 +48,16 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true,
       defaultValue: true
     },
+    created_at: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
+    },
+    updated_at: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
+    },
     updated_by: {
       type: DataTypes.INTEGER,
       allowNull: true,
@@ -60,7 +70,8 @@ module.exports = function(sequelize, DataTypes) {
     sequelize,
     tableName: 'route',
     schema: 'public',
-    timestamps: true,
+    timestamps: false,
+    underscored: true,
     indexes: [
       {
         name: "route_pkey",
