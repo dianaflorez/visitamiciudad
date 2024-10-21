@@ -4,7 +4,10 @@ import { theme } from "./shared/theme";
 import Sitios from "./Sitios"; // Página de sitios externos
 import Login from "./Login"; // Página de login
 import Home from "./Home"; // Página de login
-import SitiosDetail from "./SitiosDetail"; // Página de sitios externos
+import SitiosDetail from "./SitiosDetail";
+import SitioNew from "./SitioNew";
+import SitioEdit from "./SitioEdit";
+import SitioIndex from "./SitioIndex";
 
 /* slick-carousel CSS */
 import "slick-carousel/slick/slick.css";
@@ -22,6 +25,12 @@ function App() {
           <Route path="/sitios" element={<Sitios />} />
           <Route path="/sitios-descripcion" element={<SitiosDetail />} />
           <Route path="/login" element={<Login />} />
+
+          <Route path="/sitio-index" element={<SitioIndex />} />
+          <Route path="/sitio-new" element={<SitioNew />} />
+          <Route path="/sitio-edit/:id" element={<SitioEdit />} />
+
+
         </Routes>
       </Router>
     </ThemeProvider>
