@@ -318,3 +318,6 @@ INSERT INTO departamento
 INSERT INTO city
 (id, cod_dep, cod_country, cod_city, nombre) VALUES
 (1, '52','170','001','PASTO');
+
+INSERT INTO card_group(id, name) VALUES
+(1, 'General');
