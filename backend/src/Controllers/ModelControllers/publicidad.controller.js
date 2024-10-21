@@ -1,21 +1,21 @@
 //========================================
-// Este archivo interactúa con la base de datos, específicamente con la tabla de Publicidad.
+// Este archivo interactúa con la base de datos, específicamente con la tabla de publicidad.
 // Establece los métodos Get, getAll, Post, Put y Delete según sea necesario.
 // IMPORTA:
 //      'db': La clase db para la gestión de la base de datos.
-//      'Publicidad': Modelo con el que interactua
+//      'publicidad': Modelo con el que interactua
 //      'responseF': Generador de respuestas
-// EXPORTA: El controller de Publicidad
+// EXPORTA: El controller de publicidad
 //========================================
 const { Sequelize, Op } = require('sequelize');
 const { db } = require('../../db/db.config');                       //Importa la instancia de db
-const { Publicidad } = require('../../db/db.config');  //Importa el modelo Publicidad
+const { publicidad } = require('../../db/db.config');  //Importa el modelo publicidad
 const { responseF } = require('../../Helpers/responseF'); // Importa el creador de respuesta formato
 
 const validateForeignKeys = async (foreignKeys) => {
     for (const [key, value] of Object.entries(foreignKeys)) {
         if (value) {
-            const associatedModel = db.models[Publicidad.getAttributes()[key].references.model];
+            const associatedModel = db.models[publicidad.getAttributes()[key].references.model];
             const associatedInstance = await associatedModel.findByPk(value);
             if (!associatedInstance) {
                 return { error: true, field: key, value };
@@ -38,35 +38,35 @@ const filterMappings = {
     updated: '$updated_by_usuario.$'
 };
 
-// Controlador para el modelo Publicidad
-const PublicidadController = {
-    // Obtener los títulos de las columnas de Publicidad
+// Controlador para el modelo publicidad
+const publicidadController = {
+    // Obtener los títulos de las columnas de publicidad
     get: async () => {
         try {
-            const attributes = Object.keys(Publicidad.getAttributes());
-            return responseF({ status: 200, success: true, data: attributes });
+            const responseData = Object.keys(publicidad.getAttributes());
+            return responseF({ status: 200, success: true, data: responseData });
         } catch (error) {
-            console.error('Error en get en el PublicidadController: ', error);
+            console.error('Error en get en el publicidadController: ', error);
             return responseF({ status: 500, message: 'Error interno al tratar de obtener los títulos de las columnas', success: false });
         }
     },
 
-    // Obtener un Publicidad por ID
+    // Obtener un publicidad por ID
         getById: async (id) => {
             try {
-                const publicidad = await Publicidad.findByPk(id);
+                const responseData = await publicidad.findByPk(id);
                 if (!publicidad) 
-                    return responseF({ status: 404, message: 'Publicidad no encontrado.', success: false });
+                    return responseF({ status: 404, message: 'publicidad no encontrado.', success: false });
 
-                return responseF({ status: 200, success: true, data: publicidad });
+                return responseF({ status: 200, success: true, data: responseData });
             } catch (error) {
-                console.error('Error en getById en el PublicidadController: ' + id, error);
-                return responseF({ status: 500, success: false, message: 'Error interno al tratar de obtener el Publicidad',
+                console.error('Error en getById en el publicidadController: ' + id, error);
+                return responseF({ status: 500, success: false, message: 'Error interno al tratar de obtener el publicidad',
                 });
             }
         },
     
-    // Obtener todos los Publicidad o por filtros
+    // Obtener todos los publicidad o por filtros
     search: async (filters, pagination, orderField, orderType ) => {
         try {
             // Construir la cláusula where 
@@ -112,7 +112,7 @@ const PublicidadController = {
                 order = undefined;
             }
 
-            const searchResult = await Publicidad.findAndCountAll({
+            const searchResult = await publicidad.findAndCountAll({
                 where,
                 limit: pagination ? pageSize : undefined,
                 offset: pagination ? (page - 1) * pageSize : undefined,
@@ -130,12 +130,12 @@ const PublicidadController = {
                 }
             });
         } catch (error) {
-            console.error('Error en Search en el PublicidadController: ', error);
-            return responseF({ status: 500, success: false, message: `Error interno al tratar de obtener ${filters ?` Publicidad por filtro `:`todos los registros de Publicidad`}`});
+            console.error('Error en Search en el publicidadController: ', error);
+            return responseF({ status: 500, success: false, message: `Error interno al tratar de obtener ${filters ?` publicidad por filtro `:`todos los registros de publicidad`}`});
         }
     },
 
-    // Crear un nuevo Publicidad
+    // Crear un nuevo publicidad
     post: async ( newData ) => {
         try {
             const foreignKeyValidationResult = await validateForeignKeys(newData.foreignKeys);
@@ -144,21 +144,21 @@ const PublicidadController = {
             }
 
             const dataToCreate = { ...newData.regularFields, ...newData.foreignKeys };
-            const createdPublicidad = await Publicidad.create(dataToCreate);
+            const createdpublicidad = await publicidad.create(dataToCreate);
 
-            return responseF({ status: 201, success: true, message:'Registro creado exitosamente', data: createdPublicidad });
+            return responseF({ status: 201, success: true, message:'Registro creado exitosamente', data: createdpublicidad });
         } catch (error) {
-            console.error('Error en post en el PublicidadController: ', error);
-            return responseF({ status: 500, message: 'Error interno al crear el Publicidad', success: false });
+            console.error('Error en post en el publicidadController: ', error);
+            return responseF({ status: 500, message: 'Error interno al crear el publicidad', success: false });
         }
     },
 
-    // Actualizar un Publicidad por ID
+    // Actualizar un publicidad por ID
     put: async ( id, newData ) => {
         try {
-            const publicidad = await Publicidad.findByPk(id);
-            if (!publicidad)
-                return responseF({  status: 404,  success: false,  message: 'Publicidad no encontrado' });
+            const responseData = await publicidad.findByPk(id);
+            if (!responseData)
+                return responseF({  status: 404,  success: false,  message: 'publicidad no encontrado' });
 
             const foreignKeyValidationResult = await validateForeignKeys(newData.foreignKeys);
             if (foreignKeyValidationResult?.error)
@@ -167,16 +167,16 @@ const PublicidadController = {
             // Agregar llaves foráneas a los campos regulares
             const dataToUpdate = { ...newData.regularFields, ...newData.foreignKeys };
             
-            await publicidad.update(dataToUpdate);
+            await responseData.update(dataToUpdate);
             
             // Devolver el registro actualizado
-            return responseF({ status: 200, success: true, message: 'Publicidad actualizado exitosamente', data: publicidad });
+            return responseF({ status: 200, success: true, message: 'publicidad actualizado exitosamente', data: responseData });
         } catch (error) {
-            console.error('Error en Put en el PublicidadController: ', error);
+            console.error('Error en Put en el publicidadController: ', error);
             return responseF({ status: 500, success: false, message: `Error en el servidor al actualizar el publicidad con id: ${id}` });
         }
     },
     
 };
 
-module.exports = PublicidadController;
+module.exports = publicidadController;

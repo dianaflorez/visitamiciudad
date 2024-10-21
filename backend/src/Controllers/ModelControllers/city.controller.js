@@ -1,21 +1,21 @@
 //========================================
-// Este archivo interactúa con la base de datos, específicamente con la tabla de City.
+// Este archivo interactúa con la base de datos, específicamente con la tabla de city.
 // Establece los métodos Get, getAll, Post, Put y Delete según sea necesario.
 // IMPORTA:
 //      'db': La clase db para la gestión de la base de datos.
-//      'City': Modelo con el que interactua
+//      'city': Modelo con el que interactua
 //      'responseF': Generador de respuestas
-// EXPORTA: El controller de City
+// EXPORTA: El controller de city
 //========================================
 const { Sequelize, Op } = require('sequelize');
 const { db } = require('../../db/db.config');                       //Importa la instancia de db
-const { city } = require('../../db/db.config');  //Importa el modelo City
+const { city } = require('../../db/db.config');  //Importa el modelo city
 const { responseF } = require('../../Helpers/responseF'); // Importa el creador de respuesta formato
 
 const validateForeignKeys = async (foreignKeys) => {
     for (const [key, value] of Object.entries(foreignKeys)) {
         if (value) {
-            const associatedModel = db.models[City.getAttributes()[key].references.model];
+            const associatedModel = db.models[city.getAttributes()[key].references.model];
             const associatedInstance = await associatedModel.findByPk(value);
             if (!associatedInstance) {
                 return { error: true, field: key, value };
@@ -38,35 +38,35 @@ const filterMappings = {
     cod: '$cod_dep_departamento.$'
 };
 
-// Controlador para el modelo City
-const CityController = {
-    // Obtener los títulos de las columnas de City
+// Controlador para el modelo city
+const cityController = {
+    // Obtener los títulos de las columnas de city
     get: async () => {
         try {
-            const attributes = Object.keys(city.getAttributes());
-            return responseF({ status: 200, success: true, data: attributes });
+            const responseData = Object.keys(city.getAttributes());
+            return responseF({ status: 200, success: true, data: responseData });
         } catch (error) {
-            console.error('Error en get en el CityController: ', error);
+            console.error('Error en get en el cityController: ', error);
             return responseF({ status: 500, message: 'Error interno al tratar de obtener los títulos de las columnas', success: false });
         }
     },
 
-    // Obtener un City por ID
+    // Obtener un city por ID
         getById: async (id) => {
             try {
-                const city = await City.findByPk(id);
+                const responseData = await city.findByPk(id);
                 if (!city) 
-                    return responseF({ status: 404, message: 'City no encontrado.', success: false });
+                    return responseF({ status: 404, message: 'city no encontrado.', success: false });
 
-                return responseF({ status: 200, success: true, data: city });
+                return responseF({ status: 200, success: true, data: responseData });
             } catch (error) {
-                console.error('Error en getById en el CityController: ' + id, error);
-                return responseF({ status: 500, success: false, message: 'Error interno al tratar de obtener el City',
+                console.error('Error en getById en el cityController: ' + id, error);
+                return responseF({ status: 500, success: false, message: 'Error interno al tratar de obtener el city',
                 });
             }
         },
     
-    // Obtener todos los City o por filtros
+    // Obtener todos los city o por filtros
     search: async (filters, pagination, orderField, orderType ) => {
         try {
             // Construir la cláusula where 
@@ -112,7 +112,7 @@ const CityController = {
                 order = undefined;
             }
 
-            const searchResult = await City.findAndCountAll({
+            const searchResult = await city.findAndCountAll({
                 where,
                 limit: pagination ? pageSize : undefined,
                 offset: pagination ? (page - 1) * pageSize : undefined,
@@ -130,12 +130,12 @@ const CityController = {
                 }
             });
         } catch (error) {
-            console.error('Error en Search en el CityController: ', error);
-            return responseF({ status: 500, success: false, message: `Error interno al tratar de obtener ${filters ?` City por filtro `:`todos los registros de City`}`});
+            console.error('Error en Search en el cityController: ', error);
+            return responseF({ status: 500, success: false, message: `Error interno al tratar de obtener ${filters ?` city por filtro `:`todos los registros de city`}`});
         }
     },
 
-    // Crear un nuevo City
+    // Crear un nuevo city
     post: async ( newData ) => {
         try {
             const foreignKeyValidationResult = await validateForeignKeys(newData.foreignKeys);
@@ -144,21 +144,21 @@ const CityController = {
             }
 
             const dataToCreate = { ...newData.regularFields, ...newData.foreignKeys };
-            const createdCity = await City.create(dataToCreate);
+            const createdcity = await city.create(dataToCreate);
 
-            return responseF({ status: 201, success: true, message:'Registro creado exitosamente', data: createdCity });
+            return responseF({ status: 201, success: true, message:'Registro creado exitosamente', data: createdcity });
         } catch (error) {
-            console.error('Error en post en el CityController: ', error);
-            return responseF({ status: 500, message: 'Error interno al crear el City', success: false });
+            console.error('Error en post en el cityController: ', error);
+            return responseF({ status: 500, message: 'Error interno al crear el city', success: false });
         }
     },
 
-    // Actualizar un City por ID
+    // Actualizar un city por ID
     put: async ( id, newData ) => {
         try {
-            const city = await City.findByPk(id);
-            if (!city)
-                return responseF({  status: 404,  success: false,  message: 'City no encontrado' });
+            const responseData = await city.findByPk(id);
+            if (!responseData)
+                return responseF({  status: 404,  success: false,  message: 'city no encontrado' });
 
             const foreignKeyValidationResult = await validateForeignKeys(newData.foreignKeys);
             if (foreignKeyValidationResult?.error)
@@ -167,16 +167,16 @@ const CityController = {
             // Agregar llaves foráneas a los campos regulares
             const dataToUpdate = { ...newData.regularFields, ...newData.foreignKeys };
             
-            await city.update(dataToUpdate);
+            await responseData.update(dataToUpdate);
             
             // Devolver el registro actualizado
-            return responseF({ status: 200, success: true, message: 'City actualizado exitosamente', data: city });
+            return responseF({ status: 200, success: true, message: 'city actualizado exitosamente', data: responseData });
         } catch (error) {
-            console.error('Error en Put en el CityController: ', error);
+            console.error('Error en Put en el cityController: ', error);
             return responseF({ status: 500, success: false, message: `Error en el servidor al actualizar el city con id: ${id}` });
         }
     },
     
 };
 
-module.exports = CityController;
+module.exports = cityController;

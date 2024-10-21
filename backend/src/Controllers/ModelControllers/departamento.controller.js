@@ -1,21 +1,21 @@
 //========================================
-// Este archivo interactúa con la base de datos, específicamente con la tabla de Departamento.
+// Este archivo interactúa con la base de datos, específicamente con la tabla de departamento.
 // Establece los métodos Get, getAll, Post, Put y Delete según sea necesario.
 // IMPORTA:
 //      'db': La clase db para la gestión de la base de datos.
-//      'Departamento': Modelo con el que interactua
+//      'departamento': Modelo con el que interactua
 //      'responseF': Generador de respuestas
-// EXPORTA: El controller de Departamento
+// EXPORTA: El controller de departamento
 //========================================
 const { Sequelize, Op } = require('sequelize');
 const { db } = require('../../db/db.config');                       //Importa la instancia de db
-const { Departamento } = require('../../db/db.config');  //Importa el modelo Departamento
+const { departamento } = require('../../db/db.config');  //Importa el modelo departamento
 const { responseF } = require('../../Helpers/responseF'); // Importa el creador de respuesta formato
 
 const validateForeignKeys = async (foreignKeys) => {
     for (const [key, value] of Object.entries(foreignKeys)) {
         if (value) {
-            const associatedModel = db.models[Departamento.getAttributes()[key].references.model];
+            const associatedModel = db.models[departamento.getAttributes()[key].references.model];
             const associatedInstance = await associatedModel.findByPk(value);
             if (!associatedInstance) {
                 return { error: true, field: key, value };
@@ -36,35 +36,35 @@ const filterMappings = {
     cod: '$cod_country_country.$'
 };
 
-// Controlador para el modelo Departamento
-const DepartamentoController = {
-    // Obtener los títulos de las columnas de Departamento
+// Controlador para el modelo departamento
+const departamentoController = {
+    // Obtener los títulos de las columnas de departamento
     get: async () => {
         try {
-            const attributes = Object.keys(Departamento.getAttributes());
-            return responseF({ status: 200, success: true, data: attributes });
+            const responseData = Object.keys(departamento.getAttributes());
+            return responseF({ status: 200, success: true, data: responseData });
         } catch (error) {
-            console.error('Error en get en el DepartamentoController: ', error);
+            console.error('Error en get en el departamentoController: ', error);
             return responseF({ status: 500, message: 'Error interno al tratar de obtener los títulos de las columnas', success: false });
         }
     },
 
-    // Obtener un Departamento por ID
+    // Obtener un departamento por ID
         getById: async (id) => {
             try {
-                const departamento = await Departamento.findByPk(id);
+                const responseData = await departamento.findByPk(id);
                 if (!departamento) 
-                    return responseF({ status: 404, message: 'Departamento no encontrado.', success: false });
+                    return responseF({ status: 404, message: 'departamento no encontrado.', success: false });
 
-                return responseF({ status: 200, success: true, data: departamento });
+                return responseF({ status: 200, success: true, data: responseData });
             } catch (error) {
-                console.error('Error en getById en el DepartamentoController: ' + id, error);
-                return responseF({ status: 500, success: false, message: 'Error interno al tratar de obtener el Departamento',
+                console.error('Error en getById en el departamentoController: ' + id, error);
+                return responseF({ status: 500, success: false, message: 'Error interno al tratar de obtener el departamento',
                 });
             }
         },
     
-    // Obtener todos los Departamento o por filtros
+    // Obtener todos los departamento o por filtros
     search: async (filters, pagination, orderField, orderType ) => {
         try {
             // Construir la cláusula where 
@@ -107,7 +107,7 @@ const DepartamentoController = {
                 order = undefined;
             }
 
-            const searchResult = await Departamento.findAndCountAll({
+            const searchResult = await departamento.findAndCountAll({
                 where,
                 limit: pagination ? pageSize : undefined,
                 offset: pagination ? (page - 1) * pageSize : undefined,
@@ -125,12 +125,12 @@ const DepartamentoController = {
                 }
             });
         } catch (error) {
-            console.error('Error en Search en el DepartamentoController: ', error);
-            return responseF({ status: 500, success: false, message: `Error interno al tratar de obtener ${filters ?` Departamento por filtro `:`todos los registros de Departamento`}`});
+            console.error('Error en Search en el departamentoController: ', error);
+            return responseF({ status: 500, success: false, message: `Error interno al tratar de obtener ${filters ?` departamento por filtro `:`todos los registros de departamento`}`});
         }
     },
 
-    // Crear un nuevo Departamento
+    // Crear un nuevo departamento
     post: async ( newData ) => {
         try {
             const foreignKeyValidationResult = await validateForeignKeys(newData.foreignKeys);
@@ -139,21 +139,21 @@ const DepartamentoController = {
             }
 
             const dataToCreate = { ...newData.regularFields, ...newData.foreignKeys };
-            const createdDepartamento = await Departamento.create(dataToCreate);
+            const createddepartamento = await departamento.create(dataToCreate);
 
-            return responseF({ status: 201, success: true, message:'Registro creado exitosamente', data: createdDepartamento });
+            return responseF({ status: 201, success: true, message:'Registro creado exitosamente', data: createddepartamento });
         } catch (error) {
-            console.error('Error en post en el DepartamentoController: ', error);
-            return responseF({ status: 500, message: 'Error interno al crear el Departamento', success: false });
+            console.error('Error en post en el departamentoController: ', error);
+            return responseF({ status: 500, message: 'Error interno al crear el departamento', success: false });
         }
     },
 
-    // Actualizar un Departamento por ID
+    // Actualizar un departamento por ID
     put: async ( id, newData ) => {
         try {
-            const departamento = await Departamento.findByPk(id);
-            if (!departamento)
-                return responseF({  status: 404,  success: false,  message: 'Departamento no encontrado' });
+            const responseData = await departamento.findByPk(id);
+            if (!responseData)
+                return responseF({  status: 404,  success: false,  message: 'departamento no encontrado' });
 
             const foreignKeyValidationResult = await validateForeignKeys(newData.foreignKeys);
             if (foreignKeyValidationResult?.error)
@@ -162,16 +162,16 @@ const DepartamentoController = {
             // Agregar llaves foráneas a los campos regulares
             const dataToUpdate = { ...newData.regularFields, ...newData.foreignKeys };
             
-            await departamento.update(dataToUpdate);
+            await responseData.update(dataToUpdate);
             
             // Devolver el registro actualizado
-            return responseF({ status: 200, success: true, message: 'Departamento actualizado exitosamente', data: departamento });
+            return responseF({ status: 200, success: true, message: 'departamento actualizado exitosamente', data: responseData });
         } catch (error) {
-            console.error('Error en Put en el DepartamentoController: ', error);
+            console.error('Error en Put en el departamentoController: ', error);
             return responseF({ status: 500, success: false, message: `Error en el servidor al actualizar el departamento con id: ${id}` });
         }
     },
     
 };
 
-module.exports = DepartamentoController;
+module.exports = departamentoController;

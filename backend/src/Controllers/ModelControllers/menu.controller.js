@@ -1,21 +1,21 @@
 //========================================
-// Este archivo interactúa con la base de datos, específicamente con la tabla de Menu.
+// Este archivo interactúa con la base de datos, específicamente con la tabla de menu.
 // Establece los métodos Get, getAll, Post, Put y Delete según sea necesario.
 // IMPORTA:
 //      'db': La clase db para la gestión de la base de datos.
-//      'Menu': Modelo con el que interactua
+//      'menu': Modelo con el que interactua
 //      'responseF': Generador de respuestas
-// EXPORTA: El controller de Menu
+// EXPORTA: El controller de menu
 //========================================
 const { Sequelize, Op } = require('sequelize');
 const { db } = require('../../db/db.config');                       //Importa la instancia de db
-const { Menu } = require('../../db/db.config');  //Importa el modelo Menu
+const { menu } = require('../../db/db.config');  //Importa el modelo menu
 const { responseF } = require('../../Helpers/responseF'); // Importa el creador de respuesta formato
 
 const validateForeignKeys = async (foreignKeys) => {
     for (const [key, value] of Object.entries(foreignKeys)) {
         if (value) {
-            const associatedModel = db.models[Menu.getAttributes()[key].references.model];
+            const associatedModel = db.models[menu.getAttributes()[key].references.model];
             const associatedInstance = await associatedModel.findByPk(value);
             if (!associatedInstance) {
                 return { error: true, field: key, value };
@@ -38,35 +38,35 @@ const filterMappings = {
     updated: '$updated_by_usuario.$'
 };
 
-// Controlador para el modelo Menu
-const MenuController = {
-    // Obtener los títulos de las columnas de Menu
+// Controlador para el modelo menu
+const menuController = {
+    // Obtener los títulos de las columnas de menu
     get: async () => {
         try {
-            const attributes = Object.keys(Menu.getAttributes());
-            return responseF({ status: 200, success: true, data: attributes });
+            const responseData = Object.keys(menu.getAttributes());
+            return responseF({ status: 200, success: true, data: responseData });
         } catch (error) {
-            console.error('Error en get en el MenuController: ', error);
+            console.error('Error en get en el menuController: ', error);
             return responseF({ status: 500, message: 'Error interno al tratar de obtener los títulos de las columnas', success: false });
         }
     },
 
-    // Obtener un Menu por ID
+    // Obtener un menu por ID
         getById: async (id) => {
             try {
-                const menu = await Menu.findByPk(id);
+                const responseData = await menu.findByPk(id);
                 if (!menu) 
-                    return responseF({ status: 404, message: 'Menu no encontrado.', success: false });
+                    return responseF({ status: 404, message: 'menu no encontrado.', success: false });
 
-                return responseF({ status: 200, success: true, data: menu });
+                return responseF({ status: 200, success: true, data: responseData });
             } catch (error) {
-                console.error('Error en getById en el MenuController: ' + id, error);
-                return responseF({ status: 500, success: false, message: 'Error interno al tratar de obtener el Menu',
+                console.error('Error en getById en el menuController: ' + id, error);
+                return responseF({ status: 500, success: false, message: 'Error interno al tratar de obtener el menu',
                 });
             }
         },
     
-    // Obtener todos los Menu o por filtros
+    // Obtener todos los menu o por filtros
     search: async (filters, pagination, orderField, orderType ) => {
         try {
             // Construir la cláusula where 
@@ -112,7 +112,7 @@ const MenuController = {
                 order = undefined;
             }
 
-            const searchResult = await Menu.findAndCountAll({
+            const searchResult = await menu.findAndCountAll({
                 where,
                 limit: pagination ? pageSize : undefined,
                 offset: pagination ? (page - 1) * pageSize : undefined,
@@ -130,12 +130,12 @@ const MenuController = {
                 }
             });
         } catch (error) {
-            console.error('Error en Search en el MenuController: ', error);
-            return responseF({ status: 500, success: false, message: `Error interno al tratar de obtener ${filters ?` Menu por filtro `:`todos los registros de Menu`}`});
+            console.error('Error en Search en el menuController: ', error);
+            return responseF({ status: 500, success: false, message: `Error interno al tratar de obtener ${filters ?` menu por filtro `:`todos los registros de menu`}`});
         }
     },
 
-    // Crear un nuevo Menu
+    // Crear un nuevo menu
     post: async ( newData ) => {
         try {
             const foreignKeyValidationResult = await validateForeignKeys(newData.foreignKeys);
@@ -144,21 +144,21 @@ const MenuController = {
             }
 
             const dataToCreate = { ...newData.regularFields, ...newData.foreignKeys };
-            const createdMenu = await Menu.create(dataToCreate);
+            const createdmenu = await menu.create(dataToCreate);
 
-            return responseF({ status: 201, success: true, message:'Registro creado exitosamente', data: createdMenu });
+            return responseF({ status: 201, success: true, message:'Registro creado exitosamente', data: createdmenu });
         } catch (error) {
-            console.error('Error en post en el MenuController: ', error);
-            return responseF({ status: 500, message: 'Error interno al crear el Menu', success: false });
+            console.error('Error en post en el menuController: ', error);
+            return responseF({ status: 500, message: 'Error interno al crear el menu', success: false });
         }
     },
 
-    // Actualizar un Menu por ID
+    // Actualizar un menu por ID
     put: async ( id, newData ) => {
         try {
-            const menu = await Menu.findByPk(id);
-            if (!menu)
-                return responseF({  status: 404,  success: false,  message: 'Menu no encontrado' });
+            const responseData = await menu.findByPk(id);
+            if (!responseData)
+                return responseF({  status: 404,  success: false,  message: 'menu no encontrado' });
 
             const foreignKeyValidationResult = await validateForeignKeys(newData.foreignKeys);
             if (foreignKeyValidationResult?.error)
@@ -167,16 +167,16 @@ const MenuController = {
             // Agregar llaves foráneas a los campos regulares
             const dataToUpdate = { ...newData.regularFields, ...newData.foreignKeys };
             
-            await menu.update(dataToUpdate);
+            await responseData.update(dataToUpdate);
             
             // Devolver el registro actualizado
-            return responseF({ status: 200, success: true, message: 'Menu actualizado exitosamente', data: menu });
+            return responseF({ status: 200, success: true, message: 'menu actualizado exitosamente', data: responseData });
         } catch (error) {
-            console.error('Error en Put en el MenuController: ', error);
+            console.error('Error en Put en el menuController: ', error);
             return responseF({ status: 500, success: false, message: `Error en el servidor al actualizar el menu con id: ${id}` });
         }
     },
     
 };
 
-module.exports = MenuController;
+module.exports = menuController;

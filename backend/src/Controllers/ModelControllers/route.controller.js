@@ -1,21 +1,21 @@
 //========================================
-// Este archivo interactúa con la base de datos, específicamente con la tabla de Route.
+// Este archivo interactúa con la base de datos, específicamente con la tabla de route.
 // Establece los métodos Get, getAll, Post, Put y Delete según sea necesario.
 // IMPORTA:
 //      'db': La clase db para la gestión de la base de datos.
-//      'Route': Modelo con el que interactua
+//      'route': Modelo con el que interactua
 //      'responseF': Generador de respuestas
-// EXPORTA: El controller de Route
+// EXPORTA: El controller de route
 //========================================
 const { Sequelize, Op } = require('sequelize');
 const { db } = require('../../db/db.config');                       //Importa la instancia de db
-const { Route } = require('../../db/db.config');  //Importa el modelo Route
+const { route } = require('../../db/db.config');  //Importa el modelo route
 const { responseF } = require('../../Helpers/responseF'); // Importa el creador de respuesta formato
 
 const validateForeignKeys = async (foreignKeys) => {
     for (const [key, value] of Object.entries(foreignKeys)) {
         if (value) {
-            const associatedModel = db.models[Route.getAttributes()[key].references.model];
+            const associatedModel = db.models[route.getAttributes()[key].references.model];
             const associatedInstance = await associatedModel.findByPk(value);
             if (!associatedInstance) {
                 return { error: true, field: key, value };
@@ -40,35 +40,35 @@ const filterMappings = {
     updated: '$updated_by_usuario.$'
 };
 
-// Controlador para el modelo Route
-const RouteController = {
-    // Obtener los títulos de las columnas de Route
+// Controlador para el modelo route
+const routeController = {
+    // Obtener los títulos de las columnas de route
     get: async () => {
         try {
-            const attributes = Object.keys(Route.getAttributes());
-            return responseF({ status: 200, success: true, data: attributes });
+            const responseData = Object.keys(route.getAttributes());
+            return responseF({ status: 200, success: true, data: responseData });
         } catch (error) {
-            console.error('Error en get en el RouteController: ', error);
+            console.error('Error en get en el routeController: ', error);
             return responseF({ status: 500, message: 'Error interno al tratar de obtener los títulos de las columnas', success: false });
         }
     },
 
-    // Obtener un Route por ID
+    // Obtener un route por ID
         getById: async (id) => {
             try {
-                const route = await Route.findByPk(id);
+                const responseData = await route.findByPk(id);
                 if (!route) 
-                    return responseF({ status: 404, message: 'Route no encontrado.', success: false });
+                    return responseF({ status: 404, message: 'route no encontrado.', success: false });
 
-                return responseF({ status: 200, success: true, data: route });
+                return responseF({ status: 200, success: true, data: responseData });
             } catch (error) {
-                console.error('Error en getById en el RouteController: ' + id, error);
-                return responseF({ status: 500, success: false, message: 'Error interno al tratar de obtener el Route',
+                console.error('Error en getById en el routeController: ' + id, error);
+                return responseF({ status: 500, success: false, message: 'Error interno al tratar de obtener el route',
                 });
             }
         },
     
-    // Obtener todos los Route o por filtros
+    // Obtener todos los route o por filtros
     search: async (filters, pagination, orderField, orderType ) => {
         try {
             // Construir la cláusula where 
@@ -117,7 +117,7 @@ const RouteController = {
                 order = undefined;
             }
 
-            const searchResult = await Route.findAndCountAll({
+            const searchResult = await route.findAndCountAll({
                 where,
                 limit: pagination ? pageSize : undefined,
                 offset: pagination ? (page - 1) * pageSize : undefined,
@@ -135,12 +135,12 @@ const RouteController = {
                 }
             });
         } catch (error) {
-            console.error('Error en Search en el RouteController: ', error);
-            return responseF({ status: 500, success: false, message: `Error interno al tratar de obtener ${filters ?` Route por filtro `:`todos los registros de Route`}`});
+            console.error('Error en Search en el routeController: ', error);
+            return responseF({ status: 500, success: false, message: `Error interno al tratar de obtener ${filters ?` route por filtro `:`todos los registros de route`}`});
         }
     },
 
-    // Crear un nuevo Route
+    // Crear un nuevo route
     post: async ( newData ) => {
         try {
             const foreignKeyValidationResult = await validateForeignKeys(newData.foreignKeys);
@@ -149,21 +149,21 @@ const RouteController = {
             }
 
             const dataToCreate = { ...newData.regularFields, ...newData.foreignKeys };
-            const createdRoute = await Route.create(dataToCreate);
+            const createdroute = await route.create(dataToCreate);
 
-            return responseF({ status: 201, success: true, message:'Registro creado exitosamente', data: createdRoute });
+            return responseF({ status: 201, success: true, message:'Registro creado exitosamente', data: createdroute });
         } catch (error) {
-            console.error('Error en post en el RouteController: ', error);
-            return responseF({ status: 500, message: 'Error interno al crear el Route', success: false });
+            console.error('Error en post en el routeController: ', error);
+            return responseF({ status: 500, message: 'Error interno al crear el route', success: false });
         }
     },
 
-    // Actualizar un Route por ID
+    // Actualizar un route por ID
     put: async ( id, newData ) => {
         try {
-            const route = await Route.findByPk(id);
-            if (!route)
-                return responseF({  status: 404,  success: false,  message: 'Route no encontrado' });
+            const responseData = await route.findByPk(id);
+            if (!responseData)
+                return responseF({  status: 404,  success: false,  message: 'route no encontrado' });
 
             const foreignKeyValidationResult = await validateForeignKeys(newData.foreignKeys);
             if (foreignKeyValidationResult?.error)
@@ -172,16 +172,16 @@ const RouteController = {
             // Agregar llaves foráneas a los campos regulares
             const dataToUpdate = { ...newData.regularFields, ...newData.foreignKeys };
             
-            await route.update(dataToUpdate);
+            await responseData.update(dataToUpdate);
             
             // Devolver el registro actualizado
-            return responseF({ status: 200, success: true, message: 'Route actualizado exitosamente', data: route });
+            return responseF({ status: 200, success: true, message: 'route actualizado exitosamente', data: responseData });
         } catch (error) {
-            console.error('Error en Put en el RouteController: ', error);
+            console.error('Error en Put en el routeController: ', error);
             return responseF({ status: 500, success: false, message: `Error en el servidor al actualizar el route con id: ${id}` });
         }
     },
     
 };
 
-module.exports = RouteController;
+module.exports = routeController;

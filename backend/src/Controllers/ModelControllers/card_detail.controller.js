@@ -1,21 +1,21 @@
 //========================================
-// Este archivo interactúa con la base de datos, específicamente con la tabla de Card_detail.
+// Este archivo interactúa con la base de datos, específicamente con la tabla de card_detail.
 // Establece los métodos Get, getAll, Post, Put y Delete según sea necesario.
 // IMPORTA:
 //      'db': La clase db para la gestión de la base de datos.
-//      'Card_detail': Modelo con el que interactua
+//      'card_detail': Modelo con el que interactua
 //      'responseF': Generador de respuestas
-// EXPORTA: El controller de Card_detail
+// EXPORTA: El controller de card_detail
 //========================================
 const { Sequelize, Op } = require('sequelize');
 const { db } = require('../../db/db.config');                       //Importa la instancia de db
-const { Card_detail } = require('../../db/db.config');  //Importa el modelo Card_detail
+const { card_detail } = require('../../db/db.config');  //Importa el modelo card_detail
 const { responseF } = require('../../Helpers/responseF'); // Importa el creador de respuesta formato
 
 const validateForeignKeys = async (foreignKeys) => {
     for (const [key, value] of Object.entries(foreignKeys)) {
         if (value) {
-            const associatedModel = db.models[Card_detail.getAttributes()[key].references.model];
+            const associatedModel = db.models[card_detail.getAttributes()[key].references.model];
             const associatedInstance = await associatedModel.findByPk(value);
             if (!associatedInstance) {
                 return { error: true, field: key, value };
@@ -38,35 +38,35 @@ const filterMappings = {
     updated: '$updated_by_usuario.$'
 };
 
-// Controlador para el modelo Card_detail
-const Card_detailController = {
-    // Obtener los títulos de las columnas de Card_detail
+// Controlador para el modelo card_detail
+const card_detailController = {
+    // Obtener los títulos de las columnas de card_detail
     get: async () => {
         try {
-            const attributes = Object.keys(Card_detail.getAttributes());
-            return responseF({ status: 200, success: true, data: attributes });
+            const responseData = Object.keys(card_detail.getAttributes());
+            return responseF({ status: 200, success: true, data: responseData });
         } catch (error) {
-            console.error('Error en get en el Card_detailController: ', error);
+            console.error('Error en get en el card_detailController: ', error);
             return responseF({ status: 500, message: 'Error interno al tratar de obtener los títulos de las columnas', success: false });
         }
     },
 
-    // Obtener un Card_detail por ID
+    // Obtener un card_detail por ID
         getById: async (id) => {
             try {
-                const card_detail = await Card_detail.findByPk(id);
+                const responseData = await card_detail.findByPk(id);
                 if (!card_detail) 
-                    return responseF({ status: 404, message: 'Card_detail no encontrado.', success: false });
+                    return responseF({ status: 404, message: 'card_detail no encontrado.', success: false });
 
-                return responseF({ status: 200, success: true, data: card_detail });
+                return responseF({ status: 200, success: true, data: responseData });
             } catch (error) {
-                console.error('Error en getById en el Card_detailController: ' + id, error);
-                return responseF({ status: 500, success: false, message: 'Error interno al tratar de obtener el Card_detail',
+                console.error('Error en getById en el card_detailController: ' + id, error);
+                return responseF({ status: 500, success: false, message: 'Error interno al tratar de obtener el card_detail',
                 });
             }
         },
     
-    // Obtener todos los Card_detail o por filtros
+    // Obtener todos los card_detail o por filtros
     search: async (filters, pagination, orderField, orderType ) => {
         try {
             // Construir la cláusula where 
@@ -112,7 +112,7 @@ const Card_detailController = {
                 order = undefined;
             }
 
-            const searchResult = await Card_detail.findAndCountAll({
+            const searchResult = await card_detail.findAndCountAll({
                 where,
                 limit: pagination ? pageSize : undefined,
                 offset: pagination ? (page - 1) * pageSize : undefined,
@@ -130,12 +130,12 @@ const Card_detailController = {
                 }
             });
         } catch (error) {
-            console.error('Error en Search en el Card_detailController: ', error);
-            return responseF({ status: 500, success: false, message: `Error interno al tratar de obtener ${filters ?` Card_detail por filtro `:`todos los registros de Card_detail`}`});
+            console.error('Error en Search en el card_detailController: ', error);
+            return responseF({ status: 500, success: false, message: `Error interno al tratar de obtener ${filters ?` card_detail por filtro `:`todos los registros de card_detail`}`});
         }
     },
 
-    // Crear un nuevo Card_detail
+    // Crear un nuevo card_detail
     post: async ( newData ) => {
         try {
             const foreignKeyValidationResult = await validateForeignKeys(newData.foreignKeys);
@@ -144,21 +144,21 @@ const Card_detailController = {
             }
 
             const dataToCreate = { ...newData.regularFields, ...newData.foreignKeys };
-            const createdCard_detail = await Card_detail.create(dataToCreate);
+            const createdcard_detail = await card_detail.create(dataToCreate);
 
-            return responseF({ status: 201, success: true, message:'Registro creado exitosamente', data: createdCard_detail });
+            return responseF({ status: 201, success: true, message:'Registro creado exitosamente', data: createdcard_detail });
         } catch (error) {
-            console.error('Error en post en el Card_detailController: ', error);
-            return responseF({ status: 500, message: 'Error interno al crear el Card_detail', success: false });
+            console.error('Error en post en el card_detailController: ', error);
+            return responseF({ status: 500, message: 'Error interno al crear el card_detail', success: false });
         }
     },
 
-    // Actualizar un Card_detail por ID
+    // Actualizar un card_detail por ID
     put: async ( id, newData ) => {
         try {
-            const card_detail = await Card_detail.findByPk(id);
-            if (!card_detail)
-                return responseF({  status: 404,  success: false,  message: 'Card_detail no encontrado' });
+            const responseData = await card_detail.findByPk(id);
+            if (!responseData)
+                return responseF({  status: 404,  success: false,  message: 'card_detail no encontrado' });
 
             const foreignKeyValidationResult = await validateForeignKeys(newData.foreignKeys);
             if (foreignKeyValidationResult?.error)
@@ -167,16 +167,16 @@ const Card_detailController = {
             // Agregar llaves foráneas a los campos regulares
             const dataToUpdate = { ...newData.regularFields, ...newData.foreignKeys };
             
-            await card_detail.update(dataToUpdate);
+            await responseData.update(dataToUpdate);
             
             // Devolver el registro actualizado
-            return responseF({ status: 200, success: true, message: 'Card_detail actualizado exitosamente', data: card_detail });
+            return responseF({ status: 200, success: true, message: 'card_detail actualizado exitosamente', data: responseData });
         } catch (error) {
-            console.error('Error en Put en el Card_detailController: ', error);
+            console.error('Error en Put en el card_detailController: ', error);
             return responseF({ status: 500, success: false, message: `Error en el servidor al actualizar el card_detail con id: ${id}` });
         }
     },
     
 };
 
-module.exports = Card_detailController;
+module.exports = card_detailController;

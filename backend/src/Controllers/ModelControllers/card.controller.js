@@ -1,21 +1,21 @@
 //========================================
-// Este archivo interactúa con la base de datos, específicamente con la tabla de Card.
+// Este archivo interactúa con la base de datos, específicamente con la tabla de card.
 // Establece los métodos Get, getAll, Post, Put y Delete según sea necesario.
 // IMPORTA:
 //      'db': La clase db para la gestión de la base de datos.
-//      'Card': Modelo con el que interactua
+//      'card': Modelo con el que interactua
 //      'responseF': Generador de respuestas
-// EXPORTA: El controller de Card
+// EXPORTA: El controller de card
 //========================================
 const { Sequelize, Op } = require('sequelize');
 const { db } = require('../../db/db.config');                       //Importa la instancia de db
-const { Card } = require('../../db/db.config');  //Importa el modelo Card
+const { card } = require('../../db/db.config');  //Importa el modelo card
 const { responseF } = require('../../Helpers/responseF'); // Importa el creador de respuesta formato
 
 const validateForeignKeys = async (foreignKeys) => {
     for (const [key, value] of Object.entries(foreignKeys)) {
         if (value) {
-            const associatedModel = db.models[Card.getAttributes()[key].references.model];
+            const associatedModel = db.models[card.getAttributes()[key].references.model];
             const associatedInstance = await associatedModel.findByPk(value);
             if (!associatedInstance) {
                 return { error: true, field: key, value };
@@ -44,35 +44,37 @@ const filterMappings = {
     updated: '$updated_by_usuario.$'
 };
 
-// Controlador para el modelo Card
-const CardController = {
-    // Obtener los títulos de las columnas de Card
+// Controlador para el modelo card
+const cardController = {
+    // Obtener los títulos de las columnas de card
     get: async () => {
         try {
-            const attributes = Object.keys(Card.getAttributes());
-            return responseF({ status: 200, success: true, data: attributes });
+            const responseData = await card.findAndCountAll()
+            // const responseData = Object.keys(card.getAttributes());
+            return responseF({ status: 200, success: true, data: responseData });
+
         } catch (error) {
-            console.error('Error en get en el CardController: ', error);
+            console.error('Error en get en el cardController: ', error);
             return responseF({ status: 500, message: 'Error interno al tratar de obtener los títulos de las columnas', success: false });
         }
     },
 
-    // Obtener un Card por ID
+    // Obtener un card por ID
         getById: async (id) => {
             try {
-                const card = await Card.findByPk(id);
+                const responseData = await card.findByPk(id);
                 if (!card) 
-                    return responseF({ status: 404, message: 'Card no encontrado.', success: false });
+                    return responseF({ status: 404, message: 'card no encontrado.', success: false });
 
-                return responseF({ status: 200, success: true, data: card });
+                return responseF({ status: 200, success: true, data: responseData });
             } catch (error) {
-                console.error('Error en getById en el CardController: ' + id, error);
-                return responseF({ status: 500, success: false, message: 'Error interno al tratar de obtener el Card',
+                console.error('Error en getById en el cardController: ' + id, error);
+                return responseF({ status: 500, success: false, message: 'Error interno al tratar de obtener el card',
                 });
             }
         },
     
-    // Obtener todos los Card o por filtros
+    // Obtener todos los card o por filtros
     search: async (filters, pagination, orderField, orderType ) => {
         try {
             // Construir la cláusula where 
@@ -127,7 +129,7 @@ const CardController = {
                 order = undefined;
             }
 
-            const searchResult = await Card.findAndCountAll({
+            const searchResult = await card.findAndCountAll({
                 where,
                 limit: pagination ? pageSize : undefined,
                 offset: pagination ? (page - 1) * pageSize : undefined,
@@ -145,12 +147,12 @@ const CardController = {
                 }
             });
         } catch (error) {
-            console.error('Error en Search en el CardController: ', error);
-            return responseF({ status: 500, success: false, message: `Error interno al tratar de obtener ${filters ?` Card por filtro `:`todos los registros de Card`}`});
+            console.error('Error en Search en el cardController: ', error);
+            return responseF({ status: 500, success: false, message: `Error interno al tratar de obtener ${filters ?` card por filtro `:`todos los registros de card`}`});
         }
     },
 
-    // Crear un nuevo Card
+    // Crear un nuevo card
     post: async ( newData ) => {
         try {
             const foreignKeyValidationResult = await validateForeignKeys(newData.foreignKeys);
@@ -159,21 +161,21 @@ const CardController = {
             }
 
             const dataToCreate = { ...newData.regularFields, ...newData.foreignKeys };
-            const createdCard = await Card.create(dataToCreate);
+            const createdcard = await card.create(dataToCreate);
 
-            return responseF({ status: 201, success: true, message:'Registro creado exitosamente', data: createdCard });
+            return responseF({ status: 201, success: true, message:'Registro creado exitosamente', data: createdcard });
         } catch (error) {
-            console.error('Error en post en el CardController: ', error);
-            return responseF({ status: 500, message: 'Error interno al crear el Card', success: false });
+            console.error('Error en post en el cardController: ', error);
+            return responseF({ status: 500, message: 'Error interno al crear el card', success: false });
         }
     },
 
-    // Actualizar un Card por ID
+    // Actualizar un card por ID
     put: async ( id, newData ) => {
         try {
-            const card = await Card.findByPk(id);
-            if (!card)
-                return responseF({  status: 404,  success: false,  message: 'Card no encontrado' });
+            const responseData = await card.findByPk(id);
+            if (!responseData)
+                return responseF({  status: 404,  success: false,  message: 'card no encontrado' });
 
             const foreignKeyValidationResult = await validateForeignKeys(newData.foreignKeys);
             if (foreignKeyValidationResult?.error)
@@ -182,16 +184,16 @@ const CardController = {
             // Agregar llaves foráneas a los campos regulares
             const dataToUpdate = { ...newData.regularFields, ...newData.foreignKeys };
             
-            await card.update(dataToUpdate);
+            await responseData.update(dataToUpdate);
             
             // Devolver el registro actualizado
-            return responseF({ status: 200, success: true, message: 'Card actualizado exitosamente', data: card });
+            return responseF({ status: 200, success: true, message: 'card actualizado exitosamente', data: responseData });
         } catch (error) {
-            console.error('Error en Put en el CardController: ', error);
+            console.error('Error en Put en el cardController: ', error);
             return responseF({ status: 500, success: false, message: `Error en el servidor al actualizar el card con id: ${id}` });
         }
     },
     
 };
 
-module.exports = CardController;
+module.exports = cardController;

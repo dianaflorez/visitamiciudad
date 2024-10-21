@@ -21,5 +21,6 @@ module.exports = {
     },
     options: {
         timestamps: true,
+    underscored: true,
     },
 };

@@ -62,6 +62,7 @@ module.exports = function(sequelize, DataTypes) {
     tableName: 'route_card',
     schema: 'public',
     timestamps: true,
+    underscored: true,
     indexes: [
       {
         name: "route_card_pkey",

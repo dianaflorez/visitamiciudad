@@ -26,7 +26,8 @@ const databaseConfig = {
   },
   directory: path.resolve(__dirname, 'src/db/models'), // Directorio donde se guardarán los modelos generados
   additional: {
-    timestamps: true  // Agregar los campos de createdAt y updatedAt
+    timestamps: true,
+    underscored: true, 
   },
   logging: false  // Desactiva el logging si no lo necesitas
 };

@@ -1,21 +1,21 @@
 //========================================
-// Este archivo interactúa con la base de datos, específicamente con la tabla de Role.
+// Este archivo interactúa con la base de datos, específicamente con la tabla de role.
 // Establece los métodos Get, getAll, Post, Put y Delete según sea necesario.
 // IMPORTA:
 //      'db': La clase db para la gestión de la base de datos.
-//      'Role': Modelo con el que interactua
+//      'role': Modelo con el que interactua
 //      'responseF': Generador de respuestas
-// EXPORTA: El controller de Role
+// EXPORTA: El controller de role
 //========================================
 const { Sequelize, Op } = require('sequelize');
 const { db } = require('../../db/db.config');                       //Importa la instancia de db
-const { Role } = require('../../db/db.config');  //Importa el modelo Role
+const { role } = require('../../db/db.config');  //Importa el modelo role
 const { responseF } = require('../../Helpers/responseF'); // Importa el creador de respuesta formato
 
 const validateForeignKeys = async (foreignKeys) => {
     for (const [key, value] of Object.entries(foreignKeys)) {
         if (value) {
-            const associatedModel = db.models[Role.getAttributes()[key].references.model];
+            const associatedModel = db.models[role.getAttributes()[key].references.model];
             const associatedInstance = await associatedModel.findByPk(value);
             if (!associatedInstance) {
                 return { error: true, field: key, value };
@@ -36,35 +36,35 @@ const filterMappings = {
     
 };
 
-// Controlador para el modelo Role
-const RoleController = {
-    // Obtener los títulos de las columnas de Role
+// Controlador para el modelo role
+const roleController = {
+    // Obtener los títulos de las columnas de role
     get: async () => {
         try {
-            const attributes = Object.keys(Role.getAttributes());
-            return responseF({ status: 200, success: true, data: attributes });
+            const responseData = Object.keys(role.getAttributes());
+            return responseF({ status: 200, success: true, data: responseData });
         } catch (error) {
-            console.error('Error en get en el RoleController: ', error);
+            console.error('Error en get en el roleController: ', error);
             return responseF({ status: 500, message: 'Error interno al tratar de obtener los títulos de las columnas', success: false });
         }
     },
 
-    // Obtener un Role por ID
+    // Obtener un role por ID
         getById: async (id) => {
             try {
-                const role = await Role.findByPk(id);
+                const responseData = await role.findByPk(id);
                 if (!role) 
-                    return responseF({ status: 404, message: 'Role no encontrado.', success: false });
+                    return responseF({ status: 404, message: 'role no encontrado.', success: false });
 
-                return responseF({ status: 200, success: true, data: role });
+                return responseF({ status: 200, success: true, data: responseData });
             } catch (error) {
-                console.error('Error en getById en el RoleController: ' + id, error);
-                return responseF({ status: 500, success: false, message: 'Error interno al tratar de obtener el Role',
+                console.error('Error en getById en el roleController: ' + id, error);
+                return responseF({ status: 500, success: false, message: 'Error interno al tratar de obtener el role',
                 });
             }
         },
     
-    // Obtener todos los Role o por filtros
+    // Obtener todos los role o por filtros
     search: async (filters, pagination, orderField, orderType ) => {
         try {
             // Construir la cláusula where 
@@ -104,7 +104,7 @@ const RoleController = {
                 order = undefined;
             }
 
-            const searchResult = await Role.findAndCountAll({
+            const searchResult = await role.findAndCountAll({
                 where,
                 limit: pagination ? pageSize : undefined,
                 offset: pagination ? (page - 1) * pageSize : undefined,
@@ -122,12 +122,12 @@ const RoleController = {
                 }
             });
         } catch (error) {
-            console.error('Error en Search en el RoleController: ', error);
-            return responseF({ status: 500, success: false, message: `Error interno al tratar de obtener ${filters ?` Role por filtro `:`todos los registros de Role`}`});
+            console.error('Error en Search en el roleController: ', error);
+            return responseF({ status: 500, success: false, message: `Error interno al tratar de obtener ${filters ?` role por filtro `:`todos los registros de role`}`});
         }
     },
 
-    // Crear un nuevo Role
+    // Crear un nuevo role
     post: async ( newData ) => {
         try {
             const foreignKeyValidationResult = await validateForeignKeys(newData.foreignKeys);
@@ -136,21 +136,21 @@ const RoleController = {
             }
 
             const dataToCreate = { ...newData.regularFields, ...newData.foreignKeys };
-            const createdRole = await Role.create(dataToCreate);
+            const createdrole = await role.create(dataToCreate);
 
-            return responseF({ status: 201, success: true, message:'Registro creado exitosamente', data: createdRole });
+            return responseF({ status: 201, success: true, message:'Registro creado exitosamente', data: createdrole });
         } catch (error) {
-            console.error('Error en post en el RoleController: ', error);
-            return responseF({ status: 500, message: 'Error interno al crear el Role', success: false });
+            console.error('Error en post en el roleController: ', error);
+            return responseF({ status: 500, message: 'Error interno al crear el role', success: false });
         }
     },
 
-    // Actualizar un Role por ID
+    // Actualizar un role por ID
     put: async ( id, newData ) => {
         try {
-            const role = await Role.findByPk(id);
-            if (!role)
-                return responseF({  status: 404,  success: false,  message: 'Role no encontrado' });
+            const responseData = await role.findByPk(id);
+            if (!responseData)
+                return responseF({  status: 404,  success: false,  message: 'role no encontrado' });
 
             const foreignKeyValidationResult = await validateForeignKeys(newData.foreignKeys);
             if (foreignKeyValidationResult?.error)
@@ -159,16 +159,16 @@ const RoleController = {
             // Agregar llaves foráneas a los campos regulares
             const dataToUpdate = { ...newData.regularFields, ...newData.foreignKeys };
             
-            await role.update(dataToUpdate);
+            await responseData.update(dataToUpdate);
             
             // Devolver el registro actualizado
-            return responseF({ status: 200, success: true, message: 'Role actualizado exitosamente', data: role });
+            return responseF({ status: 200, success: true, message: 'role actualizado exitosamente', data: responseData });
         } catch (error) {
-            console.error('Error en Put en el RoleController: ', error);
+            console.error('Error en Put en el roleController: ', error);
             return responseF({ status: 500, success: false, message: `Error en el servidor al actualizar el role con id: ${id}` });
         }
     },
     
 };
 
-module.exports = RoleController;
+module.exports = roleController;

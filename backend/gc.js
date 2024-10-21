@@ -72,7 +72,7 @@ const createFilterMappings = (associations) => {
 
 // Función para crear el contenido del controlador
 const createControllerContent = (modelName) => {
-    const capitalizedModelName = modelName.charAt(0).toUpperCase() + modelName.slice(1);
+    const capitalizedModelName = modelName;
     const associations = getAssociations(modelName);
     const foreignKeys = getForeignKeys(modelName);
     const filterMappings = createFilterMappings(associations);
@@ -93,10 +93,10 @@ const createControllerContent = (modelName) => {
     // Obtener el atributo '${modelName}' del modelo ${capitalizedModelName} para el
     getFilters: async () => {
         try {
-            const attributes = await ${capitalizedModelName}.findAll({
+            const responseData = await ${capitalizedModelName}.findAll({
                 attributes: ['${modelName}', '${db.models[modelName].primaryKeyAttributes}']
             });
-            return responseF({ status: 200, success: true, data: attributes });
+            return responseF({ status: 200, success: true, data: responseData });
         } catch (error) {
             console.error('Error en getFiltersMethod en el ${capitalizedModelName}Controller: ', error);
             return responseF({
@@ -211,8 +211,8 @@ const ${capitalizedModelName}Controller = {
     // Obtener los títulos de las columnas de ${capitalizedModelName}
     get: async () => {
         try {
-            const attributes = Object.keys(${capitalizedModelName}.getAttributes());
-            return responseF({ status: 200, success: true, data: attributes });
+            const responseData = Object.keys(${capitalizedModelName}.getAttributes());
+            return responseF({ status: 200, success: true, data: responseData });
         } catch (error) {
             console.error('Error en get en el ${capitalizedModelName}Controller: ', error);
             return responseF({ status: 500, message: 'Error interno al tratar de obtener los títulos de las columnas', success: false });
@@ -222,11 +222,11 @@ const ${capitalizedModelName}Controller = {
     // Obtener un ${capitalizedModelName} por ID
         getById: async (id) => {
             try {
-                const ${modelName.toLowerCase()} = await ${capitalizedModelName}.findByPk(id);
+                const responseData = await ${capitalizedModelName}.findByPk(id);
                 if (!${modelName.toLowerCase()}) 
                     return responseF({ status: 404, message: '${capitalizedModelName} no encontrado.', success: false });
 
-                return responseF({ status: 200, success: true, data: ${modelName.toLowerCase()} });
+                return responseF({ status: 200, success: true, data: responseData });
             } catch (error) {
                 console.error('Error en getById en el ${capitalizedModelName}Controller: ' + id, error);
                 return responseF({ status: 500, success: false, message: 'Error interno al tratar de obtener el ${capitalizedModelName}',
@@ -314,8 +314,8 @@ const ${capitalizedModelName}Controller = {
     // Actualizar un ${capitalizedModelName} por ID
     put: async ( id, newData${modelAttributes['UpdateUserId'] ? ', UpdateUserId' :''} ) => {
         try {
-            const ${modelName.toLowerCase()} = await ${capitalizedModelName}.findByPk(id);
-            if (!${modelName.toLowerCase()})
+            const responseData = await ${capitalizedModelName}.findByPk(id);
+            if (!responseData)
                 return responseF({  status: 404,  success: false,  message: '${capitalizedModelName} no encontrado' });
 
             const foreignKeyValidationResult = await validateForeignKeys(newData.foreignKeys);
@@ -325,7 +325,7 @@ const ${capitalizedModelName}Controller = {
             // Agregar llaves foráneas a los campos regulares
             const dataToUpdate = { ...newData.regularFields, ...newData.foreignKeys${modelAttributes['UpdateUserId'] ? ', UpdateUserId' :''} };
             
-            await ${modelName.toLowerCase()}.update(dataToUpdate);
+            await responseData.update(dataToUpdate);
             ${modelName === 'Becario' ?
             `
             if( ${modelName.toLowerCase()}.UserId ){
@@ -335,7 +335,7 @@ const ${capitalizedModelName}Controller = {
                 `    
             :''}
             // Devolver el registro actualizado
-            return responseF({ status: 200, success: true, message: '${capitalizedModelName} actualizado exitosamente', data: ${modelName.toLowerCase()} });
+            return responseF({ status: 200, success: true, message: '${capitalizedModelName} actualizado exitosamente', data: responseData });
         } catch (error) {
             console.error('Error en Put en el ${capitalizedModelName}Controller: ', error);
             return responseF({ status: 500, success: false, message: \`Error en el servidor al actualizar el ${modelName.toLowerCase()} con id: \${id}\` });

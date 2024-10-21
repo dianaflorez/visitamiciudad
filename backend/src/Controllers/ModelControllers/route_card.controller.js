@@ -1,21 +1,21 @@
 //========================================
-// Este archivo interactúa con la base de datos, específicamente con la tabla de Route_card.
+// Este archivo interactúa con la base de datos, específicamente con la tabla de route_card.
 // Establece los métodos Get, getAll, Post, Put y Delete según sea necesario.
 // IMPORTA:
 //      'db': La clase db para la gestión de la base de datos.
-//      'Route_card': Modelo con el que interactua
+//      'route_card': Modelo con el que interactua
 //      'responseF': Generador de respuestas
-// EXPORTA: El controller de Route_card
+// EXPORTA: El controller de route_card
 //========================================
 const { Sequelize, Op } = require('sequelize');
 const { db } = require('../../db/db.config');                       //Importa la instancia de db
-const { Route_card } = require('../../db/db.config');  //Importa el modelo Route_card
+const { route_card } = require('../../db/db.config');  //Importa el modelo route_card
 const { responseF } = require('../../Helpers/responseF'); // Importa el creador de respuesta formato
 
 const validateForeignKeys = async (foreignKeys) => {
     for (const [key, value] of Object.entries(foreignKeys)) {
         if (value) {
-            const associatedModel = db.models[Route_card.getAttributes()[key].references.model];
+            const associatedModel = db.models[route_card.getAttributes()[key].references.model];
             const associatedInstance = await associatedModel.findByPk(value);
             if (!associatedInstance) {
                 return { error: true, field: key, value };
@@ -40,35 +40,35 @@ const filterMappings = {
     updated: '$updated_by_usuario.$'
 };
 
-// Controlador para el modelo Route_card
-const Route_cardController = {
-    // Obtener los títulos de las columnas de Route_card
+// Controlador para el modelo route_card
+const route_cardController = {
+    // Obtener los títulos de las columnas de route_card
     get: async () => {
         try {
-            const attributes = Object.keys(Route_card.getAttributes());
-            return responseF({ status: 200, success: true, data: attributes });
+            const responseData = Object.keys(route_card.getAttributes());
+            return responseF({ status: 200, success: true, data: responseData });
         } catch (error) {
-            console.error('Error en get en el Route_cardController: ', error);
+            console.error('Error en get en el route_cardController: ', error);
             return responseF({ status: 500, message: 'Error interno al tratar de obtener los títulos de las columnas', success: false });
         }
     },
 
-    // Obtener un Route_card por ID
+    // Obtener un route_card por ID
         getById: async (id) => {
             try {
-                const route_card = await Route_card.findByPk(id);
+                const responseData = await route_card.findByPk(id);
                 if (!route_card) 
-                    return responseF({ status: 404, message: 'Route_card no encontrado.', success: false });
+                    return responseF({ status: 404, message: 'route_card no encontrado.', success: false });
 
-                return responseF({ status: 200, success: true, data: route_card });
+                return responseF({ status: 200, success: true, data: responseData });
             } catch (error) {
-                console.error('Error en getById en el Route_cardController: ' + id, error);
-                return responseF({ status: 500, success: false, message: 'Error interno al tratar de obtener el Route_card',
+                console.error('Error en getById en el route_cardController: ' + id, error);
+                return responseF({ status: 500, success: false, message: 'Error interno al tratar de obtener el route_card',
                 });
             }
         },
     
-    // Obtener todos los Route_card o por filtros
+    // Obtener todos los route_card o por filtros
     search: async (filters, pagination, orderField, orderType ) => {
         try {
             // Construir la cláusula where 
@@ -117,7 +117,7 @@ const Route_cardController = {
                 order = undefined;
             }
 
-            const searchResult = await Route_card.findAndCountAll({
+            const searchResult = await route_card.findAndCountAll({
                 where,
                 limit: pagination ? pageSize : undefined,
                 offset: pagination ? (page - 1) * pageSize : undefined,
@@ -135,12 +135,12 @@ const Route_cardController = {
                 }
             });
         } catch (error) {
-            console.error('Error en Search en el Route_cardController: ', error);
-            return responseF({ status: 500, success: false, message: `Error interno al tratar de obtener ${filters ?` Route_card por filtro `:`todos los registros de Route_card`}`});
+            console.error('Error en Search en el route_cardController: ', error);
+            return responseF({ status: 500, success: false, message: `Error interno al tratar de obtener ${filters ?` route_card por filtro `:`todos los registros de route_card`}`});
         }
     },
 
-    // Crear un nuevo Route_card
+    // Crear un nuevo route_card
     post: async ( newData ) => {
         try {
             const foreignKeyValidationResult = await validateForeignKeys(newData.foreignKeys);
@@ -149,21 +149,21 @@ const Route_cardController = {
             }
 
             const dataToCreate = { ...newData.regularFields, ...newData.foreignKeys };
-            const createdRoute_card = await Route_card.create(dataToCreate);
+            const createdroute_card = await route_card.create(dataToCreate);
 
-            return responseF({ status: 201, success: true, message:'Registro creado exitosamente', data: createdRoute_card });
+            return responseF({ status: 201, success: true, message:'Registro creado exitosamente', data: createdroute_card });
         } catch (error) {
-            console.error('Error en post en el Route_cardController: ', error);
-            return responseF({ status: 500, message: 'Error interno al crear el Route_card', success: false });
+            console.error('Error en post en el route_cardController: ', error);
+            return responseF({ status: 500, message: 'Error interno al crear el route_card', success: false });
         }
     },
 
-    // Actualizar un Route_card por ID
+    // Actualizar un route_card por ID
     put: async ( id, newData ) => {
         try {
-            const route_card = await Route_card.findByPk(id);
-            if (!route_card)
-                return responseF({  status: 404,  success: false,  message: 'Route_card no encontrado' });
+            const responseData = await route_card.findByPk(id);
+            if (!responseData)
+                return responseF({  status: 404,  success: false,  message: 'route_card no encontrado' });
 
             const foreignKeyValidationResult = await validateForeignKeys(newData.foreignKeys);
             if (foreignKeyValidationResult?.error)
@@ -172,16 +172,16 @@ const Route_cardController = {
             // Agregar llaves foráneas a los campos regulares
             const dataToUpdate = { ...newData.regularFields, ...newData.foreignKeys };
             
-            await route_card.update(dataToUpdate);
+            await responseData.update(dataToUpdate);
             
             // Devolver el registro actualizado
-            return responseF({ status: 200, success: true, message: 'Route_card actualizado exitosamente', data: route_card });
+            return responseF({ status: 200, success: true, message: 'route_card actualizado exitosamente', data: responseData });
         } catch (error) {
-            console.error('Error en Put en el Route_cardController: ', error);
+            console.error('Error en Put en el route_cardController: ', error);
             return responseF({ status: 500, success: false, message: `Error en el servidor al actualizar el route_card con id: ${id}` });
         }
     },
     
 };
 
-module.exports = Route_cardController;
+module.exports = route_cardController;
