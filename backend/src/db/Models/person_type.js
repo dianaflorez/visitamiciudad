@@ -29,7 +29,6 @@ module.exports = function(sequelize, DataTypes) {
     tableName: 'person_type',
     schema: 'public',
     timestamps: true,
-    underscored: true,
     indexes: [
       {
         name: "person_type_pkey",

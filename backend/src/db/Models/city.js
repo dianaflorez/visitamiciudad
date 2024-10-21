@@ -38,8 +38,7 @@ module.exports = function(sequelize, DataTypes) {
     sequelize,
     tableName: 'city',
     schema: 'public',
-    timestamps: true,
-    underscored: true,
+    timestamps: false,
     indexes: [
       {
         name: "city_cod_country_cod_dep_cod_city_key",

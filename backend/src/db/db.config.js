@@ -20,8 +20,6 @@ const db = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
   },
   logging: false,  // Desactiva el logging si no lo necesitas
   define: {
-    timestamps: true,
-    underscored: true,
   }
 });
 

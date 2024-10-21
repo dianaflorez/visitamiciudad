@@ -25,7 +25,6 @@ module.exports = function(sequelize, DataTypes) {
     tableName: 'menu_type',
     schema: 'public',
     timestamps: true,
-    underscored: true,
     indexes: [
       {
         name: "menu_type_pkey",
