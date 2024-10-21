@@ -1,9 +1,19 @@
-import React from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, IconButton } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
-import { Link } from 'react-router-dom';
+import React from "react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Button,
+  IconButton,
+} from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
+import { Link } from "react-router-dom";
 
 const CardTable = ({ cards, onEdit, onDelete }) => {
   return (
@@ -35,26 +45,29 @@ const CardTable = ({ cards, onEdit, onDelete }) => {
               <TableCell>{card.order_no}</TableCell>
               <TableCell>{card.title}</TableCell>
               <TableCell>
-                <img src={card.image_url} alt={card.title} style={{ width: '50px', height: '50px' }} />
+                <img
+                  src={card.image_url}
+                  alt={card.title}
+                  style={{ width: "50px", height: "50px" }}
+                />
               </TableCell>
               <TableCell>{card.description}</TableCell>
-              <TableCell>{card.home ? 'Yes' : 'No'}</TableCell>
+              <TableCell>{card.home ? "Yes" : "No"}</TableCell>
               <TableCell>{card.type}</TableCell>
-              <TableCell>{card.active ? 'Active' : 'Inactive'}</TableCell>
+              <TableCell>{card.active ? "Active" : "Inactive"}</TableCell>
               <TableCell>
                 <Link to={`../sitio-edit/${card.id}`}>
-                    <IconButton onClick={() => onEdit(card.id)} color="primary">
-                        <EditIcon />
-                    </IconButton>
-                </Link> {/* Redirige a la página de edición */}
-                <Link to={`../sitio-detail-edit/${card.id}`}>
-                    Detalle 
-                </Link> 
-                <Link to={`../sitio-galeria-add/${card.id}`}>
-                    <IconButton onClick={() => onEdit(card.id)} color="primary">
-                        <PhotoLibraryIcon />
-                    </IconButton>
-                </Link> 
+                  <IconButton onClick={() => onEdit(card.id)} color="primary">
+                    <EditIcon />
+                  </IconButton>
+                </Link>{" "}
+                {/* Redirige a la página de edición */}
+                <Link to={`../sitio-detail-edit/${card.id}`}>Detalle</Link>
+                <Link to={`../sitio-gallery-add/${card.id}`}>
+                  <IconButton onClick={() => onEdit(card.id)} color="primary">
+                    <PhotoLibraryIcon />
+                  </IconButton>
+                </Link>
               </TableCell>
               <TableCell>
                 <IconButton onClick={() => onDelete(card.id)} color="secondary">

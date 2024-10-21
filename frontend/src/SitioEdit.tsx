@@ -1,13 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { TextField, Button, Box, Grid, Switch, FormControlLabel } from '@mui/material';
+import React, { useState, useEffect } from "react";
+import {
+  TextField,
+  Button,
+  Box,
+  Grid,
+  Switch,
+  FormControlLabel,
+} from "@mui/material";
 
 const SitioEdit = ({ cardData, onSubmit }) => {
   const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    image_url: '',
+    title: "",
+    description: "",
+    image_url: "",
     home: false,
-    type: '',
+    type: "",
     active: true,
     // Agrega otros campos según sea necesario
   });
@@ -16,11 +23,11 @@ const SitioEdit = ({ cardData, onSubmit }) => {
   useEffect(() => {
     if (cardData) {
       setFormData({
-        title: cardData.title || '',
-        description: cardData.description || '',
-        image_url: cardData.image_url || '',
+        title: cardData.title || "",
+        description: cardData.description || "",
+        image_url: cardData.image_url || "",
         home: cardData.home || false,
-        type: cardData.type || '',
+        type: cardData.type || "",
         active: cardData.active || true,
         // Otros campos
       });
@@ -31,7 +38,7 @@ const SitioEdit = ({ cardData, onSubmit }) => {
     const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: type === "checkbox" ? checked : value,
     });
   };
 
