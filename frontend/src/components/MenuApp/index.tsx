@@ -1,7 +1,24 @@
 import { Link } from "react-router-dom";
 
 import { AppBar, Toolbar, Button, Box, Container } from "@mui/material";
+
+import { Menu, MenuItem, IconButton } from "@mui/material";
+
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { useState } from "react";
+
+
 function MenuApp() {
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleMenuClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <Container>
       <AppBar position="static" color="transparent" elevation={0}>
@@ -44,6 +61,38 @@ function MenuApp() {
             >
               Login
             </Button>
+
+
+
+            {/* Menú Administrador */}
+            <IconButton
+              color="inherit"
+              onClick={handleMenuClick}
+              style={{ marginTop: 11 }}
+            >
+              Administrador <ArrowDropDownIcon />
+            </IconButton>
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleMenuClose}
+            >
+              <MenuItem component={Link} to="/sitio-index" onClick={handleMenuClose}>
+                Cards/Sitios
+              </MenuItem>
+              <MenuItem component={Link} to="/card-group" onClick={handleMenuClose}>
+                CardGroup
+              </MenuItem>
+              <MenuItem component={Link} to="/usuarios" onClick={handleMenuClose}>
+                Usuarios
+              </MenuItem>
+              <MenuItem component={Link} to="/publicidad" onClick={handleMenuClose}>
+                Publicidad
+              </MenuItem>
+              <MenuItem component={Link} to="/rutas" onClick={handleMenuClose}>
+                Rutas
+              </MenuItem>
+            </Menu>
           </div>
         </Toolbar>
       </AppBar>
