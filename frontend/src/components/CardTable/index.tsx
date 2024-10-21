@@ -42,15 +42,15 @@ const CardTable = ({ cards, onEdit, onDelete }) => {
               <TableCell>{card.type}</TableCell>
               <TableCell>{card.active ? 'Active' : 'Inactive'}</TableCell>
               <TableCell>
-                <Link to={`./sitio-edit/${card.id}`}>
+                <Link to={`../sitio-edit/${card.id}`}>
                     <IconButton onClick={() => onEdit(card.id)} color="primary">
                         <EditIcon />
                     </IconButton>
                 </Link> {/* Redirige a la página de edición */}
-                <Link to={`./sitio-detalle/${card.id}`}>
+                <Link to={`../sitio-detail-edit/${card.id}`}>
                     Detalle 
                 </Link> 
-                <Link to={`./sitio-galeria/${card.id}`}>
+                <Link to={`../sitio-galeria-add/${card.id}`}>
                     <IconButton onClick={() => onEdit(card.id)} color="primary">
                         <PhotoLibraryIcon />
                     </IconButton>
