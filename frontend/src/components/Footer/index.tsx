@@ -27,7 +27,16 @@ const CustomLink = styled(Link)(() => ({
 
 export default function Footer() {
   return (
-    <Box sx={{ bgcolor: "#023f52", color: "white", py: 4 }}>
+    <Box
+      sx={{
+        bgcolor: "#023f52",
+        color: "white",
+        py: 4,
+        textAlign: "center",
+        position: "relative",
+        bottom: 0,
+      }}
+    >
       <Container>
         <Grid container spacing={4}>
           {/* Menú */}
@@ -66,22 +75,33 @@ export default function Footer() {
 
           {/* Localización */}
           <Grid item xs={12} sm={3}>
-          
             <Typography variant="h6" gutterBottom>
               Localización
             </Typography>
             <Box display="flex" alignItems="center" mb={1}>
-              <img src="./images/location.png" alt="Localización" style={{ width: '20px', marginRight: '8px' }} />
+              <img
+                src="./images/location.png"
+                alt="Localización"
+                style={{ width: "20px", marginRight: "8px" }}
+              />
               <Typography>520001</Typography>
             </Box>
-            
+
             <Box display="flex" alignItems="center" mb={1}>
-              <img src="./images/telephone.png" alt="Teléfono" style={{ width: '24px', marginRight: '8px' }} />
+              <img
+                src="./images/telephone.png"
+                alt="Teléfono"
+                style={{ width: "24px", marginRight: "8px" }}
+              />
               <Typography>(+57 300777000)</Typography>
             </Box>
 
             <Box display="flex" alignItems="center" mb={1}>
-              <img src="./images/envelope.png" alt="Correo electrónico" style={{ width: '24px', marginRight: '8px' }} />
+              <img
+                src="./images/envelope.png"
+                alt="Correo electrónico"
+                style={{ width: "24px", marginRight: "8px" }}
+              />
               <Typography>infovisitamiciudad@gmail.com</Typography>
             </Box>
           </Grid>
