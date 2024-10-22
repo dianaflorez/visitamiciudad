@@ -53,9 +53,9 @@ const resetPasswordLimiter = rateLimit({
 });
 
 //Definir rutas de no modelos
-router.use('/login', loginLimiter, loginRouter)
+router.use('/auth', loginLimiter, loginRouter)
 // router.use('/reset-password', passwordResetRouter)
-router.use('/auth', authRouter)
+// router.use('/auth', authRouter)
 
 // Aplicar middleware de autenticación a todas las rutas siguientes
 // router.use( authenticateToken );

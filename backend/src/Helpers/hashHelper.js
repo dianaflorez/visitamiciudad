@@ -5,17 +5,18 @@
 // EXPORTA: Las funciones para calcular, generar y verificar hashes de contraseñas.
 //========================================
 const crypto = require('crypto');
+require('dotenv').config();
 
 // Genera un hash SHA-512 de la contraseña y la sal
 function calculateHash(password, salt) {
-    return crypto.createHash('sha512').update(password + salt).digest('base64').replace(/=+$/, ''); 
+    return crypto.createHash('sha256').update(password + salt).digest('hex').replace(/=+$/, '').substring(0, 40); 
 }
 
-// Genera una sal aleatoria y calcula el hash de la contraseña
+// Genera el hash de la contraseña utilizando JWT_SALT del .env
 function generateHash(password) {
-    const salt = crypto.randomBytes(5).toString('hex');
+    const salt = process.env.JWT_SALT; // Usar la sal del .env
     const hash = calculateHash(password, salt);
-    return { salt, hash };
+    return { hash };
 }
 
 // Verifica si la contraseña ingresada coincide con el hash almacenado

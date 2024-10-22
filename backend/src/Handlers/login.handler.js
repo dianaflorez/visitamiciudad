@@ -13,12 +13,23 @@ const loginHandler = {
     // Iniciar sesión
     login: async (req, res) => {
         try {
-            const { username, password } = req.body;
-            const result = await loginController.login(username, password);
+            const { email, password } = req.body;
+            const result = await loginController.login(email, password);
             res.status(result.status).json(result.response);
         } catch (error) {
             console.error('Error en el inicio de sesión:', error);
             res.status(500).json({ success: false, message: 'Error interno al procesar el inicio de sesión.' });
+        }
+    },
+
+    signup: async (req, res) => {
+        try {
+            const { email, password, name } = req.body;
+            const result = await loginController.signup(email, password, name);
+            res.status(result.status).json(result.response);
+        } catch (error) {
+            console.error('Error en el registro:', error);
+            res.status(500).json({ success: false, message: 'Error interno al procesar el registro.' });
         }
     }
 };

@@ -11,6 +11,7 @@ const loginHandler = require('../Handlers/login.handler');
 const loginRouter = express.Router();
 
 // Endpoint de inicio de sesión
-loginRouter.post('/', loginHandler.login);
+loginRouter.post('/login', loginHandler.login);
+loginRouter.post('/signup', loginHandler.signup);
 
 module.exports = loginRouter;

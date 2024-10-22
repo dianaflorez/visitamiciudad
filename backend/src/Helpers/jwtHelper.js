@@ -13,8 +13,8 @@ const jwtRefreshSecret = process.env.JWT_REFRESH_SECRET;
 const jwtResetSecret = process.env.JWT_RESET_PASSWORD_SECRET;
 
 //Funciones base
-const generate = (user, role, secretKey, expiresIn) => {
-    const payload = { user: { id: user.UserId, username: user.Username, role }
+const generate = (user, secretKey, expiresIn) => {
+    const payload = { user: { id: user.id, username: user.username,}
     };
 
     return jwt.sign(payload, secretKey, { expiresIn });
@@ -26,8 +26,8 @@ const verify = (token, secretKey) => {
 };
 
 //Funciones del token de autenticacion
-const generateToken = (user, role) => {
-    return generate(user, role, jwtSecret, '1h');
+const generateToken = (user) => {
+    return generate(user, jwtSecret, '1h');
 };
 
 const verifyToken = (token, refreshToken) => {
@@ -51,8 +51,8 @@ const verifyToken = (token, refreshToken) => {
 };
 
 //Funciones de RefreshToken
-const generateRefreshToken = (user, role) => {
-    return generate(user, role, jwtRefreshSecret, '2h');
+const generateRefreshToken = (user) => {
+    return generate(user, jwtRefreshSecret, '2h');
 };
 
 const verifyRefreshToken = (token) => {
