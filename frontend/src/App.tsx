@@ -3,6 +3,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./shared/theme";
 import Sitios from "./Sitios"; // Página de sitios externos
 import LoginPage from "./LoginPage"; // Página de login
+import SigninPage from "./SigninPage";
 import Home from "./Home"; // Página de login
 import SitiosDetail from "./SitiosDetail";
 import SitioNew from "./SitioNew";
@@ -30,6 +31,7 @@ function App() {
             <Route path="/sitios" element={<Sitios />} />
             <Route path="/sitios-descripcion" element={<SitiosDetail />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/signin" element={<SigninPage/>} />
 
             {/*Rutas Privadas*/}
             <Route

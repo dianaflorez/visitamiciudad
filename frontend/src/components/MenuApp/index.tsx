@@ -130,6 +130,14 @@ function MenuApp() {
               >
                 Login
               </Button>
+              <Button
+                color="inherit"
+                component={Link}
+                to="/signin"
+                style={{ marginTop: 12 }}
+              >
+                SignIn
+              </Button>
             </div>
           )}
         </Toolbar>

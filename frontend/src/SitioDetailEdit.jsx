@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { TextField, Button, Box, Typography, FormControlLabel, Switch } from '@mui/material';
 import axios from 'axios';

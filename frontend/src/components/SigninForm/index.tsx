@@ -2,8 +2,8 @@ import { Container, TextField, Button, Box, Typography, Link } from "@mui/materi
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-interface LoginFormProps {
-  onLogin: (username: string, password: string) => void;
+interface SigninFormProps {
+  onSignin: (username: string, password: string) => void;
 }
 
 // Esquema de validación con Yup
@@ -11,19 +11,25 @@ const validationSchema = Yup.object({
   username: Yup.string()
     .email("Debe ser un correo electrónico válido")
     .required("El correo es requerido"),
-  password: Yup.string().required("La contraseña es requerida"),
+  password: Yup.string()
+    .min(6, "La contraseña debe tener al menos 6 caracteres")
+    .required("La contraseña es requerida"),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref("password"), null], "Las contraseñas deben coincidir")
+    .required("Confirmar la contraseña es requerido"),
 });
 
-const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
+const SigninForm: React.FC<SigninFormProps> = ({ onSignin }) => {
   // Formik para manejar el formulario
   const formik = useFormik({
     initialValues: {
       username: "",
       password: "",
+      confirmPassword: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      onLogin(values.username, values.password);
+      onSignin(values.username, values.password);
     },
   });
 
@@ -47,7 +53,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
         }}
       >
         <Typography component="h1" variant="h5">
-          Inicio de Sesión
+          Registro
         </Typography>
         <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
           <TextField
@@ -71,12 +77,26 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
             label="Contraseña"
             type="password"
             id="password"
-            autoComplete="current-password"
+            autoComplete="new-password"
             value={formik.values.password}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
+          />
+          <TextField
+            margin="normal"
+            fullWidth
+            name="confirmPassword"
+            label="Confirmar Contraseña"
+            type="password"
+            id="confirmPassword"
+            autoComplete="new-password"
+            value={formik.values.confirmPassword}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
+            helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
           />
           <Button
             type="submit"
@@ -84,12 +104,12 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Ingresar
+            Registrarse
           </Button>
           <Typography variant="body2" align="center">
-            ¿No tienes una cuenta?{" "}
-            <Link href="/signin" variant="body2">
-              Regístrate
+            ¿Ya tienes una cuenta?{" "}
+            <Link href="/login" variant="body2">
+              Iniciar sesión
             </Link>
           </Typography>
         </Box>
@@ -98,4 +118,4 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
   );
 };
 
-export default LoginForm;
+export default SigninForm;
