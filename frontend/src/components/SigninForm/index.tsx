@@ -3,11 +3,13 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 
 interface SigninFormProps {
-  onSignin: (username: string, password: string) => void;
+  onSignin: (username: string, password: string, name: string) => void;
+  error: string | null;
 }
 
 // Esquema de validación con Yup
 const validationSchema = Yup.object({
+  name: Yup.string().required("El nombre es requerido"),
   username: Yup.string()
     .email("Debe ser un correo electrónico válido")
     .required("El correo es requerido"),
@@ -15,21 +17,35 @@ const validationSchema = Yup.object({
     .min(6, "La contraseña debe tener al menos 6 caracteres")
     .required("La contraseña es requerida"),
   confirmPassword: Yup.string()
-    .oneOf([Yup.ref("password"), null], "Las contraseñas deben coincidir")
+    .oneOf([Yup.ref("password"), undefined], "Las contraseñas deben coincidir")
     .required("Confirmar la contraseña es requerido"),
 });
 
-const SigninForm: React.FC<SigninFormProps> = ({ onSignin }) => {
+const SigninForm: React.FC<SigninFormProps> = ({ onSignin, error }) => {
   // Formik para manejar el formulario
   const formik = useFormik({
     initialValues: {
+      name: "",
       username: "",
       password: "",
       confirmPassword: "",
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      onSignin(values.username, values.password);
+    onSubmit: (values, { setSubmitting, setFieldError }) => {
+      try {
+        // Llamar a la función onSignin con los valores del formulario
+        onSignin(values.username, values.password, values.name);
+      } catch (err) {
+        if (err instanceof Error) {
+          // Si es un error, muestra el mensaje en el campo 'username'
+          setFieldError("username", err.message);
+        } else {
+          // Si no es un error, muestra un mensaje genérico
+          setFieldError("username", "Error en el registro");
+        }
+      } finally {
+        setSubmitting(false); // Finalizar el estado de envío
+      }
     },
   });
 
@@ -55,7 +71,28 @@ const SigninForm: React.FC<SigninFormProps> = ({ onSignin }) => {
         <Typography component="h1" variant="h5">
           Registro
         </Typography>
+
+        {error && (
+          <Box sx={{ color: 'red', marginBottom: '10px' }}>
+            {error}
+          </Box>
+        )}
+
         <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
+          <TextField
+            margin="normal"
+            fullWidth
+            id="name"
+            name="name"
+            label="Nombre"
+            autoComplete="name"
+            autoFocus
+            value={formik.values.name}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.name && Boolean(formik.errors.name)}
+            helperText={formik.touched.name && formik.errors.name}
+          />
           <TextField
             margin="normal"
             fullWidth
@@ -63,7 +100,6 @@ const SigninForm: React.FC<SigninFormProps> = ({ onSignin }) => {
             name="username"
             label="Correo electrónico"
             autoComplete="email"
-            autoFocus
             value={formik.values.username}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -103,6 +139,7 @@ const SigninForm: React.FC<SigninFormProps> = ({ onSignin }) => {
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
+            disabled={formik.isSubmitting}
           >
             Registrarse
           </Button>

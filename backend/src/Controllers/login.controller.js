@@ -24,6 +24,7 @@ const loginController = {
 
             const token = generateToken(user);
             const refreshToken = generateRefreshToken(user, null);
+            const username = user.username
 
             return {
                 status: 200,
@@ -31,6 +32,7 @@ const loginController = {
                     success: true,
                     token,
                     refreshToken,
+                    username
                 },
             };
         } catch (error) {
