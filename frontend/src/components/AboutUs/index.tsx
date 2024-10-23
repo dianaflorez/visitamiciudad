@@ -32,14 +32,13 @@ function AboutUs() {
         </Typography>
 
         <Typography variant="body1" gutterBottom>
-          It is a long established fact that a reader will be distracted by the
-          readable content of a page when looking at its layout. The point of
-          using Lorem Ipsum is that it has a more-or-less normal distribution of
-          letters, as opposed to using 'Content here , content here', making it
+          "Visita Mi Ciudad" es una aplicación web turística diseñada para 
+          ayudar a los usuarios a visualizar y registrar eventos, así como 
+          sitios culturales y turísticos de la ciudad San Juan de Pasto.
         </Typography>
-        <Button variant="contained" color="secondary" sx={{ marginTop: 3 }}>
+        {/* <Button variant="contained" color="secondary" sx={{ marginTop: 3 }}>
           Leer Más...
-        </Button>
+        </Button> */}
       </Grid>
     </Grid>
   );
