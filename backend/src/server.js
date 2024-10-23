@@ -12,6 +12,7 @@ const express = require("express");
 const cors = require('cors');
 const helmet = require('helmet');
 const router = require('./Router/router.config.js');
+const OpenAI = require('openai');
 require('dotenv').config();  // Cargar variables de entorno
 
 const server = express();
