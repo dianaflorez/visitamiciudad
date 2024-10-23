@@ -58,7 +58,7 @@ const openai = new OpenAI({
 });
 
 // Ruta para manejar las solicitudes de sugerencias de rutas
-app.post('/api/tour', async (req, res) => {
+server.post('/api/tour', async (req, res) => {
   const { group, days } = req.body;
 
   try {
