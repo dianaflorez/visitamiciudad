@@ -50,6 +50,34 @@ server.use(helmet.contentSecurityPolicy({
 // Middleware para analizar cuerpos JSON
 server.use(express.json());
 
+
+// Configuración de OpenAI
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY, // Reemplaza con tu API Key de OpenAI
+});
+
+// Ruta para manejar las solicitudes de sugerencias de rutas
+app.post('/api/tour', async (req, res) => {
+  const { group, days } = req.body;
+
+  try {
+    // Llamar a OpenAI para obtener sugerencias de rutas turísticas
+    const prompt = `Sugiere rutas turísticas en Pasto para un grupo ${group} que estará ${days} días.`;
+    const response = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",  // Puedes usar GPT-3.5 o GPT-4 si está disponible
+      //model: 'gpt-4o-mini',
+      messages: [{ role: "user", content: prompt }],
+    });
+
+    const suggestions = response.choices[0].message.content;
+    res.json({ suggestions });
+
+  } catch (error) {
+    console.error('Error al consultar OpenAI:', error);
+    res.status(500).json({ error: 'Hubo un error al obtener las sugerencias' });
+  }
+});
+
 // Ruta base para verificar si el servidor está corriendo
 server.get('/', (req, res) => {
   res.send('Servidor funcionando correctamente');
