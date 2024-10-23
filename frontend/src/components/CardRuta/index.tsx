@@ -1,47 +1,87 @@
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
+import React, { useState } from 'react';
+import { Card, CardContent, CardMedia, Typography, Button, TextField, Box } from '@mui/material';
 
-export default function CardRuta() {
+interface CardRutaProps {
+  imageSrc: string;
+  altText: string;
+  title: string;
+  group: string;
+}
+
+const CardRuta: React.FC<CardRutaProps> = ({ imageSrc, altText, title, group }) => {
+  const [days, setDays] = useState<number>(1);
+  const [suggestions, setSuggestions] = useState<string[]>([]); // Estado para las sugerencias
+  const [errorMessage, setErrorMessage] = useState<string | null>(null); // Estado para manejar errores
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    
+    // Enviar la solicitud al API
+    fetch('http://localhost:3000/api/tour', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ group, days }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        setSuggestions(data.suggestions || []); // Asume que data tiene una propiedad suggestions
+        setErrorMessage(null); // Reinicia el error si la respuesta es correcta
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        setErrorMessage('Hubo un problema al obtener las sugerencias.'); // Establece un mensaje de error
+      });
+  };
+
   return (
-    <Card sx={{ maxWidth: 345, margin: "auto" }}>
-      {/* Imagen */}
-      <Box sx={{ display: "flex", justifyContent: "center", p: 2 }}>
-        <CardMedia
-          component="img"
-          height="140"
-          image="/images/ruta_familia.png"
-          alt="Familia"
-          sx={{ maxWidth: 200 }} // Ajusta el tamaño si es necesario
-        />
-      </Box>
-      {/* Detalles */}
+    <Card sx={{ maxWidth: 345, margin: '1rem' }}>
+      <CardMedia component="img" height="257" image={imageSrc} alt={altText} />
       <CardContent>
-        <Typography variant="h6" component="div" align="center">
-          Familia
+        <Typography gutterBottom variant="h6" component="div">
+          {title}
         </Typography>
-      </CardContent>
-      {/* Número de días y botón */}
-      <CardContent sx={{ textAlign: "center" }}>
-        <Typography variant="h5" gutterBottom>
-          Número de días
-        </Typography>
-        <TextField
-          type="number"
-          name="days"
-          defaultValue="1"
-          inputProps={{ min: 1, max: 30 }}
-          className="form-control ruta-combo"
-          sx={{ width: "100%", mb: 2 }}
-        />
-        <Button variant="contained" color="primary" type="submit">
-          Consultar Rutas
-        </Button>
+        <Box component="form" onSubmit={handleSubmit}>
+          <Typography variant="body2" color="text.secondary">
+            Número de días
+          </Typography>
+          <TextField
+            type="number"
+            value={days}
+            onChange={(e) => setDays(parseInt(e.target.value))}
+            inputProps={{ min: 1, max: 30 }}
+            fullWidth
+            margin="normal"
+          />
+          <Button type="submit" variant="contained" color="primary" fullWidth>
+            Consultar Rutas
+          </Button>
+        </Box>
+
+        {/* Mostrar el resultado de las sugerencias */}
+        {suggestions.length > 0 && (
+          <Box mt={2}>
+            <Typography variant="body1" color="text.primary">
+              Sugerencias de rutas:
+            </Typography>
+            <ul>
+              {suggestions.map((suggestion, index) => (
+                <li key={index}>{suggestion}</li>
+              ))}
+            </ul>
+          </Box>
+        )}
+
+        {/* Mostrar un mensaje de error si ocurre algún problema */}
+        {errorMessage && (
+          <Typography variant="body2" color="error">
+            {errorMessage}
+          </Typography>
+        )}
       </CardContent>
     </Card>
   );
-}
+};
+
+export default CardRuta;
