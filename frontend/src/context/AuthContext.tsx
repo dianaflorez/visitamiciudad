@@ -13,7 +13,7 @@ interface AuthContextType {
   user: User | null;
   login: (username: string, password: string) => Promise<void>;
   logout: () => void;
-  signup: (username: string, password: string) => Promise<void>;
+  signup: (username: string, password: string, name:string) => Promise<void>;
 }
 
 // Crear el contexto
@@ -36,16 +36,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const navigate = useNavigate(); // Hook de navegación
 
   // Función de login que hace una solicitud al backend
-  const login = async (username: string, password: string) => {
+  const login = async (email: string, password: string) => {
     try {
-      const response = await axios.post("http://localhost:3001/login", {
-        username,
+      const response = await axios.post("http://localhost:3001/auth/login", {
+        email,
         password,
       });
 
-      const { token } = response.data;
+      const { username, token, refreshToken } = response.data;
+      console.log(username, token, refreshToken)
       setUser({ username, token });
       localStorage.setItem("token", token);
+      localStorage.setItem("refreshToken", refreshToken);
     } catch (error) {
       console.error("Error en login:", error);
       throw new Error("Credenciales inválidas");
@@ -53,13 +55,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   // Nueva función de signup
-  const signup = async (username: string, password: string) => {
+  const signup = async (email: string, password: string, name: string) => {
+    console.log(email, password, name);
+    
     try {
-      const response = await axios.post("http://localhost:3001/signup", {
-        username,
+      const response = await axios.post("http://localhost:3001/auth/signup", {
+        email,
         password,
+        name,
       });
-      const { token } = response.data;
+      const { token, username } = response.data;
       setUser({ username, token });
       localStorage.setItem("token", token);
     } catch (error) {
