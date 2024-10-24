@@ -2,7 +2,7 @@ import { Container } from "@mui/material";
 import { Typography } from "@mui/material";
 import { ContactForm, Footer } from "./components";
 
-import { List, ListItem, Link, Card, CardContent, CardMedia, Box, Grid } from '@mui/material';
+import { List, ListItem, Link, Card, CardContent, CardMedia, Grid } from '@mui/material';
 
 import ImageGallery from './components/ImageGallery'; // Ajusta la ruta según sea necesario
 
