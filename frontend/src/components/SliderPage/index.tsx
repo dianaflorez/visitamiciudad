@@ -11,18 +11,22 @@ function SliderPage() {
   const slides = [
     {
       img: "./images/new-hero-3.png",
-      title: "Imagen 1",
-      description: "Descripción de la imagen 1",
+      title: "San Juan de Pasto",
+      description: "Ciudad Sorpresa. Su riqueza histórica, cultural y colonial se puede observar en cada calle, porque se ha guardado su historia a través del tiempo.",
+      link: '/ciudad'
+    },
+    {
+      img: "./images/slider-carnavales.png",
+      title: "Carnavales",
+      description: "El Carnaval de negros y blancos es una expresión de la diversidad cultural de Pasto y del país, el cual se manifiesta a través de comparsas...",
+      link: '/carnvales'
     },
     {
       img: "./images/new-hero-3.png",
-      title: "Imagen 1",
-      description: "Descripción de la imagen 1",
-    },
-    {
-      img: "./images/new-hero-3.png",
-      title: "Imagen 1",
-      description: "Descripción de la imagen 1",
+      title: "Tour Cafes Especiales",
+      description: "Concurso que fortalece el consumo de cafés especiales en el departamento de Nariño...",
+      link: '/cafe'
+
     },
   ];
 
@@ -66,14 +70,12 @@ function SliderPage() {
                     gutterBottom
                     sx={{ fontWeight: "bold" }}
                   >
-                    San Juan de Pasto
+                    {slide.title}
                   </Typography>
                   <Typography variant="body1" gutterBottom>
-                    Ciudad Sorpresa. Su riqueza histórica, cultural y colonial
-                    se puede observar en cada calle, porque se ha guardado su
-                    historia a través del tiempo.
+                    {slide.description}
                   </Typography>
-                  <Button variant="contained" color="secondary">
+                  <Button variant="contained" color="secondary" href={slide.link} >
                     Leer Más...
                   </Button>
                 </Grid>

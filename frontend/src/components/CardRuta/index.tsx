@@ -17,7 +17,7 @@ const CardRuta: React.FC<CardRutaProps> = ({ imageSrc, altText, title, group }) 
     event.preventDefault();
     
     // Enviar la solicitud al API
-    fetch('http://localhost:3000/api/tour', {
+    fetch('http://localhost:3001/api/tour', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

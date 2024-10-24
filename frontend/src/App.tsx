@@ -12,6 +12,10 @@ import SitioIndex from "./SitioIndex";
 import SitioDetailEdit from "./SitioDetailEdit";
 import SitioGalleryAdd from "./SitioGalleryAddImage";
 
+import Ciudad from "./BannerCiudad";
+import Cafe from "./BannerCafe";
+
+
 /* slick-carousel CSS */
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -32,6 +36,10 @@ function App() {
             <Route path="/sitios-descripcion" element={<SitiosDetail />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signin" element={<SigninPage/>} />
+
+            <Route path="/ciudad" element={<Ciudad />} />
+            <Route path="/carnaval" element={<Ciudad />} />
+            <Route path="/cafe" element={<Cafe />} />
 
             {/*Rutas Privadas*/}
             <Route
