@@ -46,7 +46,7 @@ function Sitios() {
         variant="h4"
         align="left"
         gutterBottom
-        sx={{ marginTop: "20px" }}
+        sx={{ marginTop: "120px" }}
       >
         <span style={{ color: "purple" }}>•</span> Sitios de Interés{" "}
         <span style={{ color: "purple" }}>•</span>
@@ -61,7 +61,7 @@ function Sitios() {
                 overflow: "hidden",
                 borderRadius: "15px",
               }}
-              onClick={()=>handleSitioClick( sitio.title)}
+              onClick={() => handleSitioClick(sitio.title)}
             >
               <CardMedia
                 component="img"
