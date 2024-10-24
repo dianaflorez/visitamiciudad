@@ -1,6 +1,6 @@
-import React from 'react';
-import Slider from 'react-slick';
-import BannerItem from '../../components/BannerItem';
+import React from "react";
+import Slider from "react-slick";
+import BannerItem from "../../components/BannerItem";
 
 // Definir el tipo de los datos de banners
 interface BannerData {
@@ -26,7 +26,7 @@ const BannerList: React.FC<BannerListProps> = ({ banners }) => {
   };
 
   return (
-    <Slider {...settings}>
+    <Slider {...settings} style={{ marginTop: "140px" }}>
       {banners.map((banner, index) => (
         <div key={index}>
           <BannerItem imageSrc={banner.imageSrc} />

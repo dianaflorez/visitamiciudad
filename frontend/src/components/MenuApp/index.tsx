@@ -50,7 +50,7 @@ function MenuApp() {
           <Box sx={{ flexGrow: 1, display: "flex", alignItems: "center" }}>
             <img
               src={
-                scrolling ? "./images/logo-small.png" : "./images/logo-new.png"
+                scrolling ? "/images/logo-small.png" : "/images/logo-new.png"
               }
               alt="Logo"
               style={{
