@@ -74,19 +74,8 @@ const CardHandler = {
     post: async (req, res) => {
         try {
             const newData = req.body;
-            
-            const validationResult = await postValidation('Card', newData );
 
-            if (validationResult.error) {
-                return res.status(400).json({ success: false, message: validationResult.error });
-            }
-
-            const result = await CardController.post(validationResult);
-            if (result.error)
-                return res.status(400).json({
-                    success: false,
-                    message: `Error en la llave foránea: No existe el id ${createdCard.field.key} en el modelo ${createdCard.field.value}`
-                });
+            const result = await CardController.post(newData);
 
             return res.status(result.status).json(result.response);
         } catch (error) {

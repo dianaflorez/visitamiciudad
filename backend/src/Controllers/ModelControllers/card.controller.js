@@ -182,20 +182,38 @@ const cardController = {
     },
 
     // Crear un nuevo card
-    post: async ( newData ) => {
+    post: async (newData) => {
         try {
-            const foreignKeyValidationResult = await validateForeignKeys(newData.foreignKeys);
-            if (foreignKeyValidationResult?.error) {
-                return responseF({ status: 400, success: false, message: 'Error de validación de llave foránea' });
-            }
+            // Extraer los datos de newData en un objeto
+            const dataToCreate = {
+                menu_id: newData.menu_id,
+                city_id: newData.city_id,
+                order_no: newData.order_no,
+                title: newData.title,
+                image_url: newData.image_url,
+                description: newData.description,
+                home: newData.home,
+                type: newData.type,
+                card_group_id: newData.card_group_id,
+                active: newData.active,
+            };
 
-            const dataToCreate = { ...newData.regularFields, ...newData.foreignKeys };
-            const createdcard = await card.create(dataToCreate);
+            // Crear un nuevo registro en la tabla 'card'
+            const createdCard = await card.create(dataToCreate);
 
-            return responseF({ status: 201, success: true, message:'Registro creado exitosamente', data: createdcard });
+            return responseF({
+                status: 201,
+                success: true,
+                message: 'Registro creado exitosamente',
+                data: createdCard,
+            });
         } catch (error) {
-            console.error('Error en post en el cardController: ', error);
-            return responseF({ status: 500, message: 'Error interno al crear el card', success: false });
+            console.error('Error en post en el cardController:', error);
+            return responseF({
+                status: 500,
+                message: 'Error interno al crear el card',
+                success: false,
+            });
         }
     },
 
