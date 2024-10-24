@@ -63,10 +63,10 @@ server.post('/api/tour', async (req, res) => {
 
   try {
     // Llamar a OpenAI para obtener sugerencias de rutas turísticas
-    const prompt = `Sugiere rutas turísticas en Pasto para un grupo ${group} que estará ${days} días.`;
+    const prompt = `Sugiere rutas turísticas en Pasto para un grupo ${group} que estará ${days} días, ademas no olvides incluir indicaciones y direcciones de como llegar y el resultado envialo como codigo html pero sin la cabecera html ni el body solo el contenido donde cada dia sea un titulo en nedrita y despues de cada sugerencia por dia haya un espacio si puedes agregar imagenes o enlaces de imagenes o ubicacion geografica mejor `;
     const response = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",  // Puedes usar GPT-3.5 o GPT-4 si está disponible
-      //model: 'gpt-4o-mini',
+      //model: "gpt-3.5-turbo",  // Puedes usar GPT-3.5 o GPT-4 si está disponible
+      model: 'gpt-4o-mini',
       messages: [{ role: "user", content: prompt }],
     });
 
