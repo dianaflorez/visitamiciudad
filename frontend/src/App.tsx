@@ -13,6 +13,10 @@ import SitioDetailEdit from "./SitioDetailEdit";
 import SitioGalleryAdd from "./SitioGalleryAddImage";
 import ScrollToTop from "./ScrollToTop"; // Importar el nuevo componente
 
+import Ciudad from "./BannerCiudad";
+import Cafe from "./BannerCafe";
+
+
 /* slick-carousel CSS */
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -35,7 +39,14 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signin" element={<SigninPage />} />
 
+
             {/* Rutas Privadas */}
+            <Route path="/ciudad" element={<Ciudad />} />
+            <Route path="/carnaval" element={<Ciudad />} />
+            <Route path="/cafe" element={<Cafe />} />
+
+            {/*Rutas Privadas*/}
+
             <Route
               path="/sitio-index"
               element={
