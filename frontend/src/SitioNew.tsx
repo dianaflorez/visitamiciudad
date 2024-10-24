@@ -41,8 +41,8 @@ const SitioNew = () => {
   };
 
   const onSubmit = async (values) => {
-    console.log(values);
     const user_id = localStorage.getItem('id')
+    
 
     const formData = {
       menu_id: values.menuId,
@@ -57,6 +57,8 @@ const SitioNew = () => {
       active: values.active,
       created_id: user_id
     };
+
+    console.log(formData)
 
     const response = await apiClient.post(
       `${import.meta.env.VITE_API_URL}/card`,

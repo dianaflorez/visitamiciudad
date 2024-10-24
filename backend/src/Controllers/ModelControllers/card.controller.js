@@ -95,6 +95,9 @@ const cardController = {
       const responseData = await card.findAll({
         where: { created_id: userId },
       });
+      
+      console.log(responseData);
+      
 
       return responseF({
         status: 200,
@@ -249,6 +252,7 @@ const cardController = {
         type: newData.type,
         card_group_id: newData.card_group_id,
         active: newData.active,
+        created_id: newData.created_id,
       };
 
       // Crear un nuevo registro en la tabla 'card'
