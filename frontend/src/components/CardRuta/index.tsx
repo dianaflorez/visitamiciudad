@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardMedia, Typography, Button, TextField, Box } from '@mui/material';
-import ModarRuta from '../ModalRuta';  // Asegúrate de importar el componente ModarRuta
 import ModalRuta from '../ModalRuta';
 
 interface CardRutaProps {

@@ -2,19 +2,11 @@ import { Container } from "@mui/material";
 import { Typography } from "@mui/material";
 import { ContactForm, Footer } from "./components";
 
-import BannerList from './components/BannerList';
-import { List, ListItem, Link, Card, CardContent, CardMedia, Box, Grid } from '@mui/material';
+import { List, ListItem, Link, Card, CardContent, CardMedia, Grid } from '@mui/material';
 
 import ImageGallery from './components/ImageGallery'; // Ajusta la ruta según sea necesario
 
 const Ciudad = () => {
-
-    const bannerData = [
-        { imageSrc: './images/banner1.jpg' },
-        { imageSrc: './images/banner2.jpg' },
-        { imageSrc: './images/banner3.jpg' },
-        { imageSrc: './images/banner4.jpg' },
-    ];
 
 
     const imagesArray = [
