@@ -11,6 +11,7 @@ import {
   FormControl,
   Box,
   Container,
+  FormHelperText,
 } from "@mui/material";
 import { Typography } from "@mui/material";
 
@@ -21,7 +22,7 @@ import apiClient from "./api/axiosConfig";
 
 const SitioNew = () => {
   const validationSchema = Yup.object({
-    menuId: Yup.number().required("Menu ID is required"),
+    categoria: Yup.number().required("Menu ID is required"),
     orderNo: Yup.number().required("Order No is required"),
     title: Yup.string().required("Title is required"),
     description: Yup.string().required("Description is required"),
@@ -31,7 +32,7 @@ const SitioNew = () => {
   });
 
   const initialValues = {
-    menuId: "",
+    categoria: "",
     orderNo: 0,
     title: "",
     description: "",
@@ -45,14 +46,14 @@ const SitioNew = () => {
     
 
     const formData = {
-      menu_id: values.menuId,
+      menu_id: values.categoria,
       city_id: 1,
       order_no: values.orderNo,
       title: values.title,
       image_url: "no-one",
       description: values.description,
       home: values.home,
-      type: values.menuId,
+      type: values.categoria,
       card_group_id: values.cardGroupId,
       active: values.active,
       created_id: user_id,
@@ -110,14 +111,27 @@ const SitioNew = () => {
     });
   };
 
-  // Maneja el envío del formulario
-  /*
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Aquí podrías hacer la lógica para enviar los datos al backend
-    console.log("Formulario enviado:", formData);
-  };
-  */
+  const categorias = [
+    { id: 3, name: "Sitios Historicos" },
+    { id: 4, name: "Sitios Geográficos" },
+    { id: 5, name: "Sitios de Valor Espiritual" },
+    { id: 6, name: "Sitios de Impacto Economico" },
+
+    { id: 8, name: "Artesanias" },
+    { id: 9, name: "Musica" },
+    { id: 10, name: "Carnaval" },
+
+    { id: 12, name: "Comida Tipica" },
+    { id: 13, name: "Restaurantes" },
+    { id: 14, name: "Comida Rapida" },
+    { id: 15, name: "Heladería" },
+
+    { id: 17, name: "Bares" },
+    { id: 18, name: "Cines" },
+    { id: 19, name: "Discotekas" },
+    { id: 20, name: "Juegos Grupales" },
+    { id: 21, name: "Cafes" },
+  ];
 
   return (
     <Container sx={{ marginTop: 20 }}>
@@ -126,7 +140,14 @@ const SitioNew = () => {
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
-        {({ handleSubmit, errors, touched, handleChange, values }) => (
+        {({
+          handleSubmit,
+          errors,
+          touched,
+          handleChange,
+          handleBlur,
+          values,
+        }) => (
           <Form onSubmit={handleSubmit}>
             <Box sx={{ mt: 3, mx: 5 }}>
               <Typography
@@ -143,6 +164,7 @@ const SitioNew = () => {
               <Grid container spacing={3}>
                 {/* Campo para menu_id */}
                 <Grid item xs={12} sm={6}>
+                  {/*
                   <TextField
                     required
                     fullWidth
@@ -155,6 +177,32 @@ const SitioNew = () => {
                     error={touched.menuId && Boolean(errors.menuId)}
                     helperText={touched.menuId && errors.menuId}
                   />
+                  */}
+
+                  <FormControl fullWidth variant="outlined" margin="normal">
+                    <InputLabel htmlFor="categoria">Categoría</InputLabel>
+                    <Field
+                      as={Select}
+                      name="categoria"
+                      id="categoria"
+                      label="Categoría"
+                      value={values.categoria}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    >
+                      <MenuItem value="">
+                        <em>Selecciona una categoría</em>
+                      </MenuItem>
+                      {categorias.map((item) => (
+                        <MenuItem value={item.id} key={item.id}>
+                          {item.name}
+                        </MenuItem>
+                      ))}
+                    </Field>
+                    <FormHelperText>
+                      Selecciona una categoría de las opciones
+                    </FormHelperText>
+                  </FormControl>
                 </Grid>
 
                 {/* Campo para order_no */}
