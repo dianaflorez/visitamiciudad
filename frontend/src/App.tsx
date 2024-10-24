@@ -15,6 +15,7 @@ import ScrollToTop from "./ScrollToTop"; // Importar el nuevo componente
 
 import Ciudad from "./BannerCiudad";
 import Cafe from "./BannerCafe";
+import Carnaval from "./BannerCarnaval";
 
 
 /* slick-carousel CSS */
@@ -42,7 +43,7 @@ function App() {
 
             {/* Rutas Privadas */}
             <Route path="/ciudad" element={<Ciudad />} />
-            <Route path="/carnaval" element={<Ciudad />} />
+            <Route path="/carnavales" element={<Carnaval />} />
             <Route path="/cafe" element={<Cafe />} />
 
             {/*Rutas Privadas*/}
