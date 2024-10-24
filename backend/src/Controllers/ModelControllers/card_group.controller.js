@@ -41,7 +41,8 @@ const card_groupController = {
     // Obtener los títulos de las columnas de card_group
     get: async () => {
         try {
-            const responseData = Object.keys(card_group.getAttributes());
+            const responseData = card_group.findAndCountAll()
+            // const responseData = Object.keys(card_group.getAttributes());
             return responseF({ status: 200, success: true, data: responseData });
         } catch (error) {
             console.error('Error en get en el card_groupController: ', error);

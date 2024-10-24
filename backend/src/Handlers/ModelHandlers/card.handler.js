@@ -10,7 +10,7 @@
 //========================================
 
 const { postValidation, putValidation } = require('../../Helpers/validationHelper'); // Importa las funciones de validación
-const CardController = require('../../Controllers/ModelControllers/Card.controller'); // Importa el controlador del modelo
+const CardController = require('../../Controllers/ModelControllers/card.controller'); // Importa el controlador del modelo
 const { response } = require('../../Helpers/responseF'); // Importa el creador de respuesta formato
 
 // Handler para el modelo Card
@@ -31,6 +31,22 @@ const CardHandler = {
         try {
             const { id } = req.params;
             const  result = await CardController.getById(id);
+            if (! result) {
+                res.status(404).json({ error: 'No se encontró el dato' });
+            } else {
+                return res.status(result.status).json(result.response);
+            }
+        } catch (error) {
+            console.error('Error en getById en el CardHandler: ', error);
+            return res.status(500).json({ success: false, message: 'Error inesperado al obtener el dato' });
+        }
+    },
+
+    // Obtener un Card por ID
+    getByMenuId: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const  result = await CardController.getByMenuId(id);
             if (! result) {
                 res.status(404).json({ error: 'No se encontró el dato' });
             } else {

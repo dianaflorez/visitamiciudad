@@ -60,19 +60,48 @@ const cardController = {
     },
 
     // Obtener un card por ID
-        getById: async (id) => {
-            try {
-                const responseData = await card.findByPk(id);
-                if (!card) 
-                    return responseF({ status: 404, message: 'card no encontrado.', success: false });
+    getById: async (id) => {
+        try {
+            const responseData = await card.findByPk(id);
+            if (!card) 
+                return responseF({ status: 404, message: 'card no encontrado.', success: false });
 
-                return responseF({ status: 200, success: true, data: responseData });
-            } catch (error) {
-                console.error('Error en getById en el cardController: ' + id, error);
-                return responseF({ status: 500, success: false, message: 'Error interno al tratar de obtener el card',
+            return responseF({ status: 200, success: true, data: responseData });
+        } catch (error) {
+            console.error('Error en getById en el cardController: ' + id, error);
+            return responseF({ status: 500, success: false, message: 'Error interno al tratar de obtener el card',
+            });
+        }
+    },
+
+    getByMenuId: async (menuId) => {
+        try {
+            const responseData = await card.findAll({
+                where: { menu_id: menuId },
+            });
+    
+            if (!responseData || responseData.length === 0) {
+                return responseF({
+                    status: 404,
+                    message: 'No se encontraron cards para el menu_id proporcionado.',
+                    success: false,
                 });
             }
-        },
+    
+            return responseF({
+                status: 200,
+                success: true,
+                data: responseData,
+            });
+        } catch (error) {
+            console.error('Error en getByMenuId en el cardController:', error);
+            return responseF({
+                status: 500,
+                success: false,
+                message: 'Error interno al tratar de obtener los cards por menu_id',
+            });
+        }
+    },
     
     // Obtener todos los card o por filtros
     search: async (filters, pagination, orderField, orderType ) => {
