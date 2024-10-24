@@ -5,12 +5,26 @@ import { AppBar, Toolbar, Button, Box, Container } from "@mui/material";
 import { Menu, MenuItem } from "@mui/material";
 
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
+import { useTheme } from "@mui/material/styles";
 
 function MenuApp() {
   const [anchorEl, setAnchorEl] = useState(null);
   const { user, logout } = useAuth();
+
+  const [scrolling, setScrolling] = useState(false);
+  const theme = useTheme();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 50;
+      setScrolling(isScrolled);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -21,15 +35,30 @@ function MenuApp() {
   };
 
   return (
-    <Container>
-      <AppBar position="static" color="transparent" elevation={0}>
+    <AppBar
+      position="fixed"
+      style={{
+        backgroundColor: scrolling ? theme.palette.primary.main : "transparent",
+        color: scrolling ? "#fff" : "#000",
+        padding: "12px 0px",
+        transition: "background-color 0.5s ease",
+      }}
+      elevation={0}
+    >
+      <Container>
         <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Box
-            component="img"
-            sx={{ height: 100, mr: 2 }}
-            alt="Logo de la empresa"
-            src="./images/logo-new.png" // Reemplaza con tu logo
-          />
+          <Box sx={{ flexGrow: 1, display: "flex", alignItems: "center" }}>
+            <img
+              src={
+                scrolling ? "./images/logo-small.png" : "./images/logo-new.png"
+              }
+              alt="Logo"
+              style={{
+                height: scrolling ? "80px" : "100px",
+                transition: "all 0.3s ease",
+              }}
+            />
+          </Box>
 
           {/* Menú Administrador */}
           {user ? (
@@ -94,7 +123,7 @@ function MenuApp() {
             </div>
           ) : (
             <div>
-              <Button color="primary" href="/" style={{ marginTop: 12 }}>
+              <Button color="inherit" href="/" style={{ marginTop: 12 }}>
                 Inicio
               </Button>
               <Button color="inherit" href="/#sitios" style={{ marginTop: 12 }}>
@@ -137,8 +166,8 @@ function MenuApp() {
             </div>
           )}
         </Toolbar>
-      </AppBar>
-    </Container>
+      </Container>
+    </AppBar>
   );
 }
 

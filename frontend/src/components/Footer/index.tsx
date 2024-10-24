@@ -46,27 +46,27 @@ export default function Footer() {
             </Typography>
             <ul style={{ listStyleType: "none", padding: 0 }}>
               <li>
-                <CustomLink href="./" color="inherit">
+                <CustomLink href="/" color="inherit">
                   Inicio
                 </CustomLink>
               </li>
               <li>
-                <CustomLink href="./#sitios" color="inherit">
+                <CustomLink href="/#sitios" color="inherit">
                   Sitios de Interés
                 </CustomLink>
               </li>
               <li>
-                <CustomLink href="./#rutas" color="inherit">
+                <CustomLink href="/#rutas" color="inherit">
                   Rutas
                 </CustomLink>
               </li>
               <li>
-                <CustomLink href="./#nosotros" color="inherit">
+                <CustomLink href="/#nosotros" color="inherit">
                   Nosotros
                 </CustomLink>
               </li>
               <li>
-                <CustomLink href="./#contactenos" color="inherit">
+                <CustomLink href="/#contactenos" color="inherit">
                   Contáctanos
                 </CustomLink>
               </li>

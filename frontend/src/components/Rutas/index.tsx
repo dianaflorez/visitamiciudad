@@ -43,8 +43,8 @@ const Rutas = () => {
           gutterBottom
           sx={{ marginTop: "30px", color: "white" }}
         >
-          <span style={{ color: "purple" }}>•</span> Rutas{" "}
-          <span style={{ color: "purple" }}>•</span>
+          <span style={{ color: "#27afdd" }}>•</span> Rutas{" "}
+          <span style={{ color: "#27afdd" }}>•</span>
         </Typography>
         <Grid container spacing={2}>
           {routesData.map((route, index) => (
