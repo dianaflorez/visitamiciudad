@@ -46,7 +46,7 @@ const CardTable = ({ cards, onEdit, onDelete }) => {
               <TableCell>{card.title}</TableCell>
               <TableCell>
                 <img
-                  src={card.image_url}
+                  src={`https://lomerezcotodo.com/wiwoweb/web/archivos/${card.image_url}`}
                   alt={card.title}
                   style={{ width: "50px", height: "50px" }}
                 />

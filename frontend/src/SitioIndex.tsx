@@ -61,14 +61,14 @@ const SitioIndex = () => {
 
         // Si roleId es 2, traer todas las cartas
         if (roleId === "2") {
-          response = await axios.get("http://localhost:3001/cards");
+          response = await axios.get("http://localhost:3001/card");
           console.log("Todas las cartas:", response.data.data.rows);
           setCards(response.data.data.rows);
         }
         // Si roleId es 3, traer solo las cartas del usuario actual
         else if (roleId === "3" && userId) {
           response = await axios.get(
-            `http://localhost:3001/cards/user/${userId}`
+            `http://localhost:3001/card/user/${userId}`
           );
           console.log("Cartas del usuario:", response.data.data);
           setCards(response.data.data);
@@ -100,7 +100,7 @@ const SitioIndex = () => {
         variant="h4"
         align="left"
         gutterBottom
-        sx={{ marginTop: "20px" }}
+        sx={{ marginTop: "140px" }}
       >
         <span style={{ color: "purple" }}>•</span> Lista de Cards/Sitios{" "}
         <span style={{ color: "purple" }}>•</span>
