@@ -42,7 +42,7 @@ const SitioNew = () => {
 
   const onSubmit = async (values) => {
     console.log(values);
-    const user_id = localStorage.getItem('id')
+    const user_id = localStorage.getItem("id");
 
     const formData = {
       menu_id: values.menuId,
@@ -55,7 +55,7 @@ const SitioNew = () => {
       type: values.menuId,
       card_group_id: values.cardGroupId,
       active: values.active,
-      created_id: user_id
+      created_id: user_id,
     };
 
     const response = await apiClient.post(
@@ -118,7 +118,7 @@ const SitioNew = () => {
   */
 
   return (
-    <Container>
+    <Container sx={{ marginTop: 20 }}>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
