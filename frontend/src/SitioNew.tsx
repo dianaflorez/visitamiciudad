@@ -55,7 +55,7 @@ const SitioNew = () => {
       type: values.menuId,
       card_group_id: values.cardGroupId,
       active: values.active,
-      created_id: user_id
+      created_id: user_id,
     };
 
     console.log(formData)
@@ -120,7 +120,7 @@ const SitioNew = () => {
   */
 
   return (
-    <Container>
+    <Container sx={{ marginTop: 20 }}>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
