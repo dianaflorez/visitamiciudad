@@ -54,7 +54,11 @@ const card_detailController = {
     // Obtener un card_detail por ID
         getById: async (id) => {
             try {
-                const responseData = await card_detail.findByPk(id);
+                const responseData = await card_detail.findOne({
+                    where: {
+                        card_id: id,
+                    },
+                })
                 if (!card_detail) 
                     return responseF({ status: 404, message: 'card_detail no encontrado.', success: false });
 
