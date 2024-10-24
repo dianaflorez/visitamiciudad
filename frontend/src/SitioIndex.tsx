@@ -18,7 +18,7 @@ const SitioIndex = () => {
     type: string;
     active: boolean;
   }
-  
+
   const [cards, setCards] = useState<Card[]>([]);
 
   const mock = [
@@ -53,7 +53,7 @@ const SitioIndex = () => {
   useEffect(() => {
     // Obtener role_id de localStorage
     const roleId = localStorage.getItem("role_id");
-    const userId = localStorage.getItem("user_id"); // Suponiendo que también esté en localStorage
+    const userId = localStorage.getItem("id"); // Suponiendo que también esté en localStorage
 
     const fetchCards = async () => {
       try {
