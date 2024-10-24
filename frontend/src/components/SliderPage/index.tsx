@@ -19,7 +19,7 @@ function SliderPage() {
       img: "./images/slider-carnavales.png",
       title: "Carnavales",
       description: "El Carnaval de negros y blancos es una expresión de la diversidad cultural de Pasto y del país, el cual se manifiesta a través de comparsas...",
-      link: '/carnvales'
+      link: '/carnavales'
     },
     {
       img: "./images/new-hero-3.png",

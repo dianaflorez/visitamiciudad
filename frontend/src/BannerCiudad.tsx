@@ -15,6 +15,13 @@ const BannerCiudad = () => {
         './images/ciudad3.jpg',
         './images/ciudad4.jpg',
         './images/ciudad5.jpg',
+        './images/ciudad6.jpg',
+        './images/ciudad7.jpg',
+        './images/ciudad8.jpg',
+        './images/ciudad9.jpg',
+        './images/ciudad10.jpg',
+        './images/ciudad11.jpg',
+        './images/ciudad12.jpg',
     ];
 
   return (

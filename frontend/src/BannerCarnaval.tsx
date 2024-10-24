@@ -2,34 +2,41 @@ import { Container } from "@mui/material";
 import { Typography } from "@mui/material";
 import { ContactForm, Footer } from "./components";
 
-import BannerList from './components/BannerList';
 import { List, ListItem, Link, Card, CardContent, CardMedia, Box, Grid } from '@mui/material';
 
 import ImageGallery from './components/ImageGallery'; // Ajusta la ruta según sea necesario
 
-const Ciudad = () => {
-
-    const bannerData = [
-        { imageSrc: './images/banner1.jpg' },
-        { imageSrc: './images/banner2.jpg' },
-        { imageSrc: './images/banner3.jpg' },
-        { imageSrc: './images/banner4.jpg' },
-    ];
+const BannerCarnaval = () => {
 
 
     const imagesArray = [
-        './images/cafe0.jpg',
-        './images/cafe1.jpg',
-        './images/cafe2.jpg',
-        './images/cafe3.jpg',
-        './images/cafe4.jpg',
-        './images/cafe5.jpg',
-        './images/cafe6.jpg',
-        './images/cafe7.jpg',
-        './images/cafe8.jpg',
-        './images/cafe9.jpg',
-        './images/cafe10.jpg',
-        './images/cafe11.jpg',
+        './images/carnaval0.jpg',
+        './images/carnaval1.jpg',
+        './images/carnaval2.jpg',
+        './images/carnaval3.jpg',
+        './images/carnaval4.jpg',
+        './images/carnaval5.jpg',
+        './images/carnaval6.jpg',
+        './images/carnaval7.jpg',
+        './images/carnaval8.jpg',
+        './images/carnaval9.jpg',
+        './images/carnaval10.jpg',
+        './images/carnaval11.jpg',
+    ];
+
+    const imagesArray6Enero = [
+        './images/carnaval12.jpg',
+        './images/carnaval13.jpg',
+        './images/carnaval14.jpg',
+        './images/carnaval15.jpg',
+        './images/carnaval16.jpg',
+        './images/carnaval17.jpg',
+        './images/carnaval18.jpg',
+        './images/carnaval19.jpg',
+        './images/carnaval20.jpg',
+        './images/carnaval21.jpg',
+        './images/carnaval22.jpg',
+        './images/carnaval23.jpg',
     ];
 
   return (
@@ -39,13 +46,13 @@ const Ciudad = () => {
             {/* <BannerList banners={bannerData} /> */}
             
             <Typography
-            id="cafe"
+            id="carnaval"
             variant="h4"
             align="left"
             gutterBottom
             sx={{ marginTop: "20px" }}
             >
-            <span style={{ color: "purple" }}>•</span> Evento Master Coffee{" "}
+            <span style={{ color: "purple" }}>•</span> Carnavales de Negros y Blancos{" "}
             <span style={{ color: "purple" }}>•</span>
             </Typography>
                 
@@ -53,12 +60,12 @@ const Ciudad = () => {
             <List>
                 <ListItem>
                 <Link href="#que-ver-en-san-juan-de-pasto-y-narino" underline="hover">
-                    ¿Qué lugares recorrer?
+                    ¿Fechas de celebración y actividades?
                 </Link>
                 </ListItem>
                 <ListItem>
                 <Link href="#que-hacer-en-san-juan-de-pasto-y-narino-actividades-aventura-colombia" underline="hover">
-                    Recorrido Master Coffee
+                    Recorrido Carnavales
                 </Link>
                 </ListItem>
             </List>
@@ -70,7 +77,7 @@ const Ciudad = () => {
                     <CardMedia
                         component="img"
                         height="100%"
-                        image="./images/cafe0.jpg"
+                        image="./images/carnaval_01.jpg"
                         alt="Pasto"
                     />
                     </Grid>
@@ -79,25 +86,21 @@ const Ciudad = () => {
                     <Grid item xs={12} sm={8}>
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
-                        Cafe de Nariño
+                            Carnavales de Pasto - Patrimonio de la humanidad
                         </Typography>
                         <Typography variant="h6" id="que-ver-en-san-juan-de-pasto-y-narino" gutterBottom>
-                            Un tour de cafés especiales
+                            Fechas especiales
                         </Typography>
 
                         <Typography variant="body1" gutterBottom>
-                        El café es uno de los elementos estrella de Colombia, se ha caracterizado por la calidad y sabor del mismo. En Nariño se siembra un excelente café en manos de campesinos expertos y que, en la siembra del grano, han encontrado el amor por su tierra.
-                        <br></br>
-                        <br></br>
-                        El café de Nariño es uno de los más conocidos y apetecidos por su sabor y aroma. En su ciclo productivo se involucran condiciones geográficas, fisiológicas de las plantas, de secado, y por supuesto, la dedicación y conocimiento de los cafeteros de la zona quienes hacen que este sea uno de los productos insignia del departamento para el mundo entero.
-                        <br></br>
-                        <br></br>
-                        Su calidad ha conquistado diferentes continentes, y en Pasto, los visitantes, tienen la oportunidad de visitar varios lugares donde el café es el protagonista con sus características únicas
-
+                            El Carnaval es la celebración más importante, su manifestación es única y por ello fue declarado por la UNESCO como Patrimonio Cultural Inmaterial de la Humanidad en 2009. Lo ideal es visitar Pasto en medio de su fiesta, para conocer de cerca todo el fulgor y jolgorio que se vive en los primeros días del año, pero si no pueden venir justo en esas fechas ¡no pasa nada! porque pueden pasarse por el Museo del Carnaval de Negros y Blancos, un espacio de exhibición permanente del arte popular expresado en esta tradición cultural.
+                            <br></br>
+                            <br></br>
+                            En cada sección podrán conocer su historia y apreciar las creaciones de los artesanos en cada una de las expresiones patrimoniales del Carnaval. El museo está ubicado en la Calle 19 con Carrera 42, en el Centro Cultural Pandiaco.
                         
                         <Typography gutterBottom variant="h5" component="div">
-                            <Link href="https://turismo.narino.gov.co/rutas/ruta-del-cafe/" underline="hover" target ="_blank" >
-                                Recomendamos Ruta Cafe de Nariño
+                            <Link href="https://carnavaldepasto.org/" underline="hover" target ="_blank" >
+                                Recomendamos Carnavales de Pasto Sitio Oficial
                             </Link>
                         </Typography>
                         
@@ -107,9 +110,6 @@ const Ciudad = () => {
                 </Grid>
             </Card>
 
-            <Typography gutterBottom variant="h4" component="div" sx={{ marginTop: 4, marginBottom: 10 }}>
-                Cafeterias de San Juan de Pasto - Nariño
-            </Typography>
 
             <Card sx={{ marginTop: 4, marginBottom: 10 }}>
                 <Grid container spacing={2}>
@@ -117,13 +117,31 @@ const Ciudad = () => {
                     <Grid item xs={12} sm={8}>
                         <CardContent>
                             <Typography gutterBottom variant="h4" component="div">
-                            Obraje
+                                31 de Diciembre
                             </Typography>
                             <Typography variant="h6" id="que-ver-en-san-juan-de-pasto-y-narino" gutterBottom>
-                                Nariño, cuna de uno de los mejores cafés del mundo, asi lo refleja por ser el ganador de la taza de la excelencia 2021
+                                Desfile de Años Viejos
                             </Typography>
                             <Typography variant="body1" gutterBottom>
-                             El Café el Obraje, ganador de la taza de la excelencia 2021, representa el café de Nariño, uno de los más suaves y reconocidos de Colombia y del mundo. Panela, floral, coco, uchuva. En boca tenemos acidez media, cuerpo sedoso, aromático, con final muy agradable.
+                             
+                            Tradicional desfile y concurso de figuras alegóricas que representan personajes o hechos significativos, generalmente políticos, ocurridos durante el año que termina. Mediante la sátira, el humor y con mensajes críticos, se elaboran los motivos de los años viejos, que desfilan con su respectivo testamento, pues en horas de la noche se quemarán en punto de las doce.
+                            <br></br>
+                            <br></br>
+                            Hora: 9:00 A.M.     Lugar: Senda del Carnaval
+                            <br></br>
+                            <br></br>
+
+                            </Typography>
+
+                            <Typography variant="h6" id="que-ver-en-san-juan-de-pasto-y-narino" gutterBottom>
+                            Muestra de Autos Antiguos
+                            </Typography>
+                            <Typography variant="body1" gutterBottom>
+                           
+                            Carros antiguos que han sobrevivido al embate del tiempo, como piezas de lujo, recorren la senda del carnaval, para transportarnos a épocas pasadas. Los pilotos y acompañantes, como parte de la muestra, llevan atuendos acordes a los años de circulación de los vehículos. Es un pequeño viaje al pasado y una galería predilecta para los fanáticos del mundo automotriz.
+
+                            Hora: 10:00 A.M.     Lugar: Senda del Carnaval
+
                             </Typography>
                         </CardContent>
                     </Grid>
@@ -132,7 +150,7 @@ const Ciudad = () => {
                         <CardMedia
                             component="img"
                             height="100%"
-                            image="https://media.licdn.com/dms/image/v2/C4D1BAQFDb306ULwJOQ/company-background_10000/company-background_10000/0/1610985178559/cafe_el_obraje_cover?e=2147483647&v=beta&t=fEijQBnQy_TKsUOjyG24sQ7OWNCmn4hcgtYxwC9oTuE"
+                            image="https://carnavaldepasto.org/wp-content/uploads/2023/12/6_Anos_viejos_31.png"
                             alt="Pasto"
                         />
                     </Grid>
@@ -146,20 +164,41 @@ const Ciudad = () => {
                     <Grid item xs={12} sm={8}>
                         <CardContent>
                             <Typography gutterBottom variant="h4" component="div">
-                            Caffeto
+                                2 de Enero
                             </Typography>
                             
+                            <Typography variant="h6" id="que-ver-en-san-juan-de-pasto-y-narino" gutterBottom>
+                                Ofrenda a la Virgen de las Mercedes
+                            </Typography>
                             <Typography variant="body1" gutterBottom>
-                                Caffeto, marca especializada en cafés de Nariño, proyecta una línea de productos que busca enriquecer la experiencia del huésped a la hora de degustar esta bebida aromática.
+                                En el templo de la Merced, a partir de las siete de la mañana se celebra la eucarística en homenaje a la “Michita Linda”, Patrona de Pasto.
                                 <br></br>
                                 <br></br>
-
-                                Gracias a los variados pisos términos con los que ha sido privilegiado Nariño, los frutos de café que allí se desarrollan tienen propiedades diferenciales y de altísima calidad. Estas características, muy apetecidas en los mercados internacionales, las ha sabido aprovechar Caffeto, un referente de esta zona del país, que desde 1996 procesa y comercializa un café único. 
+                                Hora: 7:00 A.M.     Lugar: Templo de la Merced
+                                <br></br>
+                                <br></br>
                             </Typography>
 
-                            <Link href="https://caffeto.com.co/" underline="hover" target ="_blank" >
-                                Caffeto
-                            </Link>
+                            <Typography variant="h6" id="que-ver-en-san-juan-de-pasto-y-narino" gutterBottom>
+                                El Carnavalito
+                            </Typography>
+                            <Typography variant="body1" gutterBottom>
+                                La Senda del Carnaval abre un espacio para el disfrute carnavalero de la niñez y la adolescencia, en donde aflora la creatividad, la herencia artística, las prácticas culturales transmitidas de generación en generación y renovadas por la imaginación de la infancia.
+                            </Typography>
+
+                            <Typography variant="h6" id="que-ver-en-san-juan-de-pasto-y-narino" gutterBottom>
+                                Nariño Musical
+                            </Typography>
+                            <Typography variant="body1" gutterBottom>
+                                En la Plaza de Nariño se brinda un espacio para la presentación de reconocidas agrupaciones musicales de las subregiones del departamento de Nariño, creadoras e intérpretes de distintos ritmos.
+                            </Typography>
+
+                            <Typography variant="h6" id="que-ver-en-san-juan-de-pasto-y-narino" gutterBottom>
+                                Rock Carnaval
+                            </Typography>
+                            <Typography variant="body1" gutterBottom>
+                                En la Plaza del Carnaval, nos espera el concierto de música alternativa, con géneros musicales como el rock y el rap, para celebrar las diversas manifestaciones culturales juveniles.
+                            </Typography>
                         </CardContent>
                     </Grid>
                     {/* Imagen al lado */}
@@ -167,13 +206,12 @@ const Ciudad = () => {
                         <CardMedia
                             component="img"
                             height="100%"
-                            image="./images/cafe_caffeto.jpg"
+                            image="https://carnavaldepasto.org/wp-content/uploads/2023/12/10_Carnavalito_2_2.png"
                             alt="Pasto"
                         />
                     </Grid>
                 </Grid>
             </Card>
-
 
             <Card sx={{ marginTop: 4, marginBottom: 10 }}>
                 <Grid container spacing={2}>
@@ -181,21 +219,33 @@ const Ciudad = () => {
                     <Grid item xs={12} sm={8}>
                         <CardContent>
                             <Typography gutterBottom variant="h4" component="div">
-                            Moneta
+                                3 de Enero
                             </Typography>
                             
+                            <Typography variant="h6" id="que-ver-en-san-juan-de-pasto-y-narino" gutterBottom>
+                                Canto a la Tierra
+                            </Typography>
                             <Typography variant="body1" gutterBottom>
-                                Desde las montañas de Aponte hasta el Pacífico en Tumaco, nuestra bebida de autor Cordillera y Mar combina el café honey de altura con cáscara de cacao tumaqueño y la frescura del coco. Un tributo al territorio nariñense y su historia.
-
-                                ¡Prueba su sabor y vota por Moneta en el Coffee Master!
-                                ☕Bebida solo disponible en Moneta Sede Versalles
-
-                                #café #cafeteria #coffemaster #pacifico #pastonariño #sabornariñense
+                                Desfile de Colectivos Coreográﬁcos que traen a la memoria las travesías épicas del legado ancestral andino latinoamericano, en tributo a la madre tierra. Cada colectivo lo conforman mínimo ciento cuarenta integrantes y máximo doscientos veinte, entre danzantes, músicos y zanqueros.
+                                <br></br>
+                                <br></br>
                             </Typography>
 
-                            <Link href="https://caffeto.com.co/" underline="hover" target ="_blank" >
-                                Caffeto
-                            </Link>
+                            <Typography variant="h6" id="que-ver-en-san-juan-de-pasto-y-narino" gutterBottom>
+                                Que Viva la Música Campesina 
+                            </Typography>
+                            <Typography variant="body1" gutterBottom>
+                                En el tablado de la Plaza de Nariño afinamos oído para compartir la creatividad, el sentimiento y sonoridad de la música campesina.
+                            </Typography>
+
+                            <Typography variant="h6" id="que-ver-en-san-juan-de-pasto-y-narino" gutterBottom>
+                                Canto a la Vida 
+                            </Typography>
+                            <Typography variant="body1" gutterBottom>
+                                En la Plaza del Carnaval vibrará la fuerza, la vitalidad y los saberes musicales de la tradición sonora andina y 
+                            </Typography>
+
+                            
                         </CardContent>
                     </Grid>
                     {/* Imagen al lado */}
@@ -203,7 +253,132 @@ const Ciudad = () => {
                         <CardMedia
                             component="img"
                             height="100%"
-                            image="./images/cafe_moneta.jpg"
+                            image="https://carnavaldepasto.org/wp-content/uploads/2023/12/3-Enero.png"
+                            alt="Pasto"
+                        />
+                    </Grid>
+                </Grid>
+            </Card>
+
+
+            <Typography gutterBottom variant="h3" component="div">
+                Galeria de Fotos 3 de Enero
+            </Typography>
+            
+
+            <ImageGallery images={imagesArray} />
+
+            <Card sx={{ marginTop: 4, marginBottom: 10 }}>
+                <Grid container spacing={2}>
+                    {/* Contenido al lado de la imagen */}
+                    <Grid item xs={12} sm={8}>
+                        <CardContent>
+                            <Typography gutterBottom variant="h4" component="div">
+                                4 de Enero
+                            </Typography>
+                            
+                            <Typography variant="h6" id="que-ver-en-san-juan-de-pasto-y-narino" gutterBottom>
+                                La Llegada de la Familia Castañeda
+                            </Typography>
+                            <Typography variant="body1" gutterBottom>
+                                Es un desﬁle tradicional que se realiza por la senda del carnaval y recrea pasajes, hechos y personajes de la identidad, de la memoria e historia rural y urbana de la región. La familia Castañeda le da la bienvenida a la oficial a los turistas que arriban a Pasto para disfrutar del mejor carnaval.
+                                <br></br>
+                                <br></br>
+                            </Typography>
+
+                            <Typography variant="h6" id="que-ver-en-san-juan-de-pasto-y-narino" gutterBottom>
+                                Rumba Carnavalera
+                            </Typography>
+                            <Typography variant="body1" gutterBottom>
+                                Presentación de agrupaciones de música bailable. Orquestas y grupos tropicales en se presentan en la Plaza del Carnaval y Plaza de Nariño, desde el 4 y hasta el 6 de enero, entre las cuatro de la tarde y las once de la noche.
+                            </Typography>
+
+                        </CardContent>
+                    </Grid>
+                    {/* Imagen al lado */}
+                    <Grid item xs={12} sm={4}>
+                        <CardMedia
+                            component="img"
+                            height="100%"
+                            image="https://carnavaldepasto.org/wp-content/uploads/2023/12/9_Castaneda_4_2.png"
+                            alt="Pasto"
+                        />
+                    </Grid>
+                </Grid>
+            </Card>
+
+            <Card sx={{ marginTop: 4, marginBottom: 10 }}>
+                <Grid container spacing={2}>
+                    {/* Contenido al lado de la imagen */}
+                    <Grid item xs={12} sm={8}>
+                        <CardContent>
+                            <Typography gutterBottom variant="h4" component="div">
+                                5 de Enero
+                            </Typography>
+                            
+                            <Typography variant="h6" id="que-ver-en-san-juan-de-pasto-y-narino" gutterBottom>
+                                Día de Negros “Una pintica por favor”
+                            </Typography>
+                            <Typography variant="body1" gutterBottom>
+                            Juego de identidad, práctica lúdica que dio origen al juego de carnaval como un símbolo de igualdad. Las calles se llenan de la alegría que provoca el compartir el ritual de pintarse el rostro con cosmético negro y celebrar la libertad.
+                                <br></br>
+                                <br></br>
+                            </Typography>
+
+                            <Typography variant="h6" id="que-ver-en-san-juan-de-pasto-y-narino" gutterBottom>
+                                Rumba Carnavalera
+                            </Typography>
+                            <Typography variant="body1" gutterBottom>
+                            Orquestas y agrupaciones de música baile se presentan en la Plaza de Nariño y Plaza del Carnaval, desde las 4 de la tarde hasta las 11 de la noche.
+                            </Typography>
+
+                        </CardContent>
+                    </Grid>
+                    {/* Imagen al lado */}
+                    <Grid item xs={12} sm={4}>
+                        <CardMedia
+                            component="img"
+                            height="100%"
+                            image="https://carnavaldepasto.org/wp-content/uploads/2023/12/Negros.png"
+                            alt="Pasto"
+                        />
+                    </Grid>
+                </Grid>
+            </Card>
+
+            <Card sx={{ marginTop: 4, marginBottom: 10 }}>
+                <Grid container spacing={2}>
+                    {/* Contenido al lado de la imagen */}
+                    <Grid item xs={12} sm={8}>
+                        <CardContent>
+                            <Typography gutterBottom variant="h4" component="div">
+                                6 de Enero
+                            </Typography>
+                            
+                            <Typography variant="h6" id="que-ver-en-san-juan-de-pasto-y-narino" gutterBottom>
+                                Desfile Magno
+                            </Typography>
+                            <Typography variant="body1" gutterBottom>
+                                Es el culmen de la ﬁesta, es un día apoteósico con la creatividad a ﬂor de piel. Con profundo compromiso con el patrimonio cultural inmaterial, desﬁlan por la Senda del Carnaval: disfraces individuales, comparsas, carrozas de menores dimensiones y carrozas gigantes, la música festiva de las murgas, emergen ﬁguras ancestrales, lo sagrado y lo profano, mitos y leyendas propias o universales, gigantescas obras de arte.
+                                <br></br>
+                                <br></br>
+                            </Typography>
+
+                            <Typography variant="h6" id="que-ver-en-san-juan-de-pasto-y-narino" gutterBottom>
+                                Rumba Carnavalera
+                            </Typography>
+                            <Typography variant="body1" gutterBottom>
+                            Orquestas y agrupaciones de música baile se presentan en la Plaza de Nariño y Plaza del Carnaval, desde las 4 de la tarde hasta las 11 de la noche.
+                            </Typography>
+
+                        </CardContent>
+                    </Grid>
+                    {/* Imagen al lado */}
+                    <Grid item xs={12} sm={4}>
+                        <CardMedia
+                            component="img"
+                            height="100%"
+                            image="https://carnavaldepasto.org/wp-content/uploads/2023/12/6-Enero-1.png"
                             alt="Pasto"
                         />
                     </Grid>
@@ -212,14 +387,11 @@ const Ciudad = () => {
                 
 
             <Typography gutterBottom variant="h3" component="div">
-                Evento Master Coffe
+                Galeria de Fotos 6 de Enero
             </Typography>
-            <Typography gutterBottom variant="h5" component="div">
-                Concurso que fortalece el consumo de cafés especiales en el departamento de Nariño. Las cafeterias participantes seleccionan una bebida, la cual 
+            
 
-            </Typography>
-
-            <ImageGallery images={imagesArray} />
+            <ImageGallery images={imagesArray6Enero} />
 
         
       </Container>
@@ -229,4 +401,4 @@ const Ciudad = () => {
   );
 };
 
-export default Ciudad;
+export default BannerCarnaval;
