@@ -1,24 +1,47 @@
-import { Grid, Typography, Container } from '@mui/material';
+import { Grid, Typography, Container } from "@mui/material";
 import { CardRuta } from "../../components";
 
 const Rutas = () => {
   const routesData = [
-    { imageSrc: 'images/ruta_familia.png', altText: 'Familia', title: 'Familia', group: 'familia' },
-    { imageSrc: 'images/ruta_pareja.png', altText: 'Pareja', title: 'Pareja', group: 'pareja' },
-    { imageSrc: 'images/ruta_viajera.png', altText: 'Individual', title: 'Individual', group: 'individual' },
-    { imageSrc: 'images/ruta_institucional.png', altText: 'Grupal', title: 'Grupal', group: 'Grupal' },
+    {
+      imageSrc: "images/ruta_familia.png",
+      altText: "Familia",
+      title: "Familia",
+      group: "familia",
+    },
+    {
+      imageSrc: "images/ruta_pareja.png",
+      altText: "Pareja",
+      title: "Pareja",
+      group: "pareja",
+    },
+    {
+      imageSrc: "images/ruta_viajera.png",
+      altText: "Individual",
+      title: "Individual",
+      group: "individual",
+    },
+    {
+      imageSrc: "images/ruta_institucional.png",
+      altText: "Grupal",
+      title: "Grupal",
+      group: "Grupal",
+    },
   ];
 
   return (
-    <Grid container sx={{ marginTop: '2rem', backgroundColor: "#27afdd" }} justifyContent="left">
-
-      <Container sx={{ paddingBottom: '2rem', backgroundColor: "#27afdd" }}>
+    <Grid
+      container
+      sx={{ marginTop: "2rem", backgroundColor: "#9c27b0" }}
+      justifyContent="left"
+    >
+      <Container sx={{ paddingBottom: "2rem", backgroundColor: "#9c27b0" }}>
         <Typography
           id="rutas"
           variant="h4"
           align="left"
           gutterBottom
-          sx={{ marginTop: "30px", color: 'white' }}
+          sx={{ marginTop: "30px", color: "white" }}
         >
           <span style={{ color: "purple" }}>•</span> Rutas{" "}
           <span style={{ color: "purple" }}>•</span>
@@ -37,7 +60,6 @@ const Rutas = () => {
         </Grid>
       </Container>
     </Grid>
-
   );
 };
 
@@ -64,7 +86,6 @@ export default Rutas;
 //       <Grid container spacing={3}>
 //         <Grid item xs={12} md={12} padding={2}>
 //           <CardRuta />
-
 
 //         </Grid>
 //       </Grid>

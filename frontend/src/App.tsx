@@ -17,7 +17,6 @@ import Ciudad from "./BannerCiudad";
 import Cafe from "./BannerCafe";
 import Carnaval from "./BannerCarnaval";
 
-
 /* slick-carousel CSS */
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -31,7 +30,6 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <AuthProvider>
-          <ScrollToTop /> {/* Componente para manejar el scroll */}
           <MenuApp />
           <Routes>
             <Route path="/" element={<Home />} />
@@ -39,7 +37,6 @@ function App() {
             <Route path="/sitios-descripcion/:id" element={<SitiosDetail />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signin" element={<SigninPage />} />
-
 
             {/* Rutas Privadas */}
             <Route path="/ciudad" element={<Ciudad />} />
