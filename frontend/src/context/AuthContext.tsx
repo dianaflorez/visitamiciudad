@@ -43,11 +43,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         password,
       });
 
-      const { username, token, refreshToken } = response.data;
+      const { username, token, refreshToken, role_id, id } = response.data;
       console.log(username, token, refreshToken)
       setUser({ username, token });
       localStorage.setItem("token", token);
       localStorage.setItem("refreshToken", refreshToken);
+      localStorage.setItem("role_id", role_id)
+      localStorage.setItem("id", id )
     } catch (error) {
       console.error("Error en login:", error);
       throw new Error("Credenciales inválidas");
@@ -64,9 +66,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         password,
         name,
       });
-      const { token, username } = response.data;
+      const { username, token, refreshToken, role_id, id } = response.data;
       setUser({ username, token });
       localStorage.setItem("token", token);
+      localStorage.setItem("refreshToken", refreshToken);
+      localStorage.setItem("role_id", role_id)
+      localStorage.setItem("id", id )
     } catch (error) {
       console.error("Error en signup:", error);
       throw new Error("Error en el registro");

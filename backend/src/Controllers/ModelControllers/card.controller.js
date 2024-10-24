@@ -74,6 +74,35 @@ const cardController = {
         }
     },
 
+    getByUserId: async (userId) => {
+        try {
+            const responseData = await card.findAll({
+                where: { created_id: userId },
+            });
+    
+            if (!responseData || responseData.length === 0) {
+                return responseF({
+                    status: 404,
+                    message: 'No se encontraron cards para el user_id proporcionado.',
+                    success: false,
+                });
+            }
+    
+            return responseF({
+                status: 200,
+                success: true,
+                data: responseData,
+            });
+        } catch (error) {
+            console.error('Error en getByMenuId en el cardController:', error);
+            return responseF({
+                status: 500,
+                success: false,
+                message: 'Error interno al tratar de obtener los cards por menu_id',
+            });
+        }
+    },
+
     getByMenuId: async (menuId) => {
         try {
             const responseData = await card.findAll({

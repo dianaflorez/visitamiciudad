@@ -24,7 +24,7 @@ const loginController = {
 
             const token = generateToken(user);
             const refreshToken = generateRefreshToken(user, null);
-            const username = user.username
+            const { username, role_id, id } = user
 
             return {
                 status: 200,
@@ -32,7 +32,9 @@ const loginController = {
                     success: true,
                     token,
                     refreshToken,
-                    username
+                    username,
+                    role_id,
+                    id
                 },
             };
         } catch (error) {
@@ -59,8 +61,12 @@ const loginController = {
                 email,
                 name,
                 password: hash,
-                username
+                username,
+                role_id: 3,
+                id
             });
+
+            const { role_id, id } = newUser
 
             // Generar un token JWT para el nuevo usuario
             const token = generateToken(newUser, 'user');
@@ -73,6 +79,7 @@ const loginController = {
                     message: 'Usuario registrado exitosamente',
                     token,
                     refreshToken,
+                    role_id:3
                 },
             };
         } catch (error) {

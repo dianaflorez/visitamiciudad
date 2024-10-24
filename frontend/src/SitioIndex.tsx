@@ -1,12 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CardTable from "./components/CardTable";
-import { Typography } from "@mui/material";
+import { Typography, Button, Container } from "@mui/material";
 import { Link } from "react-router-dom";
-import { Button, Container } from "@mui/material";
+import axios from "axios";
 
 const SitioIndex = () => {
-  // Ejemplo de array de cards
-  const [cards, setCards] = useState([
+  interface Card {
+    id: number;
+    menu_id: number;
+    menu_name?: string;
+    created_id?: number;
+    order_no: number;
+    title: string;
+    image_url: string;
+    description: string;
+    home: boolean;
+    type: string;
+    active: boolean;
+  }
+  
+  const [cards, setCards] = useState<Card[]>([]);
+
+  const mock = [
     {
       id: 1,
       menu_id: 2,
@@ -33,19 +48,49 @@ const SitioIndex = () => {
       type: "Horizontal",
       active: false,
     },
-  ]);
+  ];
+
+  useEffect(() => {
+    // Obtener role_id de localStorage
+    const roleId = localStorage.getItem("role_id");
+    const userId = localStorage.getItem("user_id"); // Suponiendo que también esté en localStorage
+
+    const fetchCards = async () => {
+      try {
+        let response;
+
+        // Si roleId es 2, traer todas las cartas
+        if (roleId === "2") {
+          response = await axios.get("http://localhost:3001/cards");
+          console.log("Todas las cartas:", response.data.data.rows);
+          setCards(response.data.data.rows);
+        }
+        // Si roleId es 3, traer solo las cartas del usuario actual
+        else if (roleId === "3" && userId) {
+          response = await axios.get(
+            `http://localhost:3001/cards/user/${userId}`
+          );
+          console.log("Cartas del usuario:", response.data.data);
+          setCards(response.data.data);
+        }
+      } catch (error) {
+        console.error("Error al obtener las cartas:", error);
+      }
+    };
+
+    fetchCards();
+  }, []); // Ejecutar solo al cargar el componente
 
   // Función para manejar la edición
-  const handleEdit = (id) => {
+  const handleEdit = (id: number) => {
     console.log("Editing card with id:", id);
     // Aquí puedes navegar a una página de edición o abrir un modal
   };
 
   // Función para manejar la eliminación
-  const handleDelete = (id) => {
+  const handleDelete = (id: number) => {
     console.log("Deleting card with id:", id);
-    // Aquí puedes realizar la lógica de eliminación, como hacer una llamada a la API
-    setCards(cards.filter((card) => card.id !== id));
+    setCards((prevCards) => prevCards.filter((card) => card.id !== id));
   };
 
   return (
@@ -65,8 +110,8 @@ const SitioIndex = () => {
         variant="contained"
         color="primary"
         component={Link}
-        to="/sitio-new" // Aquí rediriges a la página de nuevo sitio
-        style={{ marginBottom: "20px" }} // Margen inferior para separación
+        to="/sitio-new"
+        style={{ marginBottom: "20px" }}
       >
         Nuevo Card/Sitio
       </Button>

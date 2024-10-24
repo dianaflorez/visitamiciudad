@@ -43,6 +43,22 @@ const CardHandler = {
     },
 
     // Obtener un Card por ID
+    getByUserId: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const  result = await CardController.getByUserId(id);
+            if (! result) {
+                res.status(404).json({ error: 'No se encontró el dato' });
+            } else {
+                return res.status(result.status).json(result.response);
+            }
+        } catch (error) {
+            console.error('Error en getById en el CardHandler: ', error);
+            return res.status(500).json({ success: false, message: 'Error inesperado al obtener el dato' });
+        }
+    },
+
+    // Obtener un Card por ID
     getByMenuId: async (req, res) => {
         try {
             const { id } = req.params;
