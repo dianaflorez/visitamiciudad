@@ -8,7 +8,7 @@ type ImageGalleryProps = {
 const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
   return (
     <div className="gallery-grid">
-      {images.slice(0, 9).map((image, index) => (
+      {images.slice(0, 12).map((image, index) => (
         <div key={index} className="image-container">
           <img src={image} alt={`Image ${index + 1}`} className="gallery-image" />
         </div>
