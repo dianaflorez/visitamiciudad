@@ -61,11 +61,22 @@ const Sitios = () => {
     if (!title || !validTitles.includes(normalizeTitle(title) as CategoryKey)) {
       navigate("/");
     }
-
-    setSelectedSubcategory(subcategories[title][0]?.id || null);
-
-    return () => setSelectedSubcategory(null);
   }, [title, navigate, validTitles]);
+
+  useEffect(() => {
+    // Normalizar el título de la URL
+    const normalizedTitle = normalizeTitle(title || "");
+  
+    // Verificar si el título es válido y si no hay subcategoría seleccionada
+    if (selectedSubcategory === null) {
+      const initialSubcategory = subcategories[normalizedTitle as CategoryKey][0]?.id || null;
+      setSelectedSubcategory(initialSubcategory);
+    }
+
+    return () => {
+      setSelectedSubcategory(null);
+    };
+  }, []);
 
   // Obtener las subcategorías basadas en el título
   const category = validTitles.find(
