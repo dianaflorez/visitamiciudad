@@ -14,6 +14,7 @@ const CardHandler = require('../../Handlers/ModelHandlers/card.handler'); // Imp
 // Definir rutas para el modelo Card
 router.get('/', CardHandler.get)                 //Ruta para obtener todos los titulos
 
+router.get('/menu/:id', CardHandler.getByMenuId);         //Ruta para obtener los títulos de las tablas
 router.get('/:id', CardHandler.getById);         //Ruta para obtener los títulos de las tablas
 router.post('/search', CardHandler.search);      //Ruta para obtener todos los datos filtrados y sin filtra
 router.post('/', CardHandler.post);              //Ruta para poder hacer un nuevo registro en la base de datos

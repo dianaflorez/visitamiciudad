@@ -12,37 +12,32 @@ function Sitios() {
     },
     {
       id: 2,
-      title: "Históricos",
+      title: "Culturales",
       image: "./images/sitios_historicos.jpg",
       photographer: "Foto: Ricardo Sarasty",
     },
     {
       id: 3,
-      title: "Comerciales",
+      title: "Gastronomía",
       image: "./images/sitios_comerciales.jpg",
       photographer: "Foto: Ricardo Sarasty",
     },
     {
       id: 4,
-      title: "Valor Espiritual",
+      title: "Entretenimiento",
       image: "./images/sitio_espiritual.jpg",
-    },
-    {
-      id: 5,
-      title: "Culturales",
-      image: "./images/sitios_culturales.jpg",
-      photographer: "Foto: Ricardo Durán",
-    },
-    {
-      id: 6,
-      title: "Geográficos",
-      image: "./images/sitios_geo.jpg",
-      photographer: "Foto: Ricardo Sarasty",
     },
   ];
 
-  const handleSitioClick = () => {
-    navigate("/sitios");
+  const normalizeTitle = (title: string): string => {
+    return title
+      .normalize("NFD") // Normaliza el string a una forma donde los caracteres diacríticos se separan
+      .replace(/[\u0300-\u036f]/g, "") // Remueve los caracteres diacríticos
+      .toLowerCase(); // Convierte a minúsculas
+  };
+
+  const handleSitioClick = (title: string) => {
+    navigate(`/sitios/${normalizeTitle(title)}`);
   };
   return (
     <>
@@ -66,7 +61,7 @@ function Sitios() {
                 overflow: "hidden",
                 borderRadius: "15px",
               }}
-              onClick={handleSitioClick}
+              onClick={()=>handleSitioClick( sitio.title)}
             >
               <CardMedia
                 component="img"

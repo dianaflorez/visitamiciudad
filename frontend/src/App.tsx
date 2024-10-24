@@ -1,16 +1,17 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./shared/theme";
-import Sitios from "./Sitios"; // Página de sitios externos
-import LoginPage from "./LoginPage"; // Página de login
+import Sitios from "./Sitios";
+import LoginPage from "./LoginPage";
 import SigninPage from "./SigninPage";
-import Home from "./Home"; // Página de login
+import Home from "./Home";
 import SitiosDetail from "./SitiosDetail";
 import SitioNew from "./SitioNew";
 import SitioEdit from "./SitioEdit";
 import SitioIndex from "./SitioIndex";
 import SitioDetailEdit from "./SitioDetailEdit";
 import SitioGalleryAdd from "./SitioGalleryAddImage";
+import ScrollToTop from "./ScrollToTop"; // Importar el nuevo componente
 
 import Ciudad from "./BannerCiudad";
 import Cafe from "./BannerCafe";
@@ -29,19 +30,23 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <AuthProvider>
+          <ScrollToTop /> {/* Componente para manejar el scroll */}
           <MenuApp />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/sitios" element={<Sitios />} />
+            <Route path="/sitios/:title" element={<Sitios />} />
             <Route path="/sitios-descripcion" element={<SitiosDetail />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/signin" element={<SigninPage/>} />
+            <Route path="/signin" element={<SigninPage />} />
 
+
+            {/* Rutas Privadas */}
             <Route path="/ciudad" element={<Ciudad />} />
             <Route path="/carnaval" element={<Ciudad />} />
             <Route path="/cafe" element={<Cafe />} />
 
             {/*Rutas Privadas*/}
+
             <Route
               path="/sitio-index"
               element={

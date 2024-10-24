@@ -60,19 +60,48 @@ const cardController = {
     },
 
     // Obtener un card por ID
-        getById: async (id) => {
-            try {
-                const responseData = await card.findByPk(id);
-                if (!card) 
-                    return responseF({ status: 404, message: 'card no encontrado.', success: false });
+    getById: async (id) => {
+        try {
+            const responseData = await card.findByPk(id);
+            if (!card) 
+                return responseF({ status: 404, message: 'card no encontrado.', success: false });
 
-                return responseF({ status: 200, success: true, data: responseData });
-            } catch (error) {
-                console.error('Error en getById en el cardController: ' + id, error);
-                return responseF({ status: 500, success: false, message: 'Error interno al tratar de obtener el card',
+            return responseF({ status: 200, success: true, data: responseData });
+        } catch (error) {
+            console.error('Error en getById en el cardController: ' + id, error);
+            return responseF({ status: 500, success: false, message: 'Error interno al tratar de obtener el card',
+            });
+        }
+    },
+
+    getByMenuId: async (menuId) => {
+        try {
+            const responseData = await card.findAll({
+                where: { menu_id: menuId },
+            });
+    
+            if (!responseData || responseData.length === 0) {
+                return responseF({
+                    status: 404,
+                    message: 'No se encontraron cards para el menu_id proporcionado.',
+                    success: false,
                 });
             }
-        },
+    
+            return responseF({
+                status: 200,
+                success: true,
+                data: responseData,
+            });
+        } catch (error) {
+            console.error('Error en getByMenuId en el cardController:', error);
+            return responseF({
+                status: 500,
+                success: false,
+                message: 'Error interno al tratar de obtener los cards por menu_id',
+            });
+        }
+    },
     
     // Obtener todos los card o por filtros
     search: async (filters, pagination, orderField, orderType ) => {
@@ -153,20 +182,38 @@ const cardController = {
     },
 
     // Crear un nuevo card
-    post: async ( newData ) => {
+    post: async (newData) => {
         try {
-            const foreignKeyValidationResult = await validateForeignKeys(newData.foreignKeys);
-            if (foreignKeyValidationResult?.error) {
-                return responseF({ status: 400, success: false, message: 'Error de validación de llave foránea' });
-            }
+            // Extraer los datos de newData en un objeto
+            const dataToCreate = {
+                menu_id: newData.menu_id,
+                city_id: newData.city_id,
+                order_no: newData.order_no,
+                title: newData.title,
+                image_url: newData.image_url,
+                description: newData.description,
+                home: newData.home,
+                type: newData.type,
+                card_group_id: newData.card_group_id,
+                active: newData.active,
+            };
 
-            const dataToCreate = { ...newData.regularFields, ...newData.foreignKeys };
-            const createdcard = await card.create(dataToCreate);
+            // Crear un nuevo registro en la tabla 'card'
+            const createdCard = await card.create(dataToCreate);
 
-            return responseF({ status: 201, success: true, message:'Registro creado exitosamente', data: createdcard });
+            return responseF({
+                status: 201,
+                success: true,
+                message: 'Registro creado exitosamente',
+                data: createdCard,
+            });
         } catch (error) {
-            console.error('Error en post en el cardController: ', error);
-            return responseF({ status: 500, message: 'Error interno al crear el card', success: false });
+            console.error('Error en post en el cardController:', error);
+            return responseF({
+                status: 500,
+                message: 'Error interno al crear el card',
+                success: false,
+            });
         }
     },
 

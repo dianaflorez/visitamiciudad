@@ -10,7 +10,7 @@
 //========================================
 
 const { postValidation, putValidation } = require('../../Helpers/validationHelper'); // Importa las funciones de validación
-const CardController = require('../../Controllers/ModelControllers/Card.controller'); // Importa el controlador del modelo
+const CardController = require('../../Controllers/ModelControllers/card.controller'); // Importa el controlador del modelo
 const { response } = require('../../Helpers/responseF'); // Importa el creador de respuesta formato
 
 // Handler para el modelo Card
@@ -42,6 +42,22 @@ const CardHandler = {
         }
     },
 
+    // Obtener un Card por ID
+    getByMenuId: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const  result = await CardController.getByMenuId(id);
+            if (! result) {
+                res.status(404).json({ error: 'No se encontró el dato' });
+            } else {
+                return res.status(result.status).json(result.response);
+            }
+        } catch (error) {
+            console.error('Error en getById en el CardHandler: ', error);
+            return res.status(500).json({ success: false, message: 'Error inesperado al obtener el dato' });
+        }
+    },
+
     // Obtener todos los Card o por filtro
     search: async (req, res) => {
         try {
@@ -58,19 +74,8 @@ const CardHandler = {
     post: async (req, res) => {
         try {
             const newData = req.body;
-            
-            const validationResult = await postValidation('Card', newData );
 
-            if (validationResult.error) {
-                return res.status(400).json({ success: false, message: validationResult.error });
-            }
-
-            const result = await CardController.post(validationResult);
-            if (result.error)
-                return res.status(400).json({
-                    success: false,
-                    message: `Error en la llave foránea: No existe el id ${createdCard.field.key} en el modelo ${createdCard.field.value}`
-                });
+            const result = await CardController.post(newData);
 
             return res.status(result.status).json(result.response);
         } catch (error) {
