@@ -9,6 +9,7 @@ interface CardData {
   title: string;
   text: string;
   link: string;
+  id: string;
 }
 
 interface CardListProps {
@@ -50,7 +51,7 @@ const CardList: React.FC<CardListProps> = ({ subcategoryId }) => {
           imageSrc={`https://lomerezcotodo.com/wiwoweb/web/archivos/${card.image_url}`}
           title={card.title}
           text={card.text}
-          link={"/sitios-descripcion"}
+          link={"/sitios-descripcion/"+card.id}
         />
       ))}
     </Grid>
