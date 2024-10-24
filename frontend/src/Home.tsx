@@ -19,9 +19,11 @@ function Home() {
           <SliderPage />
           <Sitios />
         </Container>
-        
+
         <Rutas />
-        <AboutUs />
+        <Container>
+          <AboutUs />
+        </Container>
 
         <ContactForm />
         <Footer />

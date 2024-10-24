@@ -6,7 +6,11 @@ import CardList from "./components/CardList";
 import BannerList from "./components/BannerList";
 
 // Definición del tipo para las claves de subcategorías
-type CategoryKey = "turisticos" | "culturales" | "gastronomia" | "entretenimiento";
+type CategoryKey =
+  | "turisticos"
+  | "culturales"
+  | "gastronomia"
+  | "entretenimiento";
 
 // Definición de subcategorías
 const subcategories: Record<CategoryKey, { id: number; name: string }[]> = {
@@ -46,14 +50,16 @@ const normalizeTitle = (title: string): string =>
 
 const Sitios = () => {
   const navigate = useNavigate();
-  const { title } = useParams<{ title: string }>(); 
-  const [selectedSubcategory, setSelectedSubcategory] = useState<number | null>(null);
+  const { title } = useParams<{ title: string }>();
+  const [selectedSubcategory, setSelectedSubcategory] = useState<number | null>(
+    null
+  );
 
   const validTitles = Object.keys(subcategories) as CategoryKey[];
 
   useEffect(() => {
     if (!title || !validTitles.includes(normalizeTitle(title) as CategoryKey)) {
-      navigate("/"); 
+      navigate("/");
     }
 
     setSelectedSubcategory(subcategories[title][0]?.id || null);
@@ -68,10 +74,10 @@ const Sitios = () => {
   const currentSubcategories = category ? subcategories[category] : [];
 
   const bannerData = [
-    { imageSrc: "./images/banner1.jpg" },
-    { imageSrc: "./images/banner2.jpg" },
-    { imageSrc: "./images/banner3.jpg" },
-    { imageSrc: "./images/banner4.jpg" },
+    { imageSrc: "../../images/banner1.jpg" },
+    { imageSrc: "../../images/banner2.jpg" },
+    { imageSrc: "../../images/banner3.jpg" },
+    { imageSrc: "../../images/banner4.jpg" },
   ];
 
   return (
@@ -103,7 +109,9 @@ const Sitios = () => {
             {currentSubcategories.map((sub) => (
               <Button
                 key={sub.id}
-                variant={selectedSubcategory === sub.id ? "contained" : "outlined"}
+                variant={
+                  selectedSubcategory === sub.id ? "contained" : "outlined"
+                }
                 onClick={() => setSelectedSubcategory(sub.id)}
               >
                 {sub.name}

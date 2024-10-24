@@ -94,29 +94,25 @@ function MenuApp() {
             </div>
           ) : (
             <div>
-              <Button color="primary" href="./" style={{ marginTop: 12 }}>
+              <Button color="primary" href="/" style={{ marginTop: 12 }}>
                 Inicio
               </Button>
-              <Button
-                color="inherit"
-                href="./#sitios"
-                style={{ marginTop: 12 }}
-              >
+              <Button color="inherit" href="/#sitios" style={{ marginTop: 12 }}>
                 Sitios de Interés
               </Button>
-              <Button color="inherit" href="./#rutas" style={{ marginTop: 12 }}>
+              <Button color="inherit" href="/#rutas" style={{ marginTop: 12 }}>
                 Rutas
               </Button>
               <Button
                 color="inherit"
-                href="./#nosotros"
+                href="/#nosotros"
                 style={{ marginTop: 12 }}
               >
                 Nosotros
               </Button>
               <Button
                 color="inherit"
-                href="./#contactenos"
+                href="/#contactenos"
                 style={{ marginTop: 12 }}
               >
                 contáctenos

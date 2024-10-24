@@ -17,6 +17,7 @@ import { Typography } from "@mui/material";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import apiClient from "./api/axiosConfig";
 
 const SitioNew = () => {
   const validationSchema = Yup.object({
@@ -39,18 +40,38 @@ const SitioNew = () => {
     active: true,
   };
 
-  const onSubmit = (values) => {
+  const onSubmit = async (values) => {
     console.log(values);
+
+    const formData = {
+      menu_id: values.menuId,
+      city_id: 1,
+      order_no: values.orderNo,
+      title: values.title,
+      image_url: "no-one",
+      description: values.description,
+      home: values.home,
+      type: values.menuId,
+      card_group_id: values.cardGroupId,
+      active: values.active,
+    };
+
+    const response = await apiClient.post(
+      `${import.meta.env.VITE_API_URL}/card`,
+      formData
+    );
+
+    console.log(response.data);
+
     /*
     axios
-      .post("https://api.example.com/nuevo-sitio", values)
+      .post("https://api.example.com/nuevo-sitio", formData)
       .then((response) => {
         console.log("Formulario enviado exitosamente:", response.data);
       })
       .catch((error) => {
         console.error("Error al enviar el formulario:", error);
       });
-
       */
   };
 
