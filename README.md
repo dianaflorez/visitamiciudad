@@ -146,6 +146,8 @@ Este proyecto está bajo la **MIT License**, por lo que puedes usarlo y modifica
 
 ## 🎯 **Autores**  
 👩‍💻 **Diana Flórez**  
+**Daniel Burgos**
+**Esteban Ramirez**
 📧 Contacto: [LinkedIn](https://linkedin.com/in/dianaflorez)  
 
 ---
